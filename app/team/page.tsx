@@ -1,76 +1,145 @@
 "use client";
 
 import { useState } from "react";
-import { Brain, Code, Smartphone, Layout, Zap, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { Brain, Code, Smartphone, Layout, Zap, ArrowUpRight, Check, Activity, MapPin, Briefcase } from "lucide-react";
 
 export default function Team() {
+  const [activeTab, setActiveTab] = useState<"specialists" | "process">("specialists");
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [mobileExpandedIdx, setMobileExpandedIdx] = useState<number>(0);
 
   const members = [
     {
+      id: "aarav",
+      code: "POD-01",
       name: "Aarav Mehta",
       role: "AI Lead & Engineer",
-      desc: "Architects specialized vector index databases, qualifies customer intent profiles, and structures secure cognitive workflows.",
+      desc: "Architects specialized vector index databases, qualifies customer intent profiles, and structures secure cognitive agent workflows to automate operations.",
       specs: ["Python", "FastAPI", "VectorDB", "LangChain"],
       portfolio: "/team/aarav-mehta",
-      portfolioLabel: "View Portfolio · AI / Python",
       photo: "/images/team_member_1.png",
-      cls: "pod-direction",
-      icon: <Brain size={20} />,
+      icon: <Brain size={13} />,
     },
     {
+      id: "kavya",
+      code: "POD-02",
       name: "Kavya Sharma",
       role: "Full Stack Lead",
-      desc: "Constructs Next.js server structures, scalable API endpoints, secure database migrations, and caching layers.",
+      desc: "Constructs Next.js server structures, scalable API endpoints, secure database migrations, and edge-caching architectures for instant loads.",
       specs: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
       portfolio: "/team/kavya-sharma",
-      portfolioLabel: "View Portfolio · Full Stack",
       photo: "/images/team_member_2.png",
-      cls: "pod-product",
-      icon: <Code size={20} />,
+      icon: <Code size={13} />,
     },
     {
+      id: "rohan",
+      code: "POD-03",
       name: "Rohan Das",
       role: "Flutter Developer",
-      desc: "Builds high-fidelity cross-platform mobile apps, local dispatch notifications, offline caching, and payment checkouts.",
+      desc: "Builds high-fidelity cross-platform mobile apps, local dispatch notifications, offline state sync, and secure payment checkout flows.",
       specs: ["Flutter", "Dart", "SQLite", "Firebase"],
       portfolio: "/team/rohan-das",
-      portfolioLabel: "View Portfolio · Mobile",
       photo: "/images/team_member_3.png",
-      cls: "pod-signal",
-      icon: <Smartphone size={20} />,
+      icon: <Smartphone size={13} />,
     },
     {
+      id: "isha",
+      code: "POD-04",
       name: "Isha Patel",
       role: "UI/UX Designer",
-      desc: "Designs polished dark-mode interfaces, interactive Figma wireframes, brand vectors, and conversion-oriented layouts.",
+      desc: "Designs polished dark-mode interfaces, interactive Figma wireframes, customized brand system assets, and high-fidelity prototype flows.",
       specs: ["Figma", "UI Design", "CSS3", "Illustrator"],
       portfolio: "/team/isha-patel",
-      portfolioLabel: "View Portfolio · UI/UX",
       photo: "/images/team_member_4.png",
-      cls: "pod-momentum",
-      icon: <Layout size={20} />,
+      icon: <Layout size={13} />,
     },
     {
+      id: "kabir",
+      code: "POD-05",
       name: "Kabir Malhotra",
       role: "Ops & Strategy Lead",
-      desc: "Manages agile milestones, validates MVP scopes, and coordinates launch schedules to prevent timeline slip.",
+      desc: "Manages agile milestones, validates early MVP scopes, and coordinates launch schedules to prevent timeline slip and ensure outcome alignments.",
       specs: ["MVP Scoping", "Agile", "Launch Ops", "Product Strategy"],
       portfolio: "/team/kabir-malhotra",
-      portfolioLabel: "View Portfolio · Strategy",
       photo: "/images/team_member_5.png",
-      cls: "pod-direction",
-      icon: <Zap size={20} />,
+      icon: <Zap size={13} />,
     },
   ];
 
   const steps = [
-    { num: "01", title: "Requirement Discussion", desc: "We sit down with your stakeholders to outline goals, features, and precise deliverables." },
-    { num: "02", title: "UI/UX Planning", desc: "We design wireframes and high-fidelity mockups to align on the project's look and flow." },
-    { num: "03", title: "System Development", desc: "Our developers build the database structures, frontend routes, and AI prompt pipelines." },
-    { num: "04", title: "Exhaustive Testing", desc: "We run load tests, API sanity checks, and review interface responsiveness across devices." },
-    { num: "05", title: "Production Launch", desc: "We deploy your system to high-speed Edge servers and set up direct production domains." },
-    { num: "06", title: "Support & Maintenance", desc: "We monitor active traffic trends, maintain uptime, and patch library dependency updates." },
+    {
+      num: "01",
+      label: "Discover",
+      title: "Requirement Discussion",
+      desc: "We sit down with your stakeholders to outline goals, feature specifications, and precise functional deliverables.",
+      deliverables: [
+        "Stakeholder Requirement Alignments",
+        "System Architecture Blueprinting",
+        "Functional Specifications Mapping",
+        "Startup MVP Scope Definition"
+      ]
+    },
+    {
+      num: "02",
+      label: "Plan",
+      title: "UI/UX Planning",
+      desc: "We design wireframes and high-fidelity interactive mockups to align on the project's visual identity and interface flows.",
+      deliverables: [
+        "Figma Interactive Wireframing",
+        "UI Dark-Mode Aesthetic Design",
+        "Design System Specifications Signoff",
+        "Responsive Layout Prototyping"
+      ]
+    },
+    {
+      num: "03",
+      label: "Build",
+      title: "System Development",
+      desc: "Our developers build the scalable database migrations, secure backend APIs, and integrated AI prompt pipelines.",
+      deliverables: [
+        "Database Migration Architecting",
+        "API Route Code Configuration",
+        "LLM Prompt Tuning & RAG Integration",
+        "Frontend State Machine Integration"
+      ]
+    },
+    {
+      num: "04",
+      label: "Test",
+      title: "Exhaustive Testing",
+      desc: "We run concurrent mock traffic load tests, API sanity testing, and audit responsive styling across viewport widths.",
+      deliverables: [
+        "End-to-End Cypress Integration Tests",
+        "SLA Query Latency Benchmarking",
+        "Security Gate Boundary Auditing",
+        "Cross-Device UX Responsiveness Check"
+      ]
+    },
+    {
+      num: "05",
+      label: "Launch",
+      title: "Production Launch",
+      desc: "We deploy your system to high-speed CDN edge nodes and calibrate production domain nameservers with SSL certificates.",
+      deliverables: [
+        "Vercel / AWS High-Speed Edge Deployment",
+        "Nameservers & SSL Key Activation",
+        "Live Telemetry HUD Verification",
+        "Database Replica Provisioning"
+      ]
+    },
+    {
+      num: "06",
+      label: "Maintain",
+      title: "Support & Maintenance",
+      desc: "We monitor active traffic telemetry, implement dependency security patches, and maintain high-fidelity uptime SLA thresholds.",
+      deliverables: [
+        "Active Traffic Drift Detection",
+        "Dependency Library Vulnerability Patches",
+        "Agile Feature Backlog Priority Sync",
+        "24/7 SLA Server Monitoring"
+      ]
+    },
   ];
 
   return (
@@ -79,286 +148,211 @@ export default function Team() {
         padding: "140px 0 80px",
         minHeight: "100vh",
         fontFamily: "var(--font-manrope), sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
-      {/* 1. PODS HEADER */}
+      {/* 1. COMPACT HEADER */}
       <div
         className="container reveal-text"
         style={{
-          margin: "0 auto 80px",
-          maxWidth: "600px",
+          margin: "0 auto 36px",
+          maxWidth: "800px",
+          textAlign: "center"
         }}
       >
-        <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
-          <span className="pulsing-dot pulsing-dot-coral" />
-          Team Structure
+        <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "8px", textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: "0.08em" }}>
+          Interactive Directory
         </span>
         <h1
           className="hero-title font-display"
           style={{
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontSize: "clamp(2rem, 4.5vw, 3rem)",
             fontWeight: 700,
             color: "#ffffff",
-            marginBottom: "20px",
+            marginBottom: "12px",
+            letterSpacing: "-0.02em",
           }}
         >
-          Specialist <span className="font-serif-i" style={{ color: "var(--accent)" }}>Pods</span>
+          Specialist Pods &amp; <span className="font-serif-i" style={{ color: "var(--accent)" }}>Lifecycle</span>
         </h1>
-        <p style={{ color: "#94a3b8", fontSize: "1.02rem", lineHeight: "1.6" }}>
-          Team Nexus adapts to the project: a compact strategy pod for fast decisions, or a full launch unit when execution needs more hands.
+        <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: "1.6", maxWidth: "600px", margin: "0 auto" }}>
+          Interact with columns smoothly to inspect team specialist profiles or discover deliverables across our deployment process stages.
         </p>
       </div>
 
-      {/* 2. MEMBERS GRID */}
-      <div
-        className="container"
-        style={{
-          margin: "0 auto 120px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "30px",
-        }}
-      >
-        {members.map((member, idx) => (
-          <div
-            key={idx}
-            className={`member-card ${member.cls}`}
-            onMouseEnter={() => setHoveredIdx(idx)}
-            onMouseLeave={() => setHoveredIdx(null)}
-            style={{
-              background: "rgba(7, 7, 22, 0.7)",
-              borderRadius: "20px",
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              overflow: "hidden",
+      {/* 2. TAB SWITCHER */}
+      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "40px" }}>
+        <div className="services-tab-bar">
+          <button
+            className={`services-view-tab ${activeTab === "specialists" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("specialists");
+              setHoveredIdx(null);
+              setMobileExpandedIdx(0);
             }}
             data-hover="true"
           >
-            {/* Photo Portrait Frame with Zoom */}
-            <div
-              style={{
-                height: "240px",
-                width: "100%",
-                overflow: "hidden",
-                position: "relative",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-                background: "#09090d",
-              }}
-            >
-              <img
-                src={member.photo}
-                alt={member.name}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  transform: hoveredIdx === idx ? "scale(1.06)" : "scale(1)",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
-                  padding: "16px 24px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div>
-                  <h3
-                    style={{
-                      color: "#ffffff",
-                      fontFamily: "var(--font-bricolage), sans-serif",
-                      fontSize: "1.2rem",
-                      fontWeight: 600,
-                      margin: 0,
-                    }}
-                  >
-                    {member.name}
-                  </h3>
-                  <span
-                    className="badge"
-                    style={{
-                      fontFamily: "var(--font-mono), monospace",
-                      fontSize: "0.7rem",
-                      fontWeight: 500,
-                      color: "var(--accent)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    {member.role}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "36px",
-                    height: "36px",
-                    borderRadius: "8px",
-                    background: "rgba(255, 255, 255, 0.04)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
-                    color: "var(--accent)",
-                  }}
-                >
-                  {member.icon}
-                </div>
-              </div>
-            </div>
-
-            {/* Card Body */}
-            <div style={{ padding: "30px", display: "flex", flexDirection: "column", flex: 1 }}>
-              <p
-                style={{
-                  color: "#94a3b8",
-                  fontSize: "0.88rem",
-                  lineHeight: "1.55",
-                  marginBottom: "24px",
-                  flex: 1,
-                }}
-              >
-                {member.desc}
-              </p>
-
-              {/* Specs / Skills Tag List */}
-              <div
-                style={{
-                  display: "flex",
-                  gap: "6px",
-                  flexWrap: "wrap",
-                  marginBottom: "24px",
-                }}
-              >
-                {member.specs.map((spec, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="badge"
-                    style={{
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                      fontSize: "0.7rem",
-                      fontWeight: 600,
-                      padding: "4px 10px",
-                      background: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid rgba(255, 255, 255, 0.05)",
-                      borderRadius: "99px",
-                      color: "#e2e8f0",
-                    }}
-                  >
-                    {spec}
-                  </span>
-                ))}
-              </div>
-
-              {/* Portfolio Link */}
-              <a
-                href={member.portfolio}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  color: hoveredIdx === idx ? "var(--accent)" : "#94a3b8",
-                  fontSize: "0.78rem",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  borderTop: "1px solid rgba(255, 255, 255, 0.05)",
-                  paddingTop: "16px",
-                  marginTop: "auto",
-                  transition: "color 0.2s",
-                  fontFamily: "var(--font-mono), monospace",
-                  letterSpacing: "0.03em",
-                }}
-              >
-                <ArrowUpRight size={13} />
-                <span>{member.portfolioLabel}</span>
-              </a>
-            </div>
-          </div>
-        ))}
+            <span className="tab-icon-wrap"><Brain size={14} /></span>
+            <span className="tab-badge">01</span>
+            <span>Specialist Pods</span>
+          </button>
+          <button
+            className={`services-view-tab ${activeTab === "process" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("process");
+              setHoveredIdx(null);
+              setMobileExpandedIdx(0);
+            }}
+            data-hover="true"
+          >
+            <span className="tab-icon-wrap"><Activity size={14} /></span>
+            <span className="tab-badge">02</span>
+            <span>Delivery Process</span>
+          </button>
+        </div>
       </div>
 
+      {/* 3. CORE ACCORDION VIEWPORT */}
+      <div className="container" style={{ margin: "0 auto", width: "100%" }}>
+        <div className="accordion-viewport-container">
+          {activeTab === "specialists" ? (
+            /* Specialists Accordion Columns */
+            members.map((member, idx) => {
+              const isExpanded = hoveredIdx === idx || mobileExpandedIdx === idx;
+              return (
+                <div
+                  key={member.id}
+                  className={`accordion-column ${isExpanded ? "expanded" : ""}`}
+                  onMouseEnter={() => setHoveredIdx(idx)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  onClick={() => setMobileExpandedIdx(idx)}
+                >
+                  <img src={member.photo} alt={member.name} className="accordion-bg-image" />
+                  <div className="accordion-overlay" style={{ opacity: isExpanded ? 1 : 0, transition: "opacity 0.4s ease" }} />
 
-      {/* 3. OPERATING MODEL (TIMELINE) */}
-      <section
-        className="container"
-        style={{
-          borderTop: "1px solid rgba(255, 255, 255, 0.05)",
-          paddingTop: "100px",
-        }}
-      >
-        <div style={{ marginBottom: "60px", maxWidth: "600px" }}>
-          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "10px" }}>
-            <span className="pulsing-dot pulsing-dot-coral" />
-            Operating Model
-          </span>
-          <h2
-            className="font-display"
-            style={{
-              fontSize: "2.4rem",
-              fontWeight: 700,
-              color: "#ffffff",
-            }}
-          >
-            Our Work <span className="font-serif-i" style={{ color: "var(--accent)" }}>Process</span>
-          </h2>
-        </div>
+                  {/* Collapsed view (Vertical text orientation) */}
+                  <div className="accordion-collapsed-view">
+                    <span className="accordion-index">{member.code}</span>
+                    <span className="accordion-vertical-title">{member.name}</span>
+                    <div className="accordion-icon-box">
+                      {member.icon}
+                    </div>
+                  </div>
 
-        {/* Timeline Horizontal / Vertical Stack */}
-        <div className="process-grid">
-          {steps.map((step, idx) => (
-            <div
-              key={idx}
-              style={{
-                background: "rgba(7, 7, 22, 0.55)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
-                borderRadius: "14px",
-                padding: "30px",
-                position: "relative",
-                transition: "all 0.3s ease",
-              }}
-              data-hover="true"
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  fontSize: "2.5rem",
-                  fontWeight: 600,
-                  color: "rgba(255, 92, 43, 0.15)",
-                  position: "absolute",
-                  top: "16px",
-                  right: "20px",
-                  lineHeight: "1",
-                  transform: "translateZ(-10px)",
-                }}
-              >
-                {step.num}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-bricolage), sans-serif",
-                  fontSize: "1.15rem",
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  marginBottom: "12px",
-                  marginTop: "16px",
-                }}
-              >
-                {step.title}
-              </h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.6" }}>
-                {step.desc}
-              </p>
-            </div>
-          ))}
+                  {/* Expanded view (Simple: Portrait Image background + Bottom details Name, Role, CTA) */}
+                  <div className="accordion-expanded-view">
+                    <div className="accordion-content-wrapper" style={{ justifyContent: "space-between", height: "100%" }}>
+                      {/* Header Row */}
+                      <div className="accordion-header-row">
+                        <span className="accordion-header-code">{member.code}</span>
+                      </div>
+
+                      {/* Bottom Info & CTA */}
+                      <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                        <div>
+                          <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.72rem", color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "4px" }}>
+                            {member.role}
+                          </span>
+                          <h2 style={{ fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.6rem", fontWeight: 700, color: "#ffffff", margin: 0, letterSpacing: "-0.015em" }}>
+                            {member.name}
+                          </h2>
+                        </div>
+                        
+                        <Link href={member.portfolio} className="accordion-cta-btn" style={{ alignSelf: "flex-start" }} data-hover="true">
+                          Access Archives
+                          <ArrowUpRight size={13} className="btn-arrow" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            /* Process Accordion Columns */
+            steps.map((step, idx) => {
+              const isExpanded = hoveredIdx === idx || mobileExpandedIdx === idx;
+              return (
+                <div
+                  key={step.num}
+                  className={`accordion-column ${isExpanded ? "expanded" : ""}`}
+                  onMouseEnter={() => setHoveredIdx(idx)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  onClick={() => setMobileExpandedIdx(idx)}
+                >
+                  <div className="accordion-overlay" style={{ opacity: isExpanded ? 1 : 0.05, transition: "opacity 0.4s ease" }} />
+
+                  {/* Collapsed view (Vertical text orientation) */}
+                  <div className="accordion-collapsed-view">
+                    <span className="accordion-index">SYS-{step.num}</span>
+                    <span className="accordion-vertical-title">{step.label}</span>
+                    <div className="accordion-icon-box">
+                      <Activity size={13} />
+                    </div>
+                  </div>
+
+                  {/* Expanded view (Deliverables & Objectives checklist) */}
+                  <div className="accordion-expanded-view">
+                    <div className="accordion-content-wrapper">
+                      {/* Header Row */}
+                      <div className="accordion-header-row">
+                        <span className="accordion-header-code">SYS-{step.num}</span>
+                        <span className="accordion-header-subtitle">Phase Objective</span>
+                      </div>
+
+                      {/* Body details */}
+                      <div className="accordion-body-details">
+                        <h2 className="accordion-body-title">{step.title}</h2>
+                        <p className="accordion-body-desc">{step.desc}</p>
+                        
+                        {/* Compact deliverables checklist list */}
+                        <div style={{ marginTop: "6px" }}>
+                          {step.deliverables.map((del, dIdx) => (
+                            <div key={dIdx} className="accordion-checklist-item">
+                              <span className="accordion-checklist-check">
+                                <Check size={12} strokeWidth={2.5} />
+                              </span>
+                              <span>{del}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Footer Row */}
+                      <div className="accordion-footer-row">
+                        <div className="accordion-meta-pills">
+                          <div className="accordion-meta-pill">
+                            Exit Gate: Active
+                          </div>
+                          <div className="accordion-meta-pill">
+                            SLA: Calibrated
+                          </div>
+                        </div>
+                        
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setMobileExpandedIdx((prev) => (prev + 1) % steps.length);
+                            setHoveredIdx((prev) => prev !== null ? (prev + 1) % steps.length : null);
+                          }}
+                          className="accordion-cta-btn"
+                          data-hover="true"
+                        >
+                          Proceed Stage
+                          <ArrowUpRight size={13} className="btn-arrow" />
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

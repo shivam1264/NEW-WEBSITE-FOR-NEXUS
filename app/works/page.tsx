@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Shield, Zap, Sparkles, Box, X, Trophy } from "lucide-react";
+import { X, Trophy, ArrowRight, Shield, Zap, Sparkles, Box } from "lucide-react";
 
 export default function Works() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [filter, setFilter] = useState<"all" | "project" | "championship">("all");
 
   useEffect(() => {
     const checkAndStopLenis = () => {
@@ -36,10 +36,8 @@ export default function Works() {
       }
     }
 
-    // Attempt to control Lenis immediately
     const found = checkAndStopLenis();
 
-    // If Lenis isn't loaded yet, check periodically
     let intervalId: any;
     if (!found) {
       let attempts = 0;
@@ -71,16 +69,19 @@ export default function Works() {
     };
   }, [activeProject]);
 
-
-  const projects = [
+  const registryItems = [
     {
+      type: "project",
+      id: "careforyou",
+      code: "PRJ-01",
       title: "CareForYou AI Platform",
       subtitle: "Conversational healthcare agent & appointment system",
       desc: "An AI-powered healthcare portal designed to resolve patient scheduling overhead and triage symptoms autonomously.",
       details: "Traditional healthcare portals suffer from massive coordination overhead and patient delays. CareForYou AI maps client health profiles using specialized vector indexes, qualifying symptom severity and routing queries dynamically in real-time.",
       tags: ["AI Assistant", "Healthcare", "Next.js"],
       icon: <Sparkles size={22} />,
-      color: "rgba(0, 229, 255, 0.1)",
+      color: "#00e5ff",
+      colorRGB: "0, 229, 255",
       metricsList: [
         { val: "180ms", name: "Triage Delay" },
         { val: "94%", name: "Routing Accuracy" },
@@ -90,13 +91,40 @@ export default function Works() {
       img: "/images/careforyou_ui.png"
     },
     {
+      type: "championship",
+      id: "sih",
+      code: "HACK-01",
+      title: "Smart India Hackathon (SIH)",
+      subtitle: "Ministry of Education, Govt. of India | Indore Hub Champion",
+      desc: "Out of thousands of competing student-led startups and developer teams across the nation, Team Nexus won the Grand Prize (₹1,00,000).",
+      details: "We designed, coded, and deployed a high-capacity triage model and medical scheduling client dashboard within a continuous 36-hour sprint. Team Nexus built a unified clinical coordination dashboard, reducing triage delay under intensive concurrent traffic.",
+      tags: ["Grand Prize", "Govt. of India", "₹1,00,000"],
+      icon: <Trophy size={22} />,
+      color: "#ffd600",
+      colorRGB: "255, 214, 0",
+      metricsList: [
+        { val: "1st Place", name: "National Rank" },
+        { val: "₹1,00,000", name: "Grand Prize" },
+        { val: "36 Hours", name: "Sprint Duration" }
+      ],
+      achievement: "Smart India Hackathon Grand Prize Champion out of 1000+ national developer teams.",
+      img: "/images/hackathon_win.png",
+      badge: "Grand Prize Winner · ₹1,00,000",
+      org: "Ministry of Education, Govt. of India",
+      scope: "Automated patient intent classifications utilizing custom vector embeds. Tested query delay of 180ms under intensive concurrent mock traffic."
+    },
+    {
+      type: "project",
+      id: "nexus-room",
+      code: "PRJ-02",
       title: "Nexus Launch Command Room",
       subtitle: "Centralized operational war room & system metrics",
       desc: "A dashboard checking active client marketing beats, schedules, owner tasks, and live telemetry drift.",
       details: "Built for fast-scaling startups and co-marketing groups. Hooks direct analytics flows into client databases, checking asset approvals, partner marketing timelines, and live traffic metrics to prevent coordination issues.",
       tags: ["Launch Ops", "Dashboards", "FastAPI"],
       icon: <Zap size={22} />,
-      color: "rgba(232, 96, 46, 0.15)",
+      color: "#e8602e",
+      colorRGB: "232, 96, 46",
       metricsList: [
         { val: "100%", name: "On-Time Launch" },
         { val: "0ms", name: "Cache Latency" },
@@ -106,13 +134,40 @@ export default function Works() {
       img: "/images/dashboard_ui.png"
     },
     {
+      type: "championship",
+      id: "ai-challenge",
+      code: "HACK-02",
+      title: "National AI Innovation Challenge",
+      subtitle: "National Technology Consortium & MeitY | Edge Systems Award",
+      desc: "Recognized nationally for pioneering architecture, Team Nexus designed and demonstrated a live-telemetry edge monitor dashboard.",
+      details: "Under testing, the dashboard tracked multi-department data loops and detected system drift latency errors instantly. Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead.",
+      tags: ["Championship", "Edge Systems", "MeitY Award"],
+      icon: <Trophy size={22} />,
+      color: "#00e5ff",
+      colorRGB: "0, 229, 255",
+      metricsList: [
+        { val: "Championship", name: "Award Title" },
+        { val: "0ms Latency", name: "Edge Cache" },
+        { val: "100%", name: "Data Fidelity" }
+      ],
+      achievement: "National Technology Consortium & MeitY Edge Systems Award.",
+      img: "/images/hackathon_trophy.png",
+      badge: "Championship Title · Edge Systems Award",
+      org: "National Technology Consortium & MeitY",
+      scope: "Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead."
+    },
+    {
+      type: "project",
+      id: "customer-agent",
+      code: "PRJ-03",
       title: "Automated Customer Agent",
       subtitle: "24/7 client qualifying automated chatbot system",
       desc: "An intelligent chatbot integrated into corporate websites to qualify prospects and answer documentation queries.",
       details: "After-hours sales traffic often goes unanswered, leading to client dropoffs. We configured a localized LLM agent trained on company documents to engage, qualify incoming prospects autonomously.",
       tags: ["AI Chatbot", "Automation", "Retention"],
       icon: <Shield size={22} />,
-      color: "rgba(0, 230, 118, 0.1)",
+      color: "#00e676",
+      colorRGB: "0, 230, 118",
       metricsList: [
         { val: "+45%", name: "MoM Lead Capture" },
         { val: "124K", name: "Users Guided" },
@@ -122,13 +177,17 @@ export default function Works() {
       img: "/images/careforyou_ui.png"
     },
     {
+      type: "project",
+      id: "restaurant-app",
+      code: "PRJ-04",
       title: "Restaurant App Dispatcher",
       subtitle: "White-labeled ordering and local dispatch mobile system",
       desc: "A mobile ordering and driver dispatch application built to bypass high aggregator commission fees.",
       details: "Traditional delivery systems charge restaurants up to 30% commission per order. We built a custom white-labeled Flutter app that manages local ordering, direct payment checkouts, and local driver dispatch routing with zero commission leaks.",
       tags: ["Mobile App", "Flutter", "SaaS Core"],
       icon: <Box size={22} />,
-      color: "rgba(213, 0, 249, 0.15)",
+      color: "#d500f9",
+      colorRGB: "213, 0, 249",
       metricsList: [
         { val: "0%", name: "Commission Leak" },
         { val: "100%", name: "Direct Delivery" },
@@ -136,8 +195,12 @@ export default function Works() {
       ],
       achievement: "Ecosystem Standard for Local Indore Merchant Logistics.",
       img: "/images/restaurant_app_ui.png"
-    },
+    }
   ];
+
+  const filteredItems = registryItems.filter(
+    (item) => filter === "all" || item.type === filter
+  );
 
   return (
     <div
@@ -149,682 +212,105 @@ export default function Works() {
     >
       <div className="container">
         {/* Page Header */}
-        <div style={{ marginBottom: "60px", maxWidth: "600px" }} className="reveal-text">
-          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
+        <div style={{ marginBottom: "20px", textAlign: "center" }} className="reveal-text">
+          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "8px" }}>
             <span className="pulsing-dot pulsing-dot-coral" />
-            Portfolio
+            Case Directory
           </span>
           <h1
             className="hero-title font-display"
             style={{
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
               fontWeight: 700,
               color: "#ffffff",
-              marginBottom: "20px",
+              marginBottom: "12px",
             }}
           >
-            Our <span className="font-serif-i" style={{ color: "var(--accent)" }}>Works</span>
+            Selected <span className="font-serif-i" style={{ color: "var(--accent)" }}>Works</span>
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1.02rem", lineHeight: "1.65" }}>
-            Explore case studies displaying how Team Nexus packages strategy, design, and AI systems into high-performance digital projects.
+          <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: "1.6", maxWidth: "600px", margin: "0 auto" }}>
+            Explore an index of our production systems, software deployments, and award-winning hackathon championships.
           </p>
         </div>
 
-        {/* 1. HACKATHON WINS & ACHIEVEMENTS PANEL */}
-        <div
-          className="pod-direction"
-          style={{
-            background: "linear-gradient(135deg, rgba(255, 214, 0, 0.05) 0%, rgba(10, 10, 12, 0.8) 100%)",
-            border: "1px solid rgba(255, 214, 0, 0.15)",
-            borderRadius: "20px",
-            padding: "36px",
-            marginBottom: "60px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "30px",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.5), 0 0 30px rgba(255, 214, 0, 0.02)",
-          }}
-          data-hover="true"
-        >
-          {/* Hackathon Wins Column */}
-          <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "12px",
-                background: "rgba(255, 214, 0, 0.08)",
-                border: "1px solid rgba(255, 214, 0, 0.25)",
-                color: "#ffd600",
-                flexShrink: 0,
-              }}
-            >
-              <Trophy size={22} />
-            </div>
-            <div>
-              <h3 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.2rem", fontWeight: 700, marginBottom: "8px" }}>
-                2 National Hackathon Wins
-              </h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: "1.5", margin: 0 }}>
-                Awarded top honors at major national system building competitions for outstanding AI models and server monitors.
-              </p>
-            </div>
-          </div>
-
-          {/* Real World Projects Column */}
-          <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "12px",
-                background: "rgba(232, 96, 46, 0.08)",
-                border: "1px solid rgba(232, 96, 46, 0.25)",
-                color: "var(--accent)",
-                flexShrink: 0,
-              }}
-            >
-              <Zap size={22} />
-            </div>
-            <div>
-              <h3 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.2rem", fontWeight: 700, marginBottom: "8px" }}>
-                Multiple Real-World Projects
-              </h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: "1.5", margin: 0 }}>
-                Active in production, serving enterprise clients, scaling data loops, and coordinating stakeholder rituals.
-              </p>
-            </div>
-          </div>
-
-          {/* Core Technologies Column */}
-          <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "12px",
-                background: "rgba(0, 229, 255, 0.08)",
-                border: "1px solid rgba(0, 229, 255, 0.25)",
-                color: "#00e5ff",
-                flexShrink: 0,
-              }}
-            >
-              <Box size={22} />
-            </div>
-            <div>
-              <h3 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.2rem", fontWeight: 700, marginBottom: "8px" }}>
-                Production-Grade Tech
-              </h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: "1.5", margin: 0 }}>
-                Engineered with Next.js, React Native, TypeScript, FastAPI, PyTorch, and cached edge infrastructures.
-              </p>
-            </div>
-          </div>
+        {/* 1. FILTERING COMPONENT */}
+        <div className="works-filter-container">
+          <button
+            className={`works-filter-btn ${filter === "all" ? "active" : ""}`}
+            onClick={() => setFilter("all")}
+          >
+            All Works
+          </button>
+          <button
+            className={`works-filter-btn ${filter === "project" ? "active" : ""}`}
+            onClick={() => setFilter("project")}
+          >
+            Client Projects
+          </button>
+          <button
+            className={`works-filter-btn ${filter === "championship" ? "active" : ""}`}
+            onClick={() => setFilter("championship")}
+          >
+            Championships
+          </button>
         </div>
 
-        {/* 1.5 NATIONAL HACKATHON SHOWCASE */}
-        <section style={{ marginBottom: "80px" }}>
-          <div style={{ marginBottom: "40px" }}>
-            <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "8px" }}>
-              <span className="pulsing-dot pulsing-dot-coral" />
-              Championship Credentials
-            </span>
-            <h2
-              className="font-display"
-              style={{
-                fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                fontWeight: 700,
-                color: "#ffffff",
-              }}
-            >
-              National Hackathons <span className="font-serif-i" style={{ color: "var(--accent)" }}>Won</span>
-            </h2>
-            <p style={{ color: "#94a3b8", fontSize: "0.95rem", marginTop: "8px" }}>
-              Our engineering team has competed nationally, building and scaling systems under intense time pressure.
-            </p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateRows: "1fr", gap: "40px" }}>
-            {/* SIH Card */}
-            <div
-              className="pod-direction"
-              data-hover="true"
-              style={{
-                background: "rgba(10, 10, 12, 0.6)",
-                border: "1px solid rgba(255, 214, 0, 0.12)",
-                borderRadius: "24px",
-                padding: "clamp(20px, 4vw, 40px)",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "40px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-              }}
-            >
-              {/* Metadata Left */}
-              <div style={{ flex: "1 1 500px", maxWidth: "650px" }}>
-                <div
-                  className="eyebrow-mono"
-                  style={{
-                    padding: "6px 14px",
-                    background: "rgba(255, 214, 0, 0.08)",
-                    border: "1px solid rgba(255, 214, 0, 0.25)",
-                    borderRadius: "99px",
-                    color: "#ffd600",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> Grand Prize Winner
-                </div>
-
-                <h3
-                  className="font-display"
-                  style={{
-                    fontSize: "clamp(1.6rem, 3.5vw, 2.1rem)",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    marginBottom: "12px",
-                  }}
-                >
-                  Smart India Hackathon <span className="font-serif-i" style={{ color: "var(--accent)" }}>(SIH)</span>
-                </h3>
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: "0.9rem",
-                    color: "var(--accent)",
-                    fontWeight: 700,
-                    marginBottom: "18px",
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                  }}
-                >
-                  Organized by Ministry of Education, Govt. of India | Indore Hub Champion
-                </span>
-
-                <p
-                  style={{
-                    color: "#94a3b8",
-                    fontSize: "0.95rem",
-                    lineHeight: "1.6",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Out of thousands of competing student-led startups and developer teams across the nation, Team Nexus won the **Grand Prize (₹1,00,000)**. We designed, coded, and deployed a high-capacity triage model and medical scheduling client dashboard within a continuous 36-hour sprint.
-                </p>
-
-                <div
-                  style={{
-                    borderLeft: "2px solid var(--accent)",
-                    paddingLeft: "16px",
-                    background: "rgba(232, 96, 46, 0.03)",
-                    paddingTop: "12px",
-                    paddingBottom: "12px",
-                    borderRadius: "0 8px 8px 0",
-                  }}
-                >
-                  <strong style={{ color: "#ffffff", fontSize: "0.88rem", display: "block", marginBottom: "4px" }}>
-                    Core Tested Scope:
-                  </strong>
-                  <span style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.4" }}>
-                    Automated patient intent classifications utilizing custom vector embeds. Tested query delay of 180ms under intensive concurrent mock traffic.
-                  </span>
-                </div>
-              </div>
-
-              {/* Full Background Photo with Hover Name Reveal - SIH */}
+        {/* 2. EDITORIAL GRID */}
+        <div className="works-editorial-grid">
+          {filteredItems.map((item) => {
+            // Find original index in registryItems to pass to modal state
+            const originalIndex = registryItems.findIndex((r) => r.id === item.id);
+            return (
               <div
-                className="hackathon-photo-card"
+                key={item.id}
+                className="works-editorial-card works-animate-fade-in"
                 style={{
-                  flex: "1 1 420px",
-                  maxWidth: "560px",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  position: "relative",
-                  aspectRatio: "16 / 10",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
-                  border: "1px solid rgba(255, 214, 0, 0.15)",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "1"; overlay.style.transform = "translateY(0)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1.07)";
-                }}
-                onMouseLeave={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "0"; overlay.style.transform = "translateY(10px)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1)";
-                }}
+                  "--card-theme-color": item.colorRGB
+                } as React.CSSProperties}
+                onClick={() => setActiveProject(originalIndex)}
               >
-                <img
-                  src="/images/hackathon_win.png"
-                  alt="Smart India Hackathon championship stage"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-                {/* Always-visible subtle bottom gradient */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
-                  pointerEvents: "none",
-                }} />
-                {/* Hover Overlay */}
-                <div
-                  className="hackathon-hover-overlay"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(30,20,0,0.85) 100%)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "10px",
-                    opacity: 0,
-                    transform: "translateY(10px)",
-                    transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                    padding: "24px",
-                    textAlign: "center",
-                  }}
-                >
-                  <Trophy size={32} style={{ color: "#ffd600", filter: "drop-shadow(0 0 12px rgba(255,214,0,0.6))" }} />
-                  <span style={{
-                    fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-                    fontWeight: 800,
-                    color: "#ffffff",
-                    fontFamily: "var(--font-display), sans-serif",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.02em",
-                  }}>Smart India Hackathon</span>
-                  <span style={{
-                    fontSize: "0.8rem",
-                    color: "#ffd600",
-                    fontWeight: 700,
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                  }}>Grand Prize Winner · ₹1,00,000</span>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Innovation Challenge Card */}
-            <div
-              className="pod-product"
-              data-hover="true"
-              style={{
-                background: "rgba(10, 10, 12, 0.6)",
-                border: "1px solid rgba(0, 229, 255, 0.12)",
-                borderRadius: "24px",
-                padding: "clamp(20px, 4vw, 40px)",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "40px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-              }}
-            >
-              {/* Metadata Left */}
-              <div style={{ flex: "1 1 500px", maxWidth: "650px" }}>
-                <div
-                  className="eyebrow-mono"
-                  style={{
-                    padding: "6px 14px",
-                    background: "rgba(0, 229, 255, 0.08)",
-                    border: "1px solid rgba(0, 229, 255, 0.25)",
-                    borderRadius: "99px",
-                    color: "#00e5ff",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> Championship Title
+                {/* Screenshot Image Container */}
+                <div className="works-editorial-image-box">
+                  <span className="works-editorial-badge">{item.code}</span>
+                  <img src={item.img} alt={item.title} />
                 </div>
 
-                <h3
-                  className="font-display"
-                  style={{
-                    fontSize: "clamp(1.6rem, 3.5vw, 2.1rem)",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    marginBottom: "12px",
-                  }}
-                >
-                  National AI <span className="font-serif-i" style={{ color: "var(--accent)" }}>Innovation</span> Challenge
-                </h3>
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: "0.9rem",
-                    color: "var(--accent)",
-                    fontWeight: 700,
-                    marginBottom: "18px",
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                  }}
-                >
-                  Organized by National Technology Consortium &amp; MeitY | Edge Systems Award
-                </span>
+                {/* Card Info Box */}
+                <div className="works-editorial-details">
+                  <div
+                    className="works-editorial-meta"
+                    style={{ color: item.type === "project" ? "var(--accent)" : "#ffd600" }}
+                  >
+                    {item.type === "project" ? "System Deployment" : "National Championship"}
+                  </div>
 
-                <p
-                  style={{
-                    color: "#94a3b8",
-                    fontSize: "0.95rem",
-                    lineHeight: "1.6",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Recognized nationally for pioneering architecture, Team Nexus designed and demonstrated a live-telemetry edge monitor dashboard. Under testing, the dashboard tracked multi-department data loops and detected system drift latency errors instantly.
-                </p>
+                  <h3 className="works-editorial-title">{item.title}</h3>
+                  <p className="works-editorial-subtitle">{item.subtitle}</p>
+                  <p className="works-editorial-desc">{item.desc}</p>
 
-                <div
-                  style={{
-                    borderLeft: "2px solid #00e5ff",
-                    paddingLeft: "16px",
-                    background: "rgba(0, 229, 255, 0.02)",
-                    paddingTop: "12px",
-                    paddingBottom: "12px",
-                    borderRadius: "0 8px 8px 0",
-                  }}
-                >
-                  <strong style={{ color: "#ffffff", fontSize: "0.88rem", display: "block", marginBottom: "4px" }}>
-                    Core Tested Scope:
-                  </strong>
-                  <span style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.4" }}>
-                    Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead.
-                  </span>
+                  {/* Inline Stats/Metrics */}
+                  <div className="works-editorial-metrics">
+                    {item.metricsList.map((m, mIdx) => (
+                      <div key={mIdx} className="works-editorial-metric">
+                        <span className="works-editorial-metric-val">{m.val}</span>
+                        <span className="works-editorial-metric-name">{m.name}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Clean CTA trigger */}
+                  <div className="works-editorial-action">
+                    <span>Explore Specifications</span>
+                    <ArrowRight size={14} className="action-arrow" />
+                  </div>
                 </div>
               </div>
-
-              {/* Full Background Photo with Hover Name Reveal - AI Innovation Challenge */}
-              <div
-                className="hackathon-photo-card"
-                style={{
-                  flex: "1 1 420px",
-                  maxWidth: "560px",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  position: "relative",
-                  aspectRatio: "16 / 10",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
-                  border: "1px solid rgba(0, 229, 255, 0.15)",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "1"; overlay.style.transform = "translateY(0)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1.07)";
-                }}
-                onMouseLeave={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "0"; overlay.style.transform = "translateY(10px)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1)";
-                }}
-              >
-                <img
-                  src="/images/hackathon_trophy.png"
-                  alt="National AI Innovation Challenge trophy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-                {/* Always-visible subtle bottom gradient */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
-                  pointerEvents: "none",
-                }} />
-                {/* Hover Overlay */}
-                <div
-                  className="hackathon-hover-overlay"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,20,30,0.85) 100%)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "10px",
-                    opacity: 0,
-                    transform: "translateY(10px)",
-                    transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                    padding: "24px",
-                    textAlign: "center",
-                  }}
-                >
-                  <Trophy size={32} style={{ color: "#00e5ff", filter: "drop-shadow(0 0 12px rgba(0,229,255,0.6))" }} />
-                  <span style={{
-                    fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-                    fontWeight: 800,
-                    color: "#ffffff",
-                    fontFamily: "var(--font-display), sans-serif",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.02em",
-                  }}>National AI Innovation Challenge</span>
-                  <span style={{
-                    fontSize: "0.8rem",
-                    color: "#00e5ff",
-                    fontWeight: 700,
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                  }}>Championship Title · Edge Systems Award</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Photo Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 420px), 1fr))",
-            gap: "24px",
-          }}
-        >
-          {projects.map((proj, idx) => (
-            <div
-              key={idx}
-              onClick={() => setActiveProject(idx)}
-              onMouseEnter={() => setHoveredIdx(idx)}
-              onMouseLeave={() => setHoveredIdx(null)}
-              suppressHydrationWarning={true}
-              style={{
-                position: "relative",
-                borderRadius: "20px",
-                overflow: "hidden",
-                aspectRatio: "16 / 10",
-                cursor: "pointer",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              {/* Background Photo */}
-              <img
-                src={proj.img}
-                alt={proj.title}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                  transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  transform: hoveredIdx === idx ? "scale(1.07)" : "scale(1)",
-                }}
-              />
-
-              {/* Permanent subtle dark gradient at bottom */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
-                  pointerEvents: "none",
-                  transition: "opacity 0.4s ease",
-                  opacity: hoveredIdx === idx ? 0 : 1,
-                }}
-              />
-
-              {/* Hover overlay — dark backdrop */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.2) 100%)",
-                  pointerEvents: "none",
-                  opacity: hoveredIdx === idx ? 1 : 0,
-                  transition: "opacity 0.4s ease",
-                }}
-              />
-
-              {/* Slide-up content on hover */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: "24px",
-                  transform: hoveredIdx === idx ? "translateY(0)" : "translateY(12px)",
-                  opacity: hoveredIdx === idx ? 1 : 0,
-                  transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease",
-                  pointerEvents: "none",
-                }}
-              >
-                {/* Tags row */}
-                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "10px" }}>
-                  {proj.tags.map((tag, tagIdx) => (
-                    <span
-                      key={tagIdx}
-                      style={{
-                        fontSize: "0.68rem",
-                        fontWeight: 700,
-                        padding: "3px 10px",
-                        background: "rgba(255,255,255,0.08)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        borderRadius: "99px",
-                        color: "#ffffff",
-                        fontFamily: "var(--font-space-grotesk), sans-serif",
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        backdropFilter: "blur(8px)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Project title */}
-                <h3
-                  style={{
-                    fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
-                    fontWeight: 800,
-                    color: "#ffffff",
-                    fontFamily: "var(--font-display), sans-serif",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.02em",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {proj.title}
-                </h3>
-
-                {/* Subtitle */}
-                <p
-                  style={{
-                    fontSize: "0.82rem",
-                    color: "rgba(255,255,255,0.65)",
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    margin: 0,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {proj.subtitle}
-                </p>
-              </div>
-
-              {/* Always-visible bottom name (when NOT hovered) */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: "16px 20px",
-                  opacity: hoveredIdx === idx ? 0 : 1,
-                  transition: "opacity 0.3s ease",
-                  pointerEvents: "none",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "0.95rem",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    textShadow: "0 2px 8px rgba(0,0,0,0.8)",
-                  }}
-                >
-                  {proj.title}
-                </span>
-              </div>
-
-              {/* Click CTA indicator on hover */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "16px",
-                  right: "16px",
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "50%",
-                  background: "rgba(255,255,255,0.12)",
-                  backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#ffffff",
-                  opacity: hoveredIdx === idx ? 1 : 0,
-                  transform: hoveredIdx === idx ? "scale(1)" : "scale(0.8)",
-                  transition: "opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
-                <ArrowUpRight size={16} />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* 3. STATEFUL PROJECT DETAIL SLIDE-OVER MODAL */}
+      {/* 3. PROFESSIONAL SPECIFICATION SHEET (MODAL) */}
       <div
         className={`project-detail-overlay ${activeProject !== null ? "active" : ""}`}
         onClick={() => setActiveProject(null)}
@@ -834,18 +320,17 @@ export default function Works() {
           data-lenis-prevent
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Close Button */}
+          {/* Close Trigger */}
           <button
             className="detail-close-btn"
             onClick={() => setActiveProject(null)}
-            aria-label="Close project specifications details"
+            aria-label="Close specifications sheet"
           >
             <X size={20} />
           </button>
 
           {activeProject !== null && (
             <>
-              {/* Specs Header */}
               <div style={{ flex: 1 }}>
                 <span
                   style={{
@@ -854,13 +339,13 @@ export default function Works() {
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "var(--accent)",
+                    color: registryItems[activeProject].type === "project" ? "var(--accent)" : "#ffd600",
                     display: "block",
                     marginBottom: "10px",
                     marginTop: "20px",
                   }}
                 >
-                  Project Specification
+                  {registryItems[activeProject].type === "project" ? "Deployment Registry" : "Championship Credential"}
                 </span>
                 
                 <h2
@@ -872,118 +357,94 @@ export default function Works() {
                     marginBottom: "8px",
                   }}
                 >
-                  {projects[activeProject].title}
+                  {registryItems[activeProject].title}
                 </h2>
                 
                 <p
                   style={{
-                    color: "var(--accent)",
+                    color: "#94a3b8",
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                     fontSize: "0.9rem",
                     fontWeight: 600,
                     marginBottom: "28px",
                   }}
                 >
-                  {projects[activeProject].subtitle}
-                </p>                {/* Live UI screenshot preview at top of specification panel */}
+                  {registryItems[activeProject].subtitle}
+                </p>
+
+                {/* Clean Image Viewport in Modal */}
                 <div
                   style={{
                     height: "230px",
                     borderRadius: "14px",
                     overflow: "hidden",
                     marginBottom: "32px",
-                    border: "1px solid rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
                     background: "#09090d",
                     position: "relative",
-                    padding: activeProject === 3 ? "16px" : "16px 16px 0 16px",
-                    display: "flex",
-                    alignItems: activeProject === 3 ? "center" : "flex-end",
-                    justifyContent: "center",
                   }}
                 >
-                  {activeProject === 3 ? (
-                    /* Mobile Device Frame */
-                    <div className="mobile-frame">
-                      <div className="mobile-notch" />
-                      <div className="mobile-content">
-                        <img
-                          src={projects[activeProject].img}
-                          alt={projects[activeProject].title}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    /* macOS Browser Frame */
-                    <div className="browser-frame">
-                      <div className="browser-header">
-                        <div className="browser-dots">
-                          <span className="browser-dot browser-dot-close" />
-                          <span className="browser-dot browser-dot-minimize" />
-                          <span className="browser-dot browser-dot-maximize" />
-                        </div>
-                        <div className="browser-address">
-                          {activeProject === 0 ? "careforyou.sheild.ai" : activeProject === 1 ? "command.nexus.dev" : "bot.sheild.ai"}
-                        </div>
-                      </div>
-                      <div className="browser-content" style={{ height: "180px", overflow: "hidden" }}>
-                        <img
-                          src={projects[activeProject].img}
-                          alt={projects[activeProject].title}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  )}
+                  <img
+                    src={registryItems[activeProject].img}
+                    alt={registryItems[activeProject].title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
                   <div
                     style={{
                       position: "absolute",
                       top: "12px",
                       right: "12px",
-                      background: "rgba(0, 0, 0, 0.75)",
-                      backdropFilter: "blur(4px)",
-                      borderRadius: "6px",
+                      background: "rgba(0, 0, 0, 0.8)",
+                      backdropFilter: "blur(8px)",
+                      borderRadius: "4px",
                       padding: "4px 10px",
                       fontSize: "0.68rem",
                       fontWeight: 700,
                       color: "var(--accent)",
-                      border: "1px solid rgba(232, 96, 46, 0.25)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
                       textTransform: "uppercase",
                       letterSpacing: "0.08em",
-                      zIndex: 2,
                     }}
                   >
-                    Specs Review Mode
+                    {registryItems[activeProject].code}
                   </div>
                 </div>
 
-                {/* Narrative Details */}
+                {/* Description Chronicle */}
                 <h4 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "12px" }}>
-                  Overview Description
+                  Overview & Execution
                 </h4>
-                <p style={{ color: "#94a3b8", fontSize: "0.92rem", lineHeight: "1.6", marginBottom: "32px", margin: "0 0 32px" }}>
-                  {projects[activeProject].details}
+                <p style={{ color: "#94a3b8", fontSize: "0.92rem", lineHeight: "1.6", marginBottom: "24px" }}>
+                  {registryItems[activeProject].details}
                 </p>
 
-                {/* System Parameters Metrics List */}
+                {/* Hackathon scope details */}
+                {registryItems[activeProject].type === "championship" && (
+                  <>
+                    <h4 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "12px" }}>
+                      Core Tested Scope
+                    </h4>
+                    <p style={{ color: "#94a3b8", fontSize: "0.92rem", lineHeight: "1.6", marginBottom: "24px" }}>
+                      {registryItems[activeProject].scope}
+                    </p>
+                  </>
+                )}
+
+                {/* System Parameters Metrics */}
                 <h4 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "16px" }}>
-                  Active Performance Metrics
+                  System Metrics
                 </h4>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", marginBottom: "32px" }}>
-                  {projects[activeProject].metricsList.map((m, i) => (
+                  {registryItems[activeProject].metricsList.map((m, i) => (
                     <div
                       key={i}
                       style={{
-                        background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.04)",
+                        background: "rgba(255, 255, 255, 0.02)",
+                        border: "1px solid rgba(255, 255, 255, 0.04)",
                         borderRadius: "10px",
                         padding: "12px",
                         textAlign: "center",
@@ -1016,17 +477,17 @@ export default function Works() {
                   ))}
                 </div>
 
-                {/* Tech Badges */}
+                {/* Stack Badges */}
                 <h4 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "12px" }}>
-                  Technical Stack Integration
+                  Technology Stack
                 </h4>
-                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "36px" }}>
-                  {projects[activeProject].tags.map((t, i) => (
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "32px" }}>
+                  {registryItems[activeProject].tags.map((t, i) => (
                     <span
                       key={i}
                       style={{
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(255,255,255,0.06)",
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid rgba(255, 255, 255, 0.06)",
                         borderRadius: "99px",
                         padding: "6px 14px",
                         color: "#ffffff",
@@ -1041,7 +502,7 @@ export default function Works() {
                 {/* Championship Highlight */}
                 <div
                   style={{
-                    background: "rgba(255, 214, 0, 0.03)",
+                    background: "rgba(255, 214, 0, 0.02)",
                     border: "1px solid rgba(255, 214, 0, 0.12)",
                     borderRadius: "12px",
                     padding: "18px",
@@ -1053,12 +514,12 @@ export default function Works() {
                 >
                   <Trophy size={18} style={{ color: "#ffd600" }} />
                   <p style={{ color: "#ffd600", fontSize: "0.82rem", fontWeight: 600, lineHeight: "1.4", margin: 0 }}>
-                    {projects[activeProject].achievement}
+                    {registryItems[activeProject].achievement}
                   </p>
                 </div>
               </div>
 
-              {/* Action Buttons in footer */}
+              {/* Action Buttons */}
               <div
                 style={{
                   marginTop: "20px",
@@ -1088,7 +549,7 @@ export default function Works() {
                   className="btn-premium"
                   onClick={() => setActiveProject(null)}
                 >
-                  Deploy Similar AI System
+                  {registryItems[activeProject].type === "project" ? "Deploy Similar AI System" : "Partner With Team Nexus"}
                 </Link>
               </div>
             </>

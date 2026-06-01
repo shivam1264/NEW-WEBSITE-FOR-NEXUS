@@ -48,24 +48,16 @@ function InstagramIcon({ size = 14, style }: { size?: number; style?: React.CSSP
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        borderTop: "1px solid rgba(255, 255, 255, 0.05)",
-        background: "linear-gradient(180deg, rgba(3, 3, 15, 0.9) 0%, rgba(2, 2, 10, 0.95) 100%)",
-        backdropFilter: "blur(12px)",
-        padding: "50px 0 24px",
-        position: "relative",
-        zIndex: 2,
-        fontFamily: "var(--font-manrope), sans-serif",
-      }}
-    >
+    <footer className="footer-container-glowing">
       <div
         className="container"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "32px",
-          paddingBottom: "32px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "24px",
+          paddingBottom: "20px",
+          position: "relative",
+          zIndex: 1
         }}
       >
         {/* Brand Section */}
@@ -77,7 +69,7 @@ export default function Footer() {
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              marginBottom: "12px",
+              marginBottom: "8px",
             }}
           >
             <NexusLogo size={24} style={{ marginRight: 0 }} />
@@ -114,7 +106,7 @@ export default function Footer() {
               fontSize: "0.82rem",
               lineHeight: "1.55",
               maxWidth: "260px",
-              marginBottom: "16px",
+              marginBottom: "12px",
             }}
           >
             AI-powered web &amp; mobile solutions built for modern businesses, coaching institutes, and startups.
@@ -124,28 +116,7 @@ export default function Footer() {
               href="https://linkedin.com/company/teamnexus"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-                color: "#64748b",
-                transition: "all 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--accent)";
-                e.currentTarget.style.borderColor = "var(--accent)";
-                e.currentTarget.style.background = "rgba(255, 92, 43, 0.04)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#64748b";
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.05)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-              }}
+              className="footer-social-badge linkedin"
               aria-label="LinkedIn Link"
             >
               <LinkedinIcon size={14} />
@@ -154,28 +125,7 @@ export default function Footer() {
               href="https://instagram.com/teamnexus"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-                color: "#64748b",
-                transition: "all 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--accent)";
-                e.currentTarget.style.borderColor = "var(--accent)";
-                e.currentTarget.style.background = "rgba(255, 92, 43, 0.04)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#64748b";
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.05)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-              }}
+              className="footer-social-badge instagram"
               aria-label="Instagram Link"
             >
               <InstagramIcon size={14} />
@@ -193,25 +143,19 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "#94a3b8",
-              marginBottom: "14px",
+              marginBottom: "10px",
             }}
           >
             Navigation
           </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             {["Home", "Works", "Services", "Team", "Contact"].map((item) => (
               <Link
                 key={item}
                 href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                style={{
-                  color: "#64748b",
-                  fontSize: "0.82rem",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
-                onMouseLeave={(e) => e.currentTarget.style.color = "#64748b"}
+                className="footer-nav-link"
               >
+                <span className="nav-marker">&gt;&nbsp;</span>
                 {item}
               </Link>
             ))}
@@ -228,50 +172,26 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "#94a3b8",
-              marginBottom: "14px",
+              marginBottom: "10px",
             }}
           >
             Direct Channels
           </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
             <a
               href="https://wa.me/919999999999"
               target="_blank"
               rel="noreferrer"
-              style={{
-                color: "#25d366",
-                textDecoration: "none",
-                fontSize: "0.82rem",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(37, 211, 102, 0.04)",
-                border: "1px solid rgba(37, 211, 102, 0.15)",
-                borderRadius: "6px",
-                padding: "8px 12px",
-                transition: "all 0.2s",
-                fontWeight: 600,
-                width: "fit-content",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(37, 211, 102, 0.1)"; e.currentTarget.style.borderColor = "rgba(37, 211, 102, 0.3)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(37, 211, 102, 0.04)"; e.currentTarget.style.borderColor = "rgba(37, 211, 102, 0.15)"; }}
+              className="footer-whatsapp-glass"
+              style={{ padding: "8px 14px" }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              WhatsApp (Fastest)
+              <span>WhatsApp (Fastest)</span>
+              <span className="pulsing-dot pulsing-dot-mint" style={{ width: "5px", height: "5px" }} />
             </a>
             <a
               href="mailto:build@teamnexus.agency"
-              style={{
-                color: "#64748b",
-                textDecoration: "none",
-                fontSize: "0.82rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
-              onMouseLeave={(e) => e.currentTarget.style.color = "#64748b"}
+              className="footer-email-link"
             >
               <Mail size={12} style={{ color: "var(--accent)" }} />
               <span>build@teamnexus.agency</span>
@@ -279,7 +199,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Hub Location */}
+        {/* Hub Location (Telemetry Card) */}
         <div>
           <h4
             style={{
@@ -289,22 +209,25 @@ export default function Footer() {
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "#94a3b8",
-              marginBottom: "14px",
+              marginBottom: "10px",
             }}
           >
             Hub Location
           </h4>
-          <div
-            style={{
-              color: "#64748b",
-              fontSize: "0.82rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <MapPin size={12} style={{ color: "var(--accent)" }} />
-            <span>Indore, Madhya Pradesh, India</span>
+          <div className="footer-gateway-card" style={{ padding: "12px 14px" }}>
+            <div className="gateway-header">
+              <span>Gateway Node</span>
+              <span style={{ color: "#25d366", display: "flex", alignItems: "center", gap: "4px" }}>
+                <span className="pulsing-dot pulsing-dot-mint" style={{ width: "5px", height: "5px" }} />
+                Active
+              </span>
+            </div>
+            <div className="gateway-location" style={{ fontSize: "0.82rem" }}>
+              Indore, MP, India
+            </div>
+            <div style={{ fontSize: "0.58rem", color: "#475569", fontFamily: "var(--font-mono), monospace", letterSpacing: "0.02em" }}>
+              SYS_LOC: 22.7196° N, 75.8577° E
+            </div>
           </div>
         </div>
       </div>
@@ -313,24 +236,26 @@ export default function Footer() {
       <div
         className="footer-bottom-bar"
         style={{
-          marginTop: "24px",
-          paddingTop: "18px",
+          marginTop: "16px",
+          paddingTop: "12px",
           borderTop: "1px solid rgba(255, 255, 255, 0.04)",
+          position: "relative",
+          zIndex: 1
         }}
       >
-        <p style={{ color: "#475569", fontSize: "0.76rem", margin: 0 }}>
+        <span style={{ color: "#64748b", fontSize: "0.76rem", display: "inline-block" }}>
           &copy; {new Date().getFullYear()}{" "}Team Nexus. All rights reserved. Built with Next.js &amp; FastAPI.
-        </p>
+        </span>
         <div className="footer-legal-links" style={{ display: "flex", gap: "20px" }}>
-          <Link href="/contact" style={{ color: "#475569", textDecoration: "none", fontSize: "0.76rem", transition: "color 0.2s" }}
+          <Link href="/contact" style={{ color: "#64748b", textDecoration: "none", fontSize: "0.76rem", transition: "color 0.2s" }}
             onMouseEnter={(e) => e.currentTarget.style.color = "var(--accent)"}
-            onMouseLeave={(e) => e.currentTarget.style.color = "#475569"}
+            onMouseLeave={(e) => e.currentTarget.style.color = "#64748b"}
           >
             Privacy Policy
           </Link>
-          <Link href="/contact" style={{ color: "#475569", textDecoration: "none", fontSize: "0.76rem", transition: "color 0.2s" }}
+          <Link href="/contact" style={{ color: "#64748b", textDecoration: "none", fontSize: "0.76rem", transition: "color 0.2s" }}
             onMouseEnter={(e) => e.currentTarget.style.color = "var(--accent)"}
-            onMouseLeave={(e) => e.currentTarget.style.color = "#475569"}
+            onMouseLeave={(e) => e.currentTarget.style.color = "#64748b"}
           >
             Terms of Service
           </Link>

@@ -1,40 +1,132 @@
 "use client";
 
 import { useState } from "react";
-import { Brain, Globe, Smartphone, Zap, Layout, Settings, ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
+import {
+  Brain,
+  Globe,
+  Smartphone,
+  Zap,
+  Layout,
+  Settings,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  ArrowRight,
+  Activity,
+  Terminal as TerminalIcon
+} from "lucide-react";
 
 export default function Services() {
   const capabilities = [
     {
+      id: "ai",
+      code: "SYS-01",
       title: "AI Solutions",
       desc: "Custom LLM chatbots, AI assistants, resume screeners, and cognitive agent workflow automation built to streamline customer support and lead operations.",
-      icon: <Brain size={20} />,
+      icon: <Brain size={18} />,
+      color: "#ff5c2b",
+      colorRGB: "255, 92, 43",
+      bg: "rgba(255, 92, 43, 0.06)",
+      border: "rgba(255, 92, 43, 0.2)",
+      deliverables: [
+        "Custom LLM Chatbots & RAG Systems",
+        "Cognitive Agent Workflow Automations",
+        "Resume Screeners & Data Extractors",
+        "Multi-Model Orchestration (OpenAI / Gemini / Anthropic)"
+      ],
+      tech: ["Python", "LangChain", "OpenAI API", "Gemini Pro", "Pinecone", "FastAPI"]
     },
     {
+      id: "web",
+      code: "SYS-02",
       title: "Web Development",
       desc: "Highly polished business websites, admin panels, and SaaS dashboard products. Designed using SSR architectures for instant loading.",
-      icon: <Globe size={20} />,
+      icon: <Globe size={18} />,
+      color: "#00e5ff",
+      colorRGB: "0, 229, 255",
+      bg: "rgba(0, 229, 255, 0.06)",
+      border: "rgba(0, 229, 255, 0.2)",
+      deliverables: [
+        "High-Performance SSR Architectures",
+        "Real-Time Admin & Analytics Dashboards",
+        "Premium E-Commerce & SaaS Gateways",
+        "100/100 Lighthouse Performance Scores"
+      ],
+      tech: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"]
     },
     {
+      id: "mobile",
+      code: "SYS-03",
       title: "Mobile App Development",
       desc: "Cross-platform mobile applications utilizing Flutter and React Native. Custom layouts, payment processing, and fluid user experiences.",
-      icon: <Smartphone size={20} />,
+      icon: <Smartphone size={18} />,
+      color: "#00e676",
+      colorRGB: "0, 230, 118",
+      bg: "rgba(0, 230, 118, 0.06)",
+      border: "rgba(0, 230, 118, 0.2)",
+      deliverables: [
+        "Cross-Platform Native Apps",
+        "Fluid 60fps Micro-Interactions",
+        "Offline-First Database Synchronization",
+        "Native Hardware Integration & Push Alerts"
+      ],
+      tech: ["Flutter", "React Native", "TypeScript", "Dart", "Firebase", "SQLite"]
     },
     {
+      id: "mvp",
+      code: "SYS-04",
       title: "Startup MVP Development",
       desc: "Rapid cycles launching functional Minimum Viable Products to production in weeks to test ideas and raise venture funding quickly.",
-      icon: <Zap size={20} />,
+      icon: <Zap size={18} />,
+      color: "#ff007f",
+      colorRGB: "255, 0, 127",
+      bg: "rgba(255, 0, 127, 0.06)",
+      border: "rgba(255, 0, 127, 0.2)",
+      deliverables: [
+        "Ultra-Fast Production Ready Deployments",
+        "Lean Architecture & Modular Codebase",
+        "Secure User Auth & Stripe Payments",
+        "Analytics & Telemetry Pre-Configured"
+      ],
+      tech: ["SupaBase", "Vercel", "Stripe", "Next.js", "Prisma", "PostgreSQL"]
     },
     {
+      id: "ui",
+      code: "SYS-05",
       title: "UI/UX Design",
       desc: "Clean wireframes, functional prototypes, and modern startup aesthetics utilizing tailored dark-theme styles and responsive layouts.",
-      icon: <Layout size={20} />,
+      icon: <Layout size={18} />,
+      color: "#d500f9",
+      colorRGB: "213, 0, 249",
+      bg: "rgba(213, 0, 249, 0.06)",
+      border: "rgba(213, 0, 249, 0.2)",
+      deliverables: [
+        "High-Fidelity Interactive Prototypes",
+        "Custom Glassmorphic & Neo-Skeuomorphic Styles",
+        "Seamless Responsive Screen Layouts",
+        "Design System Export (Figma / Stitch)"
+      ],
+      tech: ["Figma", "Stitch", "Spline 3D", "Tailwind", "Framer Motion"]
     },
     {
+      id: "automation",
+      code: "SYS-06",
       title: "Automation Systems",
       desc: "Integrating API endpoints, scrapers, automated email/SMS alerts, and scheduling software to run business operations 24/7.",
-      icon: <Settings size={20} />,
-    },
+      icon: <Settings size={18} />,
+      color: "#ffd600",
+      colorRGB: "255, 214, 0",
+      bg: "rgba(255, 214, 0, 0.06)",
+      border: "rgba(255, 214, 0, 0.2)",
+      deliverables: [
+        "Custom Web Scrapers & Telemetry Alerts",
+        "Cron-Scheduled Workflow Workers",
+        "Multi-API Database Integrations",
+        "Automated SMS / Email Notification Hubs"
+      ],
+      tech: ["Node.js", "Python", "Docker", "GitHub Actions", "Redis", "AWS Lambda"]
+    }
   ];
 
   const faqs = [
@@ -56,11 +148,15 @@ export default function Services() {
     },
   ];
 
+  const [activeTab, setActiveTab] = useState<"capabilities" | "faq">("capabilities");
+  const [activeService, setActiveService] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
+
+  const activeSvcData = capabilities[activeService];
 
   return (
     <div
@@ -68,192 +164,307 @@ export default function Services() {
         padding: "140px 0 80px",
         minHeight: "100vh",
         fontFamily: "var(--font-manrope), sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
-      {/* 1. CAPABILITIES HEADER */}
+      {/* 1. COMPACT HEADER */}
       <div
         className="container reveal-text"
         style={{
-          margin: "0 auto 80px",
+          margin: "0 auto 32px",
           maxWidth: "600px",
+          textAlign: "center",
         }}
       >
-        <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
+        <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "8px" }}>
           <span className="pulsing-dot pulsing-dot-coral" />
-          Capabilities
+          {activeTab === "capabilities" ? "Core Systems" : "System Intel"}
         </span>
         <h1
           className="hero-title font-display"
           style={{
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
             fontWeight: 700,
             color: "#ffffff",
-            marginBottom: "20px",
+            marginBottom: "12px",
           }}
         >
-          Premium <span className="font-serif-i" style={{ color: "var(--accent)" }}>Systems</span>
+          {activeTab === "capabilities" ? "Premium " : "Frequently "}
+          <span className="font-serif-i" style={{ color: "var(--accent)" }}>
+            {activeTab === "capabilities" ? "Capabilities" : "Questions"}
+          </span>
         </h1>
-        <p style={{ color: "#94a3b8", fontSize: "1.02rem", lineHeight: "1.65" }}>
-          Every engagement is built around practical outcomes: sharper positioning, better collaboration, stronger launch motion, and a community engine that compounds.
+        <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: "1.6" }}>
+          Every engagement is built around practical outcomes: sharper positioning, better collaboration, and systems that compound.
         </p>
       </div>
 
-      {/* 2. CAPABILITIES GRID */}
-      <div
-        className="container"
-        style={{
-          margin: "0 auto 120px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "30px",
-        }}
-      >
-        {capabilities.map((cap, idx) => {
-          const colors = [
-            { bg: "rgba(255, 92, 43, 0.06)", border: "rgba(255, 92, 43, 0.2)", color: "#ff5c2b" },
-            { bg: "rgba(0, 229, 255, 0.06)", border: "rgba(0, 229, 255, 0.2)", color: "#00e5ff" },
-            { bg: "rgba(0, 230, 118, 0.06)", border: "rgba(0, 230, 118, 0.2)", color: "#00e676" },
-            { bg: "rgba(255, 0, 127, 0.06)", border: "rgba(255, 0, 127, 0.2)", color: "#ff007f" },
-            { bg: "rgba(213, 0, 249, 0.06)", border: "rgba(213, 0, 249, 0.2)", color: "#d500f9" },
-            { bg: "rgba(255, 214, 0, 0.06)", border: "rgba(255, 214, 0, 0.2)", color: "#ffd600" },
-          ];
-          const colorSet = colors[idx % colors.length];
-          const podClasses = ["pod-direction", "pod-product", "pod-signal", "pod-momentum", "pod-momentum", "pod-direction"];
-          const podClass = podClasses[idx % podClasses.length];
-          return (
-            <div
-              key={idx}
-              className={podClass}
-              style={{
-                background: "rgba(7, 7, 22, 0.7)",
-                border: "1px solid rgba(255, 255, 255, 0.07)",
-                borderRadius: "18px",
-                padding: "clamp(20px, 4vw, 40px)",
-              }}
-              data-hover="true"
-            >
-              <div
-                className="svc-icon"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "44px",
-                  height: "44px",
-                  borderRadius: "10px",
-                  background: colorSet.bg,
-                  border: `1px solid ${colorSet.border}`,
-                  color: colorSet.color,
-                  marginBottom: "24px",
-                }}
-              >
-                {cap.icon}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-bricolage), sans-serif",
-                  fontSize: "1.25rem",
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  marginBottom: "14px",
-                }}
-              >
-                {cap.title}
-              </h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.92rem", lineHeight: "1.6" }}>
-                {cap.desc}
-              </p>
-            </div>
-          );
-        })}
+      {/* 2. TAB SWITCHER */}
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <div className="services-tab-bar">
+          <button
+            className={`services-view-tab ${activeTab === "capabilities" ? "active" : ""}`}
+            onClick={() => setActiveTab("capabilities")}
+            data-hover="true"
+          >
+            <span className="tab-icon-wrap"><TerminalIcon size={14} /></span>
+            <span className="tab-badge">01</span>
+            <span>Capabilities</span>
+          </button>
+          <button
+            className={`services-view-tab ${activeTab === "faq" ? "active" : ""}`}
+            onClick={() => setActiveTab("faq")}
+            data-hover="true"
+          >
+            <span className="tab-icon-wrap"><Activity size={14} /></span>
+            <span className="tab-badge">02</span>
+            <span>FAQs</span>
+          </button>
+        </div>
       </div>
 
-      {/* 3. FAQ ACCORDION SECTION */}
-      <section
-        className="container"
-        style={{
-          borderTop: "1px solid rgba(255, 255, 255, 0.05)",
-          paddingTop: "100px",
-          maxWidth: "900px",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: "60px" }}>
-          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "10px" }}>
-            <span className="pulsing-dot pulsing-dot-coral" />
-            FAQs
-          </span>
-          <h2
-            className="font-display"
-            style={{
-              fontSize: "2.4rem",
-              fontWeight: 700,
-              color: "#ffffff",
-            }}
-          >
-            Common <span className="font-serif-i" style={{ color: "var(--accent)" }}>Questions</span>
-          </h2>
-        </div>
+      {/* 3. CORE CONTENT VIEWPORT CONTAINER */}
+      <div className="container" style={{ margin: "0 auto", width: "100%" }}>
+        {activeTab === "capabilities" ? (
+          <div className="services-interactive-wrapper">
+            {/* Left Button Select Stack */}
+            <div className="service-tabs-column">
+              <span className="service-section-title">Select Registry</span>
+              {capabilities.map((cap, idx) => {
+                const isActive = activeService === idx;
+                return (
+                  <button
+                    key={cap.id}
+                    className={`service-tab-button ${isActive ? "active" : ""}`}
+                    onClick={() => setActiveService(idx)}
+                    style={{
+                      "--svc-accent": cap.color,
+                      "--svc-accent-rgb": cap.colorRGB
+                    } as React.CSSProperties}
+                    data-hover="true"
+                  >
+                    <div className="service-tab-button-left">
+                      <span className="svc-tab-index">{cap.code}</span>
+                      <div className="svc-tab-icon">
+                        {cap.icon}
+                      </div>
+                      <span className="svc-tab-title">{cap.title}</span>
+                    </div>
+                    {isActive ? (
+                      <ArrowRight size={14} style={{ color: cap.color }} className="svc-tab-arrow" />
+                    ) : (
+                      <span className="svc-tab-dot" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          {faqs.map((faq, idx) => (
+            {/* Right Details Panel */}
             <div
-              key={idx}
+              key={activeService}
+              className="service-details-card service-animate-fade"
               style={{
-                background: "rgba(7, 7, 22, 0.7)",
-                border: "1px solid rgba(255, 255, 255, 0.07)",
-                borderRadius: "14px",
-                overflow: "hidden",
-                transition: "all 0.3s ease",
-              }}
+                "--svc-accent": activeSvcData.color,
+                "--svc-accent-rgb": activeSvcData.colorRGB
+              } as React.CSSProperties}
             >
-              <button
-                onClick={() => toggleFaq(idx)}
+              <div>
+                {/* Dashboard Status Telemetry Bar */}
+                <div className="service-telemetry-header">
+                  <span className="service-telemetry-label">REGISTRY NODE // {activeSvcData.code}</span>
+                  <span className="service-telemetry-status">
+                    <span className="pulsing-dot" style={{ width: "6px", height: "6px", background: "#25d366" }} />
+                    SYSTEM ONLINE
+                  </span>
+                </div>
+
+                <div className="service-details-header">
+                  <div className="service-details-title-group">
+                    <span className="service-details-subtitle">{activeSvcData.code} // OPERATIONAL FRAMEWORK</span>
+                    <h2 className="service-details-title">{activeSvcData.title}</h2>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "10px",
+                      background: activeSvcData.bg,
+                      border: `1px solid ${activeSvcData.border}`,
+                      color: activeSvcData.color,
+                    }}
+                  >
+                    {activeSvcData.icon}
+                  </div>
+                </div>
+
+                <div className="service-details-body">
+                  <p className="service-details-desc">{activeSvcData.desc}</p>
+                  
+                  <div>
+                    <div className="service-section-title">Key Deliverables</div>
+                    <div className="service-deliverables-list">
+                      {activeSvcData.deliverables.map((del, dIdx) => (
+                        <div key={dIdx} className="service-deliverable-item">
+                          <span className="service-deliverable-check">
+                            <Check size={11} strokeWidth={3} />
+                          </span>
+                          <span>{del}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="service-section-title">Tech Stack Focus</div>
+                    <div className="tech-badges-grid">
+                      {activeSvcData.tech.map((t, tIdx) => (
+                        <span key={tIdx} className="tech-badge">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                href={`/contact?service=${activeSvcData.id}`}
+                className="service-details-cta"
+                data-hover="true"
+              >
+                Inquire About {activeSvcData.title}
+                <ArrowRight size={15} className="cta-arrow" />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          /* FAQ Section View */
+          <div className="faq-split-wrapper service-animate-fade">
+            {/* FAQ HUD Panel */}
+            <div className="faq-hud-panel">
+              <span className="service-section-title">FAQ Gateway Core</span>
+              <p style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.5" }}>
+                Nexus support index querying. Live updates on SLAs, methodologies, and framework queries.
+              </p>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div className="faq-hud-row">
+                  <span className="faq-hud-label">Client Support</span>
+                  <span className="faq-hud-value" style={{ color: "#25d366" }}>24/7 Enabled</span>
+                </div>
+                <div className="faq-hud-row">
+                  <span className="faq-hud-label">NDAs</span>
+                  <span className="faq-hud-value">Standard Signing</span>
+                </div>
+                <div className="faq-hud-row">
+                  <span className="faq-hud-label">Locations</span>
+                  <span className="faq-hud-value">Global Remote</span>
+                </div>
+              </div>
+
+              <Link
+                href="/contact"
                 style={{
-                  width: "100%",
-                  padding: "24px",
-                  background: "none",
-                  border: "none",
                   display: "flex",
-                  justifyContent: "space-between",
                   alignItems: "center",
-                  color: "#ffffff",
-                  fontSize: "1.05rem",
+                  justifyContent: "center",
+                  gap: "6px",
+                  border: "1px solid rgba(255, 92, 43, 0.2)",
+                  background: "rgba(255, 92, 43, 0.05)",
+                  color: "var(--accent)",
+                  borderRadius: "10px",
+                  padding: "12px",
+                  fontSize: "0.85rem",
                   fontWeight: 600,
-                  textAlign: "left",
-                  outline: "none",
+                  textDecoration: "none",
+                  transition: "all 0.3s ease",
+                  textAlign: "center"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 92, 43, 0.1)";
+                  e.currentTarget.style.borderColor = "var(--accent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 92, 43, 0.05)";
+                  e.currentTarget.style.borderColor = "rgba(255, 92, 43, 0.2)";
                 }}
                 data-hover="true"
               >
-                <span style={{ fontFamily: "var(--font-bricolage), sans-serif", fontWeight: 500 }}>{faq.q}</span>
-                {openFaq === idx ? (
-                  <ChevronUp size={18} style={{ color: "var(--accent)" }} />
-                ) : (
-                  <ChevronDown size={18} style={{ color: "#94a3b8" }} />
-                )}
-              </button>
+                Custom Request Wizard
+                <ArrowRight size={14} />
+              </Link>
+            </div>
 
-              <div
-                style={{
-                  maxHeight: openFaq === idx ? "200px" : "0",
-                  overflow: "hidden",
-                  transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
+            {/* FAQ Accordion list */}
+            <div className="faq-accordion-list">
+              {faqs.map((faq, idx) => (
                 <div
+                  key={idx}
                   style={{
-                    padding: "0 24px 24px",
-                    color: "#94a3b8",
-                    fontSize: "0.95rem",
-                    lineHeight: "1.65",
+                    background: "rgba(7, 7, 22, 0.7)",
+                    border: "1px solid rgba(255, 255, 255, 0.07)",
+                    borderRadius: "14px",
+                    overflow: "hidden",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  {faq.a}
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    style={{
+                      width: "100%",
+                      padding: "20px 24px",
+                      background: "none",
+                      border: "none",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      color: "#ffffff",
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      textAlign: "left",
+                      outline: "none",
+                      cursor: "pointer",
+                    }}
+                    data-hover="true"
+                  >
+                    <span style={{ fontFamily: "var(--font-space-grotesk), sans-serif", fontWeight: 600 }}>{faq.q}</span>
+                    {openFaq === idx ? (
+                      <ChevronUp size={16} style={{ color: "var(--accent)" }} />
+                    ) : (
+                      <ChevronDown size={16} style={{ color: "#64748b" }} />
+                    )}
+                  </button>
+
+                  <div
+                    style={{
+                      maxHeight: openFaq === idx ? "200px" : "0",
+                      overflow: "hidden",
+                      transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: "0 24px 20px",
+                        color: "#94a3b8",
+                        fontSize: "0.9rem",
+                        lineHeight: "1.6",
+                      }}
+                    >
+                      {faq.a}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -214,126 +214,9 @@ const renderServiceSvg = (idx: number, isHovered: boolean) => {
   }
 };
 
-const renderTelemetryOverlay = (idx: number, isActive: boolean) => {
-  const accent = "var(--accent)";
-  if (!isActive) return null;
 
-  switch (idx) {
-    case 0: // Latency Chart
-      return (
-        <div style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "#64748b" }}>
-            <span>QUERY LATENCY RESPONSE</span>
-            <span style={{ color: "#00e676" }}>● ONLINE</span>
-          </div>
-          <div style={{ flex: 1, position: "relative", margin: "10px 0" }}>
-            <svg width="100%" height="100%" viewBox="0 0 280 90" fill="none">
-              <line x1="0" y1="15" x2="280" y2="15" stroke="rgba(255,255,255,0.03)" />
-              <line x1="0" y1="45" x2="280" y2="45" stroke="rgba(255,255,255,0.03)" />
-              <line x1="0" y1="75" x2="280" y2="75" stroke="rgba(255,255,255,0.03)" />
-              
-              <path d="M 0 15 L 280 15" stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.5" />
-              <text x="200" y="12" fill="#ef4444" fontSize="8" opacity="0.7">Before: 900ms</text>
 
-              <path d="M 10 15 Q 80 15 120 45 T 260 75" stroke={accent} strokeWidth="2" strokeLinecap="round" />
-              <circle cx="260" cy="75" r="4" fill={accent}>
-                <animate attributeName="r" values="3;6;3" dur="1.5s" repeatCount="indefinite" />
-              </circle>
-            </svg>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#ffffff" }}>
-            <span>Current Delay: <span style={{ color: accent, fontWeight: 700 }}>180ms</span></span>
-            <span style={{ color: "#00e676" }}>Target met</span>
-          </div>
-        </div>
-      );
-    case 1: // Launch Cohort sync checklist
-      return (
-        <div style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "#64748b" }}>
-            <span>Nexus Command Room</span>
-            <span style={{ color: accent }}>COHORTS: 8/8</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", margin: "10px 0", fontSize: "9px", color: "#94a3b8" }}>
-            <div>
-              <span style={{ color: "#00e676", marginRight: "6px" }}>✔</span>
-              <span>assets_pipeline_sync ............ COMPLETE (100%)</span>
-            </div>
-            <div>
-              <span style={{ color: "#00e676", marginRight: "6px" }}>✔</span>
-              <span>drift_telemetry_check ........... COMPILING (100%)</span>
-            </div>
-            <div>
-              <span style={{ color: "#00e676", marginRight: "6px" }}>✔</span>
-              <span>stakeholder_approvals ......... DEPLOYED (100%)</span>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "11px", color: "#ffffff" }}>
-            <span style={{ color: "#00e676" }}>STATUS:</span>
-            <span style={{ background: "rgba(0, 230, 118, 0.1)", border: "1px solid rgba(0, 230, 118, 0.2)", borderRadius: "4px", padding: "2px 8px", fontSize: "10px", color: "#00e676", fontWeight: 700 }}>ACTIVE DEPLOYMENT</span>
-          </div>
-        </div>
-      );
-    case 2: // Automated agent captures
-      return (
-        <div style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "#64748b" }}>
-            <span>CONVERSION RATIO INCREASE</span>
-            <span style={{ color: "#00e5ff" }}>+45% DELTA</span>
-          </div>
-          <div style={{ flex: 1, display: "flex", alignItems: "flex-end", gap: "10px", padding: "10px 0" }}>
-            {[35, 45, 42, 58, 65, 75, 95].map((val, i) => (
-              <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-                <div style={{
-                  width: "100%",
-                  height: `${val}%`,
-                  background: i === 6 ? `linear-gradient(to top, rgba(232, 96, 46, 0.2), ${accent})` : "rgba(255, 255, 255, 0.05)",
-                  border: i === 6 ? `1px solid ${accent}` : "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: "2px",
-                  transition: "height 0.8s ease-out",
-                }} />
-                <span style={{ fontSize: "8px", color: "#475569" }}>D{i*5}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ fontSize: "11px", color: "#ffffff", display: "flex", justifyContent: "space-between" }}>
-            <span>Conversion Spike</span>
-            <span style={{ color: "#00e676" }}>SLA: 99.98% Uptime</span>
-          </div>
-        </div>
-      );
-    case 3: // Mobile dispatch route map
-      return (
-        <div style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "#64748b" }}>
-            <span>EDGE DISPATCH GEOMETRY</span>
-            <span style={{ color: "#d500f9" }}>ROUTE ID: 9402</span>
-          </div>
-          <div style={{ flex: 1, position: "relative", margin: "10px 0", background: "rgba(255, 255, 255, 0.01)", border: "1px solid rgba(255,255,255,0.03)", borderRadius: "6px" }}>
-            <svg width="100%" height="100%" viewBox="0 0 280 80">
-              <circle cx="40" cy="40" r="4" fill="#0d0d12" stroke={accent} strokeWidth="2" />
-              <text x="32" y="25" fill="#64748b" fontSize="8">KITCHEN</text>
-              
-              <circle cx="240" cy="40" r="4" fill="#0d0d12" stroke="#d500f9" strokeWidth="2" />
-              <text x="215" y="25" fill="#64748b" fontSize="8">DELIVERY</text>
 
-              <path d="M 40 40 Q 140 10 240 40" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeDasharray="3 3" />
-              
-              <circle cx="40" cy="40" r="3" fill={accent}>
-                <animateMotion path="M 40 40 Q 140 10 240 40" dur="3s" repeatCount="indefinite" />
-              </circle>
-            </svg>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#ffffff" }}>
-            <span>Routing path active</span>
-            <span style={{ color: "#00e676" }}>0 commission leakage</span>
-          </div>
-        </div>
-      );
-    default:
-      return null;
-  }
-};
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -397,7 +280,18 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 
 export default function Home() {
   const [hoveredSvc, setHoveredSvc] = useState<number | null>(null);
-  const [hoveredProj, setHoveredProj] = useState<number | null>(null);
+  const [activeMember, setActiveMember] = useState<number>(0);
+  const [isTeamAutoplayPaused, setIsTeamAutoplayPaused] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isTeamAutoplayPaused) return;
+    const interval = setInterval(() => {
+      if (typeof window !== "undefined" && window.innerWidth > 768) {
+        setActiveMember((prev) => (prev + 1) % 5);
+      }
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isTeamAutoplayPaused]);
 
   useEffect(() => {
     // Scroll Progress Bar
@@ -828,15 +722,7 @@ export default function Home() {
               <div
                 className="hackathon-photo-card"
                 style={{
-                  flex: "1 1 420px",
-                  maxWidth: "560px",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  position: "relative",
-                  aspectRatio: "16 / 10",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
                   border: "1px solid rgba(255, 214, 0, 0.15)",
-                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
@@ -1000,15 +886,7 @@ export default function Home() {
               <div
                 className="hackathon-photo-card"
                 style={{
-                  flex: "1 1 420px",
-                  maxWidth: "560px",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  position: "relative",
-                  aspectRatio: "16 / 10",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
                   border: "1px solid rgba(0, 229, 255, 0.15)",
-                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
@@ -1109,103 +987,118 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Services Grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
+          {/* Services Compact Grid */}
+          <div className="capabilities-compact-grid">
             {[
               {
                 title: "AI Solutions",
                 desc: "Custom intelligent assistants, cognitive process automation, vector search systems, and smart workflows engineered to cut manual operations.",
-                icon: <Cpu size={20} />,
-                badge: "AI Chatbots & Automation"
+                badge: "AI Chatbots & Automation",
+                glow: "rgba(255, 92, 43, 0.08)",
+                hoverBorder: "rgba(255, 92, 43, 0.3)"
               },
               {
                 title: "Web Development",
                 desc: "High-performance enterprise websites, SaaS admin panels, and corporate portals. Optimized for speed, reliability, and modern branding.",
-                icon: <Server size={20} />,
-                badge: "Next.js & SSR Platforms"
+                badge: "Next.js & SSR Platforms",
+                glow: "rgba(0, 229, 255, 0.08)",
+                hoverBorder: "rgba(0, 229, 255, 0.3)"
               },
               {
                 title: "Mobile App Development",
                 desc: "Native-quality cross-platform applications with fluid gesture controls, offline support, and seamless deployment on App Store & Google Play.",
-                icon: <Box size={20} />,
-                badge: "Flutter & iOS/Android"
+                badge: "Flutter & iOS/Android",
+                glow: "rgba(0, 230, 118, 0.08)",
+                hoverBorder: "rgba(0, 230, 118, 0.3)"
               },
               {
                 title: "Startup MVP Development",
                 desc: "Rapid product cycles targeting proof-of-concept validations. We launch polished Minimum Viable Products in weeks, not months.",
-                icon: <Zap size={20} />,
-                badge: "Fast-Track Launch"
+                badge: "Fast-Track Launch",
+                glow: "rgba(255, 0, 127, 0.08)",
+                hoverBorder: "rgba(255, 0, 127, 0.3)"
               },
               {
                 title: "UI/UX Design",
                 desc: "High-end conversion layouts, responsive interface mapping, and smooth micro-interactions. Tailored for startup aesthetics.",
-                icon: <CheckCircle2 size={20} />,
-                badge: "Conversion-Oriented UI"
+                badge: "Conversion-Oriented UI",
+                glow: "rgba(213, 0, 249, 0.08)",
+                hoverBorder: "rgba(213, 0, 249, 0.3)"
               },
               {
                 title: "Automation Systems",
                 desc: "Connecting tools and data flows to automate sales tracking, lead follow-ups, scheduling, and billing systems.",
-                icon: <MessageSquare size={20} />,
-                badge: "Integrations & APIs"
+                badge: "Integrations & APIs",
+                glow: "rgba(255, 214, 0, 0.08)",
+                hoverBorder: "rgba(255, 214, 0, 0.3)"
               }
             ].map((service, idx) => (
               <div
                 key={idx}
                 onMouseEnter={() => setHoveredSvc(idx)}
                 onMouseLeave={() => setHoveredSvc(null)}
-                className={`service-card ${["service-card-ai","service-card-web","service-card-mobile","service-card-mvp","service-card-ux","service-card-auto"][idx]}`}
+                className="capability-compact-card"
                 style={{
-                  background: "rgba(7, 7, 22, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.07)",
-                  borderRadius: "18px",
-                  padding: "40px",
-                  backdropFilter: "blur(8px)",
-                }}
+                  "--card-glow-color": service.glow,
+                  "--card-hover-border": service.hoverBorder
+                } as React.CSSProperties}
                 data-hover="true"
               >
-                <div
-                  className="svc-icon"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "44px",
-                    height: "44px",
-                    borderRadius: "10px",
-                    background: "rgba(255, 255, 255, 0.02)",
-                    border: "1px solid rgba(255, 255, 255, 0.04)",
-                    marginBottom: "24px",
-                  }}
-                >
-                  {renderServiceSvg(idx, hoveredSvc === idx)}
+                <div className="capability-card-glow" />
+                
+                <div className="capability-compact-card-header">
+                  <div
+                    className="svc-icon"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "8px",
+                      background: hoveredSvc === idx ? service.glow : "rgba(255, 255, 255, 0.02)",
+                      border: hoveredSvc === idx ? `1px solid ${service.hoverBorder}` : "1px solid rgba(255, 255, 255, 0.05)",
+                      color: hoveredSvc === idx ? "var(--accent)" : "#94a3b8",
+                      transition: "all 0.3s ease",
+                      flexShrink: 0
+                    }}
+                  >
+                    {renderServiceSvg(idx, hoveredSvc === idx)}
+                  </div>
+                  <div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-space-grotesk), sans-serif",
+                        fontSize: "1.1rem",
+                        fontWeight: 700,
+                        color: "#ffffff",
+                        margin: 0
+                      }}
+                    >
+                      {service.title}
+                    </h3>
+                    <span
+                      style={{
+                        display: "block",
+                        fontSize: "0.62rem",
+                        color: hoveredSvc === idx ? "var(--accent)" : "#64748b",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginTop: "2px",
+                        transition: "color 0.3s ease"
+                      }}
+                    >
+                      {service.badge}
+                    </span>
+                  </div>
                 </div>
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: "0.72rem",
-                    color: "var(--accent)",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    marginBottom: "8px"
-                  }}
-                >
-                  {service.badge}
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    fontSize: "1.25rem",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    marginBottom: "14px",
-                  }}
-                >
-                  {service.title}
-                </h3>
-                <p style={{ color: "#94a3b8", fontSize: "0.92rem", lineHeight: "1.6", margin: 0 }}>
-                  {service.desc}
-                </p>
+                
+                <div className="capability-compact-card-body">
+                  <p style={{ color: "#b4c6ef", fontSize: "0.85rem", lineHeight: "1.5", margin: 0 }}>
+                    {service.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -1390,210 +1283,108 @@ export default function Home() {
           </div>
 
           {/* Projects Photo Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 420px), 1fr))",
-              gap: "24px",
-            }}
-          >
+          <div className="works-editorial-grid">
             {[
               {
+                id: "careforyou",
+                code: "PRJ-01",
                 title: "CareForYou AI Platform",
                 subtitle: "Conversational healthcare agent & appointment system",
+                desc: "An AI-powered healthcare portal designed to resolve patient scheduling overhead and triage symptoms autonomously.",
                 tags: ["AI Assistant", "Healthcare", "Next.js"],
+                colorRGB: "0, 229, 255",
+                metricsList: [
+                  { val: "180ms", name: "Triage" },
+                  { val: "94%", name: "Accuracy" }
+                ],
                 img: "/images/careforyou_ui.png"
               },
               {
+                id: "nexus-room",
+                code: "PRJ-02",
                 title: "Nexus Launch Command Room",
                 subtitle: "Centralized operational war room & system metrics",
+                desc: "A dashboard checking active client marketing beats, schedules, owner tasks, and live telemetry drift.",
                 tags: ["Launch Ops", "Dashboards", "FastAPI"],
+                colorRGB: "232, 96, 46",
+                metricsList: [
+                  { val: "100%", name: "On-Time" },
+                  { val: "0ms", name: "Latency" }
+                ],
                 img: "/images/dashboard_ui.png"
               },
               {
+                id: "customer-agent",
+                code: "PRJ-03",
                 title: "Automated Customer Agent",
                 subtitle: "24/7 client qualifying automated chatbot system",
+                desc: "An intelligent chatbot integrated into corporate websites to qualify prospects and answer documentation queries.",
                 tags: ["AI Chatbot", "Automation", "Retention"],
+                colorRGB: "0, 230, 118",
+                metricsList: [
+                  { val: "+45%", name: "Leads" },
+                  { val: "99.98%", name: "Uptime" }
+                ],
                 img: "/images/careforyou_ui.png"
               },
               {
+                id: "restaurant-app",
+                code: "PRJ-04",
                 title: "Restaurant App Dispatcher",
                 subtitle: "White-labeled ordering & local dispatch mobile system",
+                desc: "A mobile ordering and driver dispatch application built to bypass high aggregator commission fees.",
                 tags: ["Mobile App", "Flutter", "SaaS Core"],
+                colorRGB: "213, 0, 249",
+                metricsList: [
+                  { val: "0%", name: "Commission" },
+                  { val: "60fps", name: "Render" }
+                ],
                 img: "/images/restaurant_app_ui.png"
               }
-            ].map((proj, idx) => (
+            ].map((proj) => (
               <Link
                 href="/works"
-                key={idx}
-                onMouseEnter={() => setHoveredProj(idx)}
-                onMouseLeave={() => setHoveredProj(null)}
-                suppressHydrationWarning={true}
+                key={proj.id}
+                className="works-editorial-card works-animate-fade-in"
                 style={{
-                  position: "relative",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  aspectRatio: "16 / 10",
-                  cursor: "pointer",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  display: "block",
-                  textDecoration: "none",
-                }}
+                  "--card-theme-color": proj.colorRGB,
+                  textDecoration: "none"
+                } as React.CSSProperties}
               >
-                {/* Background Photo */}
-                <img
-                  src={proj.img}
-                  alt={proj.title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                    transform: hoveredProj === idx ? "scale(1.07)" : "scale(1)",
-                  }}
-                />
+                {/* Screenshot Image Container */}
+                <div className="works-editorial-image-box">
+                  <span className="works-editorial-badge">{proj.code}</span>
+                  <img src={proj.img} alt={proj.title} />
+                </div>
 
-                {/* Permanent subtle dark gradient at bottom */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
-                    pointerEvents: "none",
-                    transition: "opacity 0.4s ease",
-                    opacity: hoveredProj === idx ? 0 : 1,
-                  }}
-                />
+                {/* Card Info Box */}
+                <div className="works-editorial-details">
+                  <div
+                    className="works-editorial-meta"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    System Deployment
+                  </div>
 
-                {/* Hover overlay — dark backdrop */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.2) 100%)",
-                    pointerEvents: "none",
-                    opacity: hoveredProj === idx ? 1 : 0,
-                    transition: "opacity 0.4s ease",
-                  }}
-                />
+                  <h3 className="works-editorial-title">{proj.title}</h3>
+                  <p className="works-editorial-subtitle">{proj.subtitle}</p>
+                  <p className="works-editorial-desc">{proj.desc}</p>
 
-                {/* Slide-up content on hover */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: "24px",
-                    transform: hoveredProj === idx ? "translateY(0)" : "translateY(12px)",
-                    opacity: hoveredProj === idx ? 1 : 0,
-                    transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {/* Tags row */}
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "10px" }}>
-                    {proj.tags.map((tag, tagIdx) => (
-                      <span
-                        key={tagIdx}
-                        style={{
-                          fontSize: "0.68rem",
-                          fontWeight: 700,
-                          padding: "3px 10px",
-                          background: "rgba(255,255,255,0.08)",
-                          border: "1px solid rgba(255,255,255,0.15)",
-                          borderRadius: "99px",
-                          color: "#ffffff",
-                          fontFamily: "var(--font-space-grotesk), sans-serif",
-                          letterSpacing: "0.05em",
-                          textTransform: "uppercase",
-                          backdropFilter: "blur(8px)",
-                        }}
-                      >
-                        {tag}
-                      </span>
+                  {/* Inline Stats/Metrics */}
+                  <div className="works-editorial-metrics">
+                    {proj.metricsList.map((m, mIdx) => (
+                      <div key={mIdx} className="works-editorial-metric">
+                        <span className="works-editorial-metric-val">{m.val}</span>
+                        <span className="works-editorial-metric-name">{m.name}</span>
+                      </div>
                     ))}
                   </div>
 
-                  {/* Project title */}
-                  <h3
-                    style={{
-                      fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
-                      fontWeight: 800,
-                      color: "#ffffff",
-                      fontFamily: "var(--font-display), sans-serif",
-                      lineHeight: 1.2,
-                      letterSpacing: "-0.02em",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {proj.title}
-                  </h3>
-
-                  {/* Subtitle */}
-                  <p
-                    style={{
-                      fontSize: "0.82rem",
-                      color: "rgba(255,255,255,0.65)",
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                      margin: 0,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {proj.subtitle}
-                  </p>
-                </div>
-
-                {/* Always-visible bottom name (when NOT hovered) */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: "16px 20px",
-                    opacity: hoveredProj === idx ? 0 : 1,
-                    transition: "opacity 0.3s ease",
-                    pointerEvents: "none",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "0.95rem",
-                      fontWeight: 700,
-                      color: "#ffffff",
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                      textShadow: "0 2px 8px rgba(0,0,0,0.8)",
-                    }}
-                  >
-                    {proj.title}
-                  </span>
-                </div>
-
-                {/* Click CTA indicator on hover */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "16px",
-                    right: "16px",
-                    width: "36px",
-                    height: "36px",
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.12)",
-                    backdropFilter: "blur(8px)",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#ffffff",
-                    opacity: hoveredProj === idx ? 1 : 0,
-                    transform: hoveredProj === idx ? "scale(1)" : "scale(0.8)",
-                    transition: "opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                >
-                  <ArrowUpRight size={16} />
+                  {/* Clean CTA trigger */}
+                  <div className="works-editorial-action">
+                    <span>Explore Specifications</span>
+                    <ArrowRight size={14} className="action-arrow" />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -1604,60 +1395,57 @@ export default function Home() {
       {/* 5. WHY CHOOSE US (RESOLVING STUDENT BIAS) */}
       <section className="section-padding" style={{ position: "relative", zIndex: 2 }}>
         <div className="container">
-          <div className="bento-grid">
-            {/* The Statement Card (Left, Spans 2 rows) */}
-            <div className="bento-card-double">
-              <div className="statement-card" style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
-                    <span className="pulsing-dot pulsing-dot-coral" />
-                    The Nexus Commitment
-                  </span>
-                  <h2
-                    className="font-display"
-                    style={{
-                      fontSize: "clamp(2rem, 4vw, 3rem)",
-                      fontWeight: 700,
-                      color: "#ffffff",
-                      marginBottom: "24px",
-                    }}
-                  >
-                    We build <span className="font-serif-i" style={{ color: "var(--accent)" }}>tools</span>, not tech homework.
-                  </h2>
-                  <p style={{ color: "#94a3b8", fontSize: "0.98rem", lineHeight: "1.65", margin: 0 }}>
-                    We are not code freelancers working in silos. Team Nexus functions as an agile product development partner. We focus on business outcomes, clear contracts, and rapid deployments that increase your revenue and trust metrics.
-                  </p>
-                </div>
+          <div className="bento-grid-3col">
+            {/* Column 1: The Statement Card */}
+            <div className="statement-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "32px", height: "100%" }}>
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
+                  <span className="pulsing-dot pulsing-dot-coral" />
+                  The Nexus Commitment
+                </span>
+                <h2
+                  className="font-display"
+                  style={{
+                    fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    marginBottom: "16px",
+                  }}
+                >
+                  We build <span className="font-serif-i" style={{ color: "var(--accent)" }}>tools</span>, not tech homework.
+                </h2>
+                <p style={{ color: "#b4c6ef", fontSize: "0.88rem", lineHeight: "1.6", margin: 0 }}>
+                  We are not freelancers working in silos. Team Nexus is an agile product development partner. We focus on business outcomes, clear contracts, and rapid deployments that increase your revenue and trust.
+                </p>
               </div>
             </div>
 
-            {/* Right Column: Terminal on top, Subgrid at bottom */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "30px", justifyContent: "space-between" }}>
-              {/* Card 2: Interactive Terminal Widget */}
-              <div>
-                <Terminal />
-              </div>
+            {/* Column 2: Terminal Card */}
+            <div style={{ height: "100%", display: "flex", alignItems: "center" }}>
+              <Terminal />
+            </div>
 
-              {/* Card 3: 3-column mini-grid of principles */}
-              <div className="bento-inner-grid">
+            {/* Column 3: Principles List Card */}
+            <div className="statement-card bento-principles-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "32px", height: "100%" }}>
+              <div className="bento-principles-list" style={{ position: "relative", zIndex: 1 }}>
                 {[
                   {
                     title: "Rapid MVP Timelines",
-                    desc: "We skip unnecessary corporate bloat. We define, build, and deploy functional MVPs to production in a matter of weeks.",
+                    desc: "We define, build, and deploy functional MVPs in a matter of weeks.",
                     color: "#00e5ff",
                     bg: "rgba(0, 229, 255, 0.06)",
                     border: "rgba(0, 229, 255, 0.15)",
                   },
                   {
                     title: "AI + Scalable Code",
-                    desc: "We hook automated LLM workflows directly into Next.js or mobile frames so your software scales effortlessly.",
+                    desc: "We hook automated LLM workflows directly into Next.js or mobile frames.",
                     color: "#ffd600",
                     bg: "rgba(255, 214, 0, 0.06)",
                     border: "rgba(255, 214, 0, 0.15)",
                   },
                   {
                     title: "Dedicated Product Pods",
-                    desc: "You deal directly with the engineers and designers building your system. No sales middlemen, no communication lag.",
+                    desc: "You deal directly with the engineers and designers building your system.",
                     color: "#ff007f",
                     bg: "rgba(255, 0, 127, 0.06)",
                     border: "rgba(255, 0, 127, 0.15)",
@@ -1665,47 +1453,42 @@ export default function Home() {
                 ].map((p, idx) => (
                   <div
                     key={idx}
+                    className="bento-principle-item"
                     style={{
-                      background: "rgba(7, 7, 22, 0.6)",
-                      border: "1px solid rgba(255, 255, 255, 0.06)",
-                      borderRadius: "14px",
-                      padding: "24px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "16px",
-                      alignItems: "flex-start",
-                    }}
-                    data-hover="true"
+                      "--item-hover-color": p.border
+                    } as React.CSSProperties}
                   >
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "8px",
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
                         background: p.bg,
                         border: `1px solid ${p.border}`,
                         color: p.color,
                         flexShrink: 0,
+                        fontSize: "0.8rem",
+                        fontWeight: 800
                       }}
                     >
-                      <span style={{ fontSize: "0.95rem", fontWeight: 800 }}>0{idx + 1}</span>
+                      0{idx + 1}
                     </div>
                     <div>
-                      <h3
+                      <h4
                         style={{
                           fontFamily: "var(--font-space-grotesk), sans-serif",
-                          fontSize: "1.05rem",
+                          fontSize: "0.92rem",
                           fontWeight: 700,
                           color: "#ffffff",
-                          marginBottom: "8px",
+                          marginBottom: "4px",
                         }}
                       >
                         {p.title}
-                      </h3>
-                      <p style={{ color: "#94a3b8", fontSize: "0.82rem", lineHeight: "1.5", margin: 0 }}>
+                      </h4>
+                      <p style={{ color: "#94a3b8", fontSize: "0.78rem", lineHeight: "1.4", margin: 0 }}>
                         {p.desc}
                       </p>
                     </div>
@@ -1741,134 +1524,236 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Desktop Showcase Container */}
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
-              gap: "24px",
-            }}
+            className="team-showcase-container"
+            onMouseEnter={() => setIsTeamAutoplayPaused(true)}
+            onMouseLeave={() => setIsTeamAutoplayPaused(false)}
           >
+            {/* Left: Dynamic Preview Panel */}
+            {(() => {
+              const members = [
+                {
+                  name: "Aarav Mehta",
+                  role: "AI Lead & Engineer",
+                  desc: "LLMs, Vector Databases, Python Agentic scripting.",
+                  photo: "/images/team_member_1.png",
+                  portfolio: "/team/aarav-mehta"
+                },
+                {
+                  name: "Kavya Sharma",
+                  role: "Full Stack Lead",
+                  desc: "Next.js core structures, secure server APIs, databases.",
+                  photo: "/images/team_member_2.png",
+                  portfolio: "/team/kavya-sharma"
+                },
+                {
+                  name: "Rohan Das",
+                  role: "Flutter Developer",
+                  desc: "Cross-platform mobile apps, native notifications.",
+                  photo: "/images/team_member_3.png",
+                  portfolio: "/team/rohan-das"
+                },
+                {
+                  name: "Isha Patel",
+                  role: "UI/UX Designer",
+                  desc: "Figma wireframes, modern styling systems.",
+                  photo: "/images/team_member_4.png",
+                  portfolio: "/team/isha-patel"
+                },
+                {
+                  name: "Kabir Malhotra",
+                  role: "Ops & Strategy Lead",
+                  desc: "MVP scopes, agile scheduling, delivery management.",
+                  photo: "/images/team_member_5.png",
+                  portfolio: "/team/kabir-malhotra"
+                }
+              ];
+              const member = members[activeMember] || members[0];
+              if (!member) return null;
+              return (
+                <div className="team-preview-card">
+                  <div className="team-preview-image-wrap">
+                    <img src={member.photo} alt={member.name} />
+                  </div>
+                  <div className="team-preview-info">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-space-grotesk), sans-serif",
+                        fontSize: "0.72rem",
+                        fontWeight: 700,
+                        color: "var(--accent)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        display: "block",
+                        marginBottom: "4px"
+                      }}
+                    >
+                      {member.role}
+                    </span>
+                    <h3 style={{ color: "#ffffff", fontSize: "1.3rem", fontWeight: 700, margin: "0 0 10px", fontFamily: "var(--font-syne), sans-serif" }}>
+                      {member.name}
+                    </h3>
+                    <p style={{ color: "#b4c6ef", fontSize: "0.85rem", lineHeight: "1.5", marginBottom: "16px" }}>
+                      {member.desc}
+                    </p>
+                    <Link
+                      href={member.portfolio}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        color: "#ffffff",
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        fontFamily: "var(--font-mono), monospace",
+                        letterSpacing: "0.02em",
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        padding: "6px 16px",
+                        borderRadius: "20px",
+                        transition: "all 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "var(--accent)";
+                        e.currentTarget.style.background = "rgba(255, 92, 43, 0.08)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                      }}
+                    >
+                      <span>View Portfolio</span>
+                      <ArrowUpRight size={12} />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Right: Specialists Interactive List */}
+            <div className="team-members-list">
+              {[
+                { name: "Aarav Mehta", role: "AI Lead & Engineer" },
+                { name: "Kavya Sharma", role: "Full Stack Lead" },
+                { name: "Rohan Das", role: "Flutter Developer" },
+                { name: "Isha Patel", role: "UI/UX Designer" },
+                { name: "Kabir Malhotra", role: "Ops & Strategy Lead" }
+              ].map((member, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setActiveMember(idx)}
+                  onMouseEnter={() => setActiveMember(idx)}
+                  className={`team-member-row ${activeMember === idx ? "active" : ""}`}
+                >
+                  <div className="team-member-name-role">
+                    <span className="team-member-num">0{idx + 1}</span>
+                    <h4>{member.name}</h4>
+                    <span>{member.role}</span>
+                  </div>
+                  <div className="team-member-arrow">
+                    <ArrowUpRight size={16} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Accordion Container */}
+          <div className="mobile-team-accordion">
             {[
               {
                 name: "Aarav Mehta",
                 role: "AI Lead & Engineer",
                 desc: "LLMs, Vector Databases, Python Agentic scripting.",
-                portfolio: "/team/aarav-mehta",
-                portfolioLabel: "View Portfolio",
                 photo: "/images/team_member_1.png",
-                cls: "pod-direction",
+                portfolio: "/team/aarav-mehta"
               },
               {
                 name: "Kavya Sharma",
                 role: "Full Stack Lead",
                 desc: "Next.js core structures, secure server APIs, databases.",
-                portfolio: "/team/kavya-sharma",
-                portfolioLabel: "View Portfolio",
                 photo: "/images/team_member_2.png",
-                cls: "pod-product",
+                portfolio: "/team/kavya-sharma"
               },
               {
                 name: "Rohan Das",
                 role: "Flutter Developer",
                 desc: "Cross-platform mobile apps, native notifications.",
-                portfolio: "/team/rohan-das",
-                portfolioLabel: "View Portfolio",
                 photo: "/images/team_member_3.png",
-                cls: "pod-signal",
+                portfolio: "/team/rohan-das"
               },
               {
                 name: "Isha Patel",
                 role: "UI/UX Designer",
                 desc: "Figma wireframes, modern styling systems.",
-                portfolio: "/team/isha-patel",
-                portfolioLabel: "View Portfolio",
                 photo: "/images/team_member_4.png",
-                cls: "pod-momentum",
+                portfolio: "/team/isha-patel"
               },
               {
                 name: "Kabir Malhotra",
                 role: "Ops & Strategy Lead",
                 desc: "MVP scopes, agile scheduling, delivery management.",
-                portfolio: "/team/kabir-malhotra",
-                portfolioLabel: "View Portfolio",
                 photo: "/images/team_member_5.png",
-                cls: "pod-direction",
-              },
-            ].map((pod, idx) => (
-              <div
-                key={idx}
-                className={`member-card ${pod.cls}`}
-                style={{
-                  background: "rgba(7, 7, 22, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.07)",
-                  borderRadius: "20px",
-                  position: "relative",
-                  transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s",
-                  display: "flex",
-                  flexDirection: "column",
-                  overflow: "hidden",
-                }}
-                data-hover="true"
-              >
-                {/* Photo Portrait — clean image */}
-                <div className="member-portrait-frame">
-                  <img
-                    src={pod.photo}
-                    alt={pod.name}
-                  />
-                  <div className="member-portrait-overlay" />
-                </div>
-
-                {/* Card Body — name + role + desc + link all below photo */}
-                <div style={{ padding: "18px 20px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
-                  <h3 style={{ color: "#ffffff", fontSize: "1rem", fontWeight: 700, margin: "0 0 4px", fontFamily: "var(--font-syne), sans-serif" }}>
-                    {pod.name}
-                  </h3>
-                  <span
+                portfolio: "/team/kabir-malhotra"
+              }
+            ].map((member, idx) => {
+              const isOpen = activeMember === idx;
+              return (
+                <div key={idx} className="mobile-accordion-item">
+                  <button
+                    onClick={() => setActiveMember(isOpen ? -1 : idx)}
+                    className="mobile-accordion-header"
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.75rem", color: isOpen ? "var(--accent)" : "#64748b" }}>0{idx + 1}</span>
+                      <span style={{ fontSize: "0.95rem", fontWeight: 700, color: isOpen ? "#ffffff" : "#cbd5e1" }}>{member.name}</span>
+                    </div>
+                    <span style={{ fontSize: "0.7rem", color: isOpen ? "var(--accent)" : "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>{member.role}</span>
+                  </button>
+                  <div
+                    className="mobile-accordion-content"
                     style={{
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                      fontSize: "0.7rem",
-                      fontWeight: 700,
-                      color: "var(--accent)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      marginBottom: "10px",
+                      maxHeight: isOpen ? "340px" : "0px",
                     }}
                   >
-                    {pod.role}
-                  </span>
-                  <p style={{ color: "#94a3b8", fontSize: "0.8rem", lineHeight: "1.5", marginBottom: "16px", flex: 1 }}>
-                    {pod.desc}
-                  </p>
-
-                  {/* Portfolio link */}
-                  <a
-                    href={pod.portfolio}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      color: "#64748b",
-                      fontSize: "0.72rem",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-                      paddingTop: "12px",
-                      marginTop: "auto",
-                      transition: "color 0.2s",
-                      fontFamily: "var(--font-mono), monospace",
-                      letterSpacing: "0.02em",
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = "var(--accent)"}
-                    onMouseLeave={(e) => e.currentTarget.style.color = "#64748b"}
-                  >
-                    <ArrowUpRight size={11} />
-                    <span>{pod.portfolioLabel}</span>
-                  </a>
+                    <div className="mobile-accordion-body">
+                      <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                        <div style={{ width: "110px", height: "110px", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 }}>
+                          <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <p style={{ color: "#cbd5e1", fontSize: "0.82rem", lineHeight: "1.45", margin: "0 0 10px" }}>
+                            {member.desc}
+                          </p>
+                          <Link
+                            href={member.portfolio}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                              color: "#ffffff",
+                              fontSize: "0.7rem",
+                              fontWeight: 600,
+                              textDecoration: "none",
+                              fontFamily: "var(--font-mono), monospace",
+                              background: "rgba(255,255,255,0.04)",
+                              border: "1px solid rgba(255,255,255,0.08)",
+                              padding: "4px 12px",
+                              borderRadius: "16px"
+                            }}
+                          >
+                            <span>View Portfolio</span>
+                            <ArrowUpRight size={10} />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
