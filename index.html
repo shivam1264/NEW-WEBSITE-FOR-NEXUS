@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Team Nexus is a premium collective for strategy, product, creative, events, and community systems.">
+  <meta name="theme-color" content="#0d0d0b">
+  <title>Team Nexus | Build What Connects</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --night: #0d0d0b;
+      --ink: #171713;
+      --text: #2b2c27;
+      --muted: #6d7169;
+      --paper: #f8f9f5;
+      --panel: #ffffff;
+      --soft: #edf2ed;
+      --line: #d9dfd7;
+      --teal: #0b8b7f;
+      --teal-dark: #066b62;
+      --gold: #bc8c2a;
+      --coral: #d65b46;
+      --cobalt: #326fbd;
+      --shadow: 0 24px 70px rgba(13, 13, 11, 0.14);
+      --radius: 8px;
+      --max: 1180px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--text);
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+    body.menu-open { overflow: hidden; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 100;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold), var(--coral));
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 14px 14px auto;
+      z-index: 90;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      max-width: calc(var(--max) + 40px);
+      min-height: 62px;
+      margin: 0 auto;
+      padding: 8px 10px 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius);
+      background: rgba(13, 13, 11, 0.52);
+      color: #ffffff;
+      backdrop-filter: blur(14px);
+      transition: background 220ms ease, border 220ms ease, box-shadow 220ms ease, color 220ms ease;
+    }
+
+    .site-header.is-scrolled .header-inner {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(23, 23, 19, 0.12);
+      box-shadow: 0 18px 45px rgba(13, 13, 11, 0.12);
+      color: var(--ink);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      border-radius: var(--radius);
+      background: conic-gradient(from 135deg, var(--teal), var(--gold), var(--coral), var(--cobalt), var(--teal));
+      color: #ffffff;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(11, 139, 127, 0.28);
+    }
+
+    .brand-copy { display: grid; line-height: 1.08; min-width: 0; }
+    .brand-name { font-weight: 850; white-space: nowrap; }
+    .brand-tag { color: currentColor; font-size: 0.72rem; opacity: 0.68; white-space: nowrap; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav a {
+      display: inline-grid;
+      place-items: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border-radius: var(--radius);
+      color: currentColor;
+      font-size: 0.86rem;
+      font-weight: 750;
+      text-decoration: none;
+      opacity: 0.82;
+      transition: background 160ms ease, opacity 160ms ease, transform 160ms ease;
+    }
+
+    .nav a:hover, .nav a:focus-visible {
+      background: rgba(255, 255, 255, 0.14);
+      opacity: 1;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .site-header.is-scrolled .nav a:hover,
+    .site-header.is-scrolled .nav a:focus-visible { background: rgba(13, 13, 11, 0.06); }
+
+    .button, .header-cta, .menu-toggle {
+      display: inline-grid;
+      grid-auto-flow: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 42px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 820;
+      white-space: nowrap;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border 180ms ease;
+    }
+
+    .header-cta, .button.primary {
+      padding: 0 15px;
+      background: #ffffff;
+      color: var(--ink);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .site-header.is-scrolled .header-cta, .button.primary {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .button.secondary {
+      padding: 0 15px;
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+
+    .button.light {
+      padding: 0 15px;
+      border-color: var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      box-shadow: 0 10px 26px rgba(13, 13, 11, 0.08);
+    }
+
+    .button:hover, .header-cta:hover, .menu-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(13, 13, 11, 0.18);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      padding: 0;
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.08);
+      color: currentColor;
+    }
+
+    .icon {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex: 0 0 19px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 86svh;
+      overflow: hidden;
+      background: var(--night);
+      color: #ffffff;
+      isolation: isolate;
+    }
+
+    #nexus-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      background: #0d0d0b;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(90deg, rgba(13, 13, 11, 0.88), rgba(13, 13, 11, 0.55) 48%, rgba(13, 13, 11, 0.3));
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.22;
+      background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: linear-gradient(180deg, #000, transparent 86%);
+    }
+
+    .hero-inner {
+      display: grid;
+      align-content: end;
+      max-width: var(--max);
+      min-height: 86svh;
+      margin: 0 auto;
+      padding: 132px 22px 36px;
+    }
+
+    .hero-copy { max-width: 850px; }
+    .eyebrow, .section-kicker, .role {
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      font-size: clamp(4rem, 10vw, 8.8rem);
+      line-height: 0.82;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero-lede {
+      max-width: 720px;
+      margin-bottom: 28px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(1.05rem, 2vw, 1.32rem);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 42px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      max-width: 940px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-stat {
+      min-height: 112px;
+      padding: 18px;
+      background: rgba(13, 13, 11, 0.36);
+    }
+
+    .stat-number {
+      display: block;
+      color: #ffffff;
+      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .hero-stat span:last-child {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.82rem;
+      line-height: 1.42;
+    }
+
+    .section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 88px 22px;
+    }
+
+    .section.tight { padding-top: 64px; padding-bottom: 64px; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.54fr);
+      gap: 34px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker, .role {
+      display: inline-block;
+      margin-bottom: 11px;
+      color: var(--teal-dark);
+    }
+
+    .section h2 {
+      margin-bottom: 0;
+      color: var(--ink);
+      font-size: clamp(2rem, 4.2vw, 4.4rem);
+      line-height: 0.96;
+      font-weight: 900;
+    }
+
+    .section-head p, .section-copy {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .logo-band {
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .logo-shell {
+      display: flex;
+      max-width: var(--max);
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 0 22px;
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+
+    .logo-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      padding: 19px 0;
+      animation: marquee 30s linear infinite;
+    }
+
+    .tag, .mini-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .tag {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: #43483f;
+      font-size: 0.82rem;
+    }
+
+    .about-grid, .faq-contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .statement {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 46px);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .statement::after {
+      content: "";
+      position: absolute;
+      right: -18%;
+      bottom: -20%;
+      width: 56%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+    }
+
+    .statement h2 {
+      color: #ffffff;
+      font-size: clamp(2.1rem, 4.6vw, 5.1rem);
+    }
+
+    .statement p {
+      max-width: 660px;
+      margin: 20px 0 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .principles, .faq { display: grid; gap: 12px; }
+
+    .principle, .feature-card, .work-card, .member, .event-card, .contact-panel, .faq details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: 0 16px 42px rgba(13, 13, 11, 0.07);
+    }
+
+    .principle {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+    }
+
+    .principle-icon, .card-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      color: #ffffff;
+      background: var(--teal);
+    }
+
+    .principle:nth-child(2) .principle-icon,
+    .feature-card:nth-child(2) .card-icon,
+    .feature-card:nth-child(5) .card-icon { background: var(--gold); }
+
+    .principle:nth-child(3) .principle-icon,
+    .feature-card:nth-child(3) .card-icon,
+    .feature-card:nth-child(6) .card-icon { background: var(--coral); }
+
+    /* 4th feature card gets teal to complete the full color rotation */
+    .feature-card:nth-child(4) .card-icon { background: var(--teal); }
+
+    .principle h3, .feature-card h3, .work-card h3, .member h3, .event-card h3 {
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .principle p, .feature-card p, .work-card p, .member p, .event-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 0.94rem;
+    }
+
+    .feature-grid, .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      min-height: 240px;
+      padding: 22px;
+      transition: transform 180ms ease, box-shadow 180ms ease, border 180ms ease;
+    }
+
+    .card-icon { margin-bottom: 22px; background: var(--cobalt); }
+
+    .feature-card:hover, .work-card:hover, .member:hover, .event-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(11, 139, 127, 0.32);
+      box-shadow: 0 24px 58px rgba(13, 13, 11, 0.12);
+    }
+
+    .work-section {
+      background: linear-gradient(180deg, #ffffff, #f1f5f0);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .work-card, .member, .event-card {
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease, border 180ms ease;
+    }
+
+    .work-visual {
+      min-height: 214px;
+      padding: 20px;
+      background: var(--ink);
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Each work card gets a distinct tinted background */
+    .work-card:nth-child(1) .work-visual { background: linear-gradient(135deg, #0d0d0b 0%, #0a2830 100%); }
+    .work-card:nth-child(2) .work-visual { background: linear-gradient(135deg, #0d0d0b 0%, #1a0d2a 100%); }
+
+    .work-visual::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+    }
+
+    .work-dashboard {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+      min-height: 174px;
+    }
+
+    .chart-panel, .signal-list {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .chart-panel {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .bar {
+      flex: 1;
+      min-width: 12px;
+      border-radius: 999px 999px 2px 2px;
+      background: linear-gradient(180deg, var(--gold), var(--teal));
+      transform-origin: bottom;
+      animation: pulseBars 3.8s ease-in-out infinite;
+    }
+
+    .signal-list {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .signal {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      overflow: hidden;
+    }
+
+    .signal span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--coral);
+      animation: scan 3s ease-in-out infinite;
+    }
+
+    .work-body { padding: 22px; }
+    .work-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .mini-tag { min-height: 28px; padding: 0 10px; background: var(--soft); color: #455044; font-size: 0.76rem; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .member-portrait {
+      position: relative;
+      min-height: 190px;
+      background: linear-gradient(135deg, #f0f5f1, #d8e8da);
+      overflow: hidden;
+    }
+
+    .member-portrait::before, .member-portrait::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+    }
+
+    .member-portrait::before {
+      width: 68px;
+      height: 68px;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      z-index: 1;
+      background: linear-gradient(135deg, var(--ink), var(--teal));
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Body shape — starts at 112px, guaranteed gap after head which ends at 88px */
+    .member-portrait::after {
+      left: 0;
+      right: 0;
+      top: 112px;
+      bottom: 0;
+      border-radius: 40% 40% 0 0;
+      background: linear-gradient(135deg, var(--teal), #0a4e48);
+    }
+
+    /* Unique color theme per pod */
+    .member:nth-child(1) .member-portrait { background: linear-gradient(135deg, #e4f3f1, #c6e4de); }
+    .member:nth-child(1) .member-portrait::before { background: linear-gradient(135deg, #064e48, var(--teal)); }
+    .member:nth-child(1) .member-portrait::after  { background: linear-gradient(135deg, var(--teal), #0aada0); }
+
+    .member:nth-child(2) .member-portrait { background: linear-gradient(135deg, #e8edf5, #c8d3ea); }
+    .member:nth-child(2) .member-portrait::before { background: linear-gradient(135deg, #1a2b6e, var(--cobalt)); }
+    .member:nth-child(2) .member-portrait::after  { background: linear-gradient(135deg, var(--cobalt), #6b8acc); }
+
+    .member:nth-child(3) .member-portrait { background: linear-gradient(135deg, #faeae8, #f0cac6); }
+    .member:nth-child(3) .member-portrait::before { background: linear-gradient(135deg, #7a1a0a, var(--coral)); }
+    .member:nth-child(3) .member-portrait::after  { background: linear-gradient(135deg, var(--coral), #e87060); }
+
+    .member:nth-child(4) .member-portrait { background: linear-gradient(135deg, #fdf5e4, #f5e3b8); }
+    .member:nth-child(4) .member-portrait::before { background: linear-gradient(135deg, #5a3200, var(--gold)); }
+    .member:nth-child(4) .member-portrait::after  { background: linear-gradient(135deg, var(--gold), #d9a835); }
+
+    .member-body { padding: 18px; }
+
+    .process {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .process .section-kicker { color: var(--gold); }
+    .process h2, .process h3 { color: #ffffff; }
+    .process .section-head p, .step p { color: rgba(255, 255, 255, 0.68); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .step {
+      min-height: 230px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .step-num {
+      display: inline-grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      color: var(--gold);
+      font-weight: 900;
+      background: rgba(188, 140, 42, 0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .event-card { padding: 22px; }
+
+    .event-date {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 36px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .event-date span:first-child {
+      display: inline-grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius);
+      background: var(--soft);
+      color: var(--ink);
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .faq-contact { grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); align-items: start; }
+    .faq details { padding: 18px 18px 16px; }
+
+    .faq summary {
+      cursor: pointer;
+      color: var(--ink);
+      font-weight: 850;
+      list-style: none;
+    }
+
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; float: right; color: var(--teal-dark); font-weight: 900; }
+    .faq details[open] summary::after { content: "-"; }
+
+    .faq details p, .contact-panel p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .contact-panel { padding: clamp(22px, 4vw, 34px); }
+    .contact-panel h2 { margin-bottom: 12px; font-size: clamp(2rem, 4vw, 4rem); }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { color: #42483f; font-size: 0.78rem; font-weight: 850; }
+
+    input, textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfa;
+      color: var(--ink);
+      padding: 0 13px;
+      outline: none;
+      transition: border 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding-top: 12px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      border-color: rgba(11, 139, 127, 0.55);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(11, 139, 127, 0.12);
+    }
+
+    .form-note {
+      min-height: 20px;
+      margin: 10px 0 0;
+      color: var(--teal-dark);
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .footer { background: #0d0d0b; color: #ffffff; }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 36px 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer p { margin: 8px 0 0; color: rgba(255, 255, 255, 0.62); line-height: 1.55; }
+    .footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255, 255, 255, 0.72); text-decoration: none; font-weight: 780; }
+    .footer-links a:hover { color: #ffffff; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 14px 22px;
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.74rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 650ms ease, transform 650ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    @keyframes pulseBars { 0%, 100% { transform: scaleY(0.78); } 50% { transform: scaleY(1); } }
+    @keyframes scan { 0%, 100% { width: 52%; } 50% { width: 88%; } }
+
+    @media (max-width: 1020px) {
+      .header-cta { display: none; }
+      .menu-toggle { display: inline-grid; }
+      .nav {
+        position: fixed;
+        inset: 84px 14px auto 14px;
+        display: none;
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius);
+        background: rgba(13, 13, 11, 0.96);
+        color: #ffffff;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.32);
+      }
+      body.menu-open .nav { display: grid; gap: 4px; }
+      .nav a { justify-content: start; min-height: 46px; }
+      .hero-metrics, .feature-grid, .work-grid, .team-grid, .events-grid, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head, .about-grid, .faq-contact { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .site-header { inset: 10px 10px auto; }
+      .header-inner { min-height: 58px; }
+      .brand-tag { display: none; }
+      .hero, .hero-inner { min-height: 88svh; }
+      .hero-inner { padding: 112px 16px 24px; }
+      h1 { font-size: clamp(3.8rem, 17vw, 6rem); }
+      .hero-actions, .button { width: 100%; }
+      .button { min-height: 48px; }
+      .hero-metrics, .feature-grid, .work-grid, .team-grid, .events-grid, .timeline, .contact-form { grid-template-columns: 1fr; }
+      .hero-stat { min-height: 92px; }
+      .section { padding: 68px 16px; }
+      .section.tight { padding-top: 48px; padding-bottom: 48px; }
+      .work-dashboard { grid-template-columns: 1fr; }
+      .signal-list { display: none; }
+      .footer-inner { grid-template-columns: 1fr; padding: 30px 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="Team Nexus home">
+        <span class="brand-mark">N</span>
+        <span class="brand-copy"><span class="brand-name">Team Nexus</span><span class="brand-tag">Build what connects</span></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Primary navigation">
+        <a href="#about">About</a><a href="#capabilities">Capabilities</a><a href="#work">Work</a><a href="#team">Team</a><a href="#events">Events</a><a href="#contact">Contact</a>
+      </nav>
+      <a class="header-cta" href="#contact">Start a Project</a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <canvas id="nexus-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Strategy / Product / Community</p>
+          <h1>Team Nexus</h1>
+          <p class="hero-lede">A focused collective building high-trust digital experiences, live activations, and community systems that turn ambition into coordinated execution.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">Build With Us <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            <a class="button secondary" href="#work">Explore the Network</a>
+          </div>
+        </div>
+        <div class="hero-metrics reveal" aria-label="Team Nexus highlights">
+          <div class="hero-stat"><span class="stat-number" data-target="48">0</span><span>launch systems designed for teams, creators, and operators</span></div>
+          <div class="hero-stat"><span class="stat-number" data-target="12">0</span><span>specialist pods across strategy, product, creative, and events</span></div>
+          <div class="hero-stat"><span class="stat-number" data-target="96">0</span><span>percent delivery satisfaction across active partner programs</span></div>
+          <div class="hero-stat"><span class="stat-number" data-target="24">0</span><span>hour response window for priority initiatives and escalations</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="logo-band" aria-label="Team Nexus focus areas">
+      <div class="logo-shell">
+        <div class="logo-track">
+          <span class="tag">Launch Strategy</span><span class="tag">Community Growth</span><span class="tag">Product Systems</span><span class="tag">Creative Direction</span><span class="tag">Live Events</span><span class="tag">Partner Programs</span><span class="tag">Data Rooms</span><span class="tag">Operating Playbooks</span>
+          <span class="tag">Launch Strategy</span><span class="tag">Community Growth</span><span class="tag">Product Systems</span><span class="tag">Creative Direction</span><span class="tag">Live Events</span><span class="tag">Partner Programs</span><span class="tag">Data Rooms</span><span class="tag">Operating Playbooks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="about-grid">
+        <div class="statement reveal">
+          <span class="section-kicker">The Nexus Standard</span>
+          <h2>One team for the moments where coordination matters most.</h2>
+          <p>Team Nexus brings strategy, systems thinking, launch execution, and community intelligence into one operating layer. We help ambitious groups move from scattered ideas to shared momentum.</p>
+        </div>
+        <div class="principles">
+          <article class="principle reveal">
+            <span class="principle-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18"></path><path d="M3 12h18"></path><path d="M5 5l14 14"></path><path d="M19 5 5 19"></path></svg></span>
+            <div><h3>Connected Strategy</h3><p>Clear positioning, decision maps, audience architecture, and operating rituals that keep every contributor aligned.</p></div>
+          </article>
+          <article class="principle reveal">
+            <span class="principle-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m7 15 4-4 3 3 5-7"></path></svg></span>
+            <div><h3>Execution Rhythm</h3><p>Fast planning cycles, measurable delivery lanes, review checkpoints, and lightweight reporting for high-velocity work.</p></div>
+          </article>
+          <article class="principle reveal">
+            <span class="principle-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+            <div><h3>Community Gravity</h3><p>Programs, events, and content loops that make people want to return, contribute, and grow the network.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight" id="capabilities">
+      <div class="section-head reveal">
+        <div><span class="section-kicker">Capabilities</span><h2>Premium systems for modern teams.</h2></div>
+        <p>Every engagement is built around practical outcomes: sharper positioning, better collaboration, stronger launch motion, and a community engine that compounds.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4h16v16"></path><path d="M8 8h8"></path><path d="M8 12h8"></path><path d="M8 16h5"></path></svg></span><h3>Launch Playbooks</h3><p>Messaging, timelines, activation plans, launch rooms, stakeholder briefings, and post-launch measurement.</p></article>
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h6l3-8 3 16 3-8h3"></path></svg></span><h3>Growth Intelligence</h3><p>Audience mapping, signal dashboards, funnel diagnostics, campaign insights, and content performance systems.</p></article>
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path><path d="M8 5v14"></path><path d="M16 5v14"></path></svg></span><h3>Product Experience</h3><p>Information architecture, user journeys, interface direction, prototype reviews, and conversion-focused flows.</p></article>
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"></path><path d="M3 16l9 5 9-5"></path><path d="M3 12l9 5 9-5"></path></svg></span><h3>Brand Systems</h3><p>Visual direction, content kits, identity rules, campaign assets, templates, and narrative systems.</p></article>
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v4"></path><path d="M17 2v4"></path><path d="M3 10h18"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect></svg></span><h3>Event Operations</h3><p>Run-of-show planning, speaker flow, digital activations, sponsor moments, and on-site coordination.</p></article>
+        <article class="feature-card reveal"><span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="M9.5 12.5 11 14l4-4"></path></svg></span><h3>Partner Enablement</h3><p>Shared briefs, partner portals, co-marketing kits, reporting cadences, and relationship health tracking.</p></article>
+      </div>
+    </section>
+
+    <section class="work-section" id="work">
+      <div class="section">
+        <div class="section-head reveal">
+          <div><span class="section-kicker">Featured Work</span><h2>Built for ambitious launches and long-term trust.</h2></div>
+          <p>These sample workstreams show how Team Nexus packages strategy, design, systems, and operations into repeatable momentum.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card reveal">
+            <div class="work-visual" aria-hidden="true"><div class="work-dashboard"><div class="chart-panel"><span class="bar" style="height:48%"></span><span class="bar" style="height:74%"></span><span class="bar" style="height:58%"></span><span class="bar" style="height:86%"></span><span class="bar" style="height:68%"></span></div><div class="signal-list"><span class="signal"><span style="width:78%"></span></span><span class="signal"><span style="width:64%"></span></span><span class="signal"><span style="width:91%"></span></span></div></div></div>
+            <div class="work-body"><h3>Nexus Launch Room</h3><p>A command center for coordinated launches: owners, deadlines, creative approvals, partner beats, and live performance signals.</p><div class="work-meta"><span class="mini-tag">Launch Ops</span><span class="mini-tag">Dashboards</span><span class="mini-tag">Creative QA</span></div></div>
+          </article>
+          <article class="work-card reveal">
+            <div class="work-visual" aria-hidden="true"><div class="work-dashboard"><div class="chart-panel"><span class="bar" style="height:82%"></span><span class="bar" style="height:44%"></span><span class="bar" style="height:92%"></span><span class="bar" style="height:62%"></span><span class="bar" style="height:76%"></span></div><div class="signal-list"><span class="signal"><span style="width:84%"></span></span><span class="signal"><span style="width:58%"></span></span><span class="signal"><span style="width:73%"></span></span></div></div></div>
+            <div class="work-body"><h3>Community Flywheel</h3><p>A repeatable system for onboarding members, running rituals, surfacing contributors, and converting attention into advocacy.</p><div class="work-meta"><span class="mini-tag">Community</span><span class="mini-tag">Events</span><span class="mini-tag">Retention</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="section-head reveal">
+        <div><span class="section-kicker">Team Structure</span><h2>Specialist pods, one shared operating rhythm.</h2></div>
+        <p>Team Nexus adapts to the project: a compact strategy pod for fast decisions, or a full launch unit when execution needs more hands.</p>
+      </div>
+      <div class="team-grid">
+        <article class="member reveal"><div class="member-portrait" aria-hidden="true"></div><div class="member-body"><span class="role">Strategy Lead</span><h3>Direction Pod</h3><p>Defines positioning, goals, decision rules, and the operating model behind the initiative.</p></div></article>
+        <article class="member reveal"><div class="member-portrait" aria-hidden="true"></div><div class="member-body"><span class="role">Experience Lead</span><h3>Product Pod</h3><p>Shapes flows, prototypes, interfaces, content architecture, and user-facing delivery moments.</p></div></article>
+        <article class="member reveal"><div class="member-portrait" aria-hidden="true"></div><div class="member-body"><span class="role">Creative Lead</span><h3>Signal Pod</h3><p>Builds the visual language, launch assets, narrative campaigns, and editorial systems.</p></div></article>
+        <article class="member reveal"><div class="member-portrait" aria-hidden="true"></div><div class="member-body"><span class="role">Ops Lead</span><h3>Momentum Pod</h3><p>Coordinates schedules, rituals, event flow, stakeholder updates, and delivery governance.</p></div></article>
+      </div>
+    </section>
+
+    <section class="process" aria-label="Team Nexus process">
+      <div class="section">
+        <div class="section-head reveal">
+          <div><span class="section-kicker">Operating Model</span><h2>From scattered ambition to synchronized progress.</h2></div>
+          <p>Our process is direct, visible, and measurable. Each stage ends with concrete decisions and a cleaner path forward.</p>
+        </div>
+        <div class="timeline">
+          <article class="step reveal"><span class="step-num">01</span><h3>Discover</h3><p>Clarify goals, audiences, constraints, risks, and existing assets.</p></article>
+          <article class="step reveal"><span class="step-num">02</span><h3>Align</h3><p>Set the strategy, roles, timeline, success metrics, and decision cadence.</p></article>
+          <article class="step reveal"><span class="step-num">03</span><h3>Build</h3><p>Produce the systems, designs, content, and workflows needed for launch.</p></article>
+          <article class="step reveal"><span class="step-num">04</span><h3>Activate</h3><p>Run the launch, event, campaign, or community program with live visibility.</p></article>
+          <article class="step reveal"><span class="step-num">05</span><h3>Evolve</h3><p>Review performance, capture learning, and improve the next cycle.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="events">
+      <div class="section-head reveal">
+        <div><span class="section-kicker">Programs</span><h2>Events and rituals that keep the network moving.</h2></div>
+        <p>Team Nexus supports public-facing programs and private operating rituals with the same attention to flow, clarity, and follow-through.</p>
+      </div>
+      <div class="events-grid">
+        <article class="event-card reveal"><div class="event-date"><span>01</span><span>Monthly</span></div><h3>Nexus Demo Night</h3><p>A curated showcase for launches, prototypes, creative drops, and partner updates.</p></article>
+        <article class="event-card reveal"><div class="event-date"><span>02</span><span>Quarterly</span></div><h3>Strategy Sprint</h3><p>A focused planning room for leadership teams that need sharper priorities and cleaner execution lanes.</p></article>
+        <article class="event-card reveal"><div class="event-date"><span>03</span><span>Ongoing</span></div><h3>Community Lab</h3><p>A practical operating forum for testing engagement loops, rituals, content formats, and member journeys.</p></article>
+      </div>
+    </section>
+
+    <section class="section tight" id="contact">
+      <div class="faq-contact">
+        <div>
+          <span class="section-kicker">FAQ</span>
+          <div class="faq">
+            <details class="reveal" open><summary>What does Team Nexus build?</summary><p>We build the strategy, experience systems, community programs, launch operations, and event flows that help teams coordinate better.</p></details>
+            <details class="reveal"><summary>Who is this for?</summary><p>Founders, operators, creators, community leaders, product teams, and organizations preparing for a high-visibility launch or growth phase.</p></details>
+            <details class="reveal"><summary>How fast can a project start?</summary><p>Most discovery sessions can begin within a week. Priority launch support is scoped around urgency, team availability, and project complexity.</p></details>
+            <details class="reveal"><summary>Can Team Nexus run ongoing programs?</summary><p>Yes. We can support retained operating rhythms, recurring events, community systems, content programs, and partner reporting.</p></details>
+          </div>
+        </div>
+        <aside class="contact-panel reveal">
+          <span class="section-kicker">Start</span>
+          <h2>Bring the right people into one room.</h2>
+          <p>Tell us what you are building, where coordination is breaking down, and what needs to happen next.</p>
+          <form class="contact-form" id="contact-form">
+            <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field full"><label for="project">Project focus</label><input id="project" name="project" type="text" placeholder="Launch, event, product, community, or growth system"></div>
+            <div class="field full"><label for="message">Message</label><textarea id="message" name="message" placeholder="Share the goal, timeline, and what support would help most."></textarea></div>
+            <button class="button primary field full" type="submit">Send Project Brief</button>
+          </form>
+          <p class="form-note" id="form-note" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="#home" aria-label="Team Nexus home"><span class="brand-mark">N</span><span class="brand-copy"><span class="brand-name">Team Nexus</span><span class="brand-tag">Build what connects</span></span></a>
+        <p>Strategy, product, creative, events, and community systems for teams that need momentum.</p>
+      </div>
+      <div class="footer-links" aria-label="Footer navigation">
+        <a href="#about">About</a><a href="#capabilities">Capabilities</a><a href="#work">Work</a><a href="#team">Team</a><a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Team Nexus. All rights reserved.</span>
+      <span>Strategy &middot; Product &middot; Creative &middot; Community</span>
+    </div>
+  </footer>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const header = document.getElementById("site-header");
+    const progress = document.getElementById("progress");
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("nav");
+
+    function updateScrollState() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      header.classList.toggle("is-scrolled", scrollTop > 24);
+      progress.style.width = maxScroll > 0 ? `${(scrollTop / maxScroll) * 100}%` : "0%";
+    }
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    updateScrollState();
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        document.body.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+      }
+    });
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !prefersReducedMotion) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+      revealItems.forEach((item, index) => {
+        item.style.transitionDelay = `${Math.min(index % 6, 5) * 55}ms`;
+        observer.observe(item);
+      });
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }
+
+    document.querySelectorAll(".stat-number").forEach((stat) => {
+      const target = Number(stat.dataset.target || 0);
+      if (prefersReducedMotion) {
+        stat.textContent = `${target}${target === 96 ? "%" : ""}`;
+        return;
+      }
+      let start;
+      const duration = 1100;
+      function tick(timestamp) {
+        start = start || timestamp;
+        const amount = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - amount, 3);
+        stat.textContent = `${Math.round(target * eased)}${target === 96 ? "%" : ""}`;
+        if (amount < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+
+    const form = document.getElementById("contact-form");
+    const note = document.getElementById("form-note");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      note.textContent = "Project brief captured locally. Connect this form to your backend or email workflow for production.";
+      form.reset();
+    });
+
+    const canvas = document.getElementById("nexus-canvas");
+    const ctx = canvas.getContext("2d", { alpha: false });
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let animationId = 0;
+    const pointer = { x: 0, y: 0, active: false };
+
+    function resizeCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      createParticles();
+    }
+
+    function createParticles() {
+      const base = width < 720 ? 34 : 58;
+      const count = prefersReducedMotion ? Math.round(base * 0.6) : base;
+      particles = Array.from({ length: count }, (_, index) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.34,
+        vy: (Math.random() - 0.5) * 0.34,
+        r: index % 7 === 0 ? 2.3 : 1.35,
+        hue: index % 4
+      }));
+    }
+
+    function drawScene() {
+      const colors = ["#0b8b7f", "#bc8c2a", "#d65b46", "#326fbd"];
+      ctx.fillStyle = "#0d0d0b";
+      ctx.fillRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i += 1) {
+        const p = particles[i];
+        if (!prefersReducedMotion) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+          if (pointer.active) {
+            const dx = p.x - pointer.x;
+            const dy = p.y - pointer.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 140 && dist > 0) {
+              p.x += (dx / dist) * 0.32;
+              p.y += (dy / dist) * 0.32;
+            }
+          }
+        }
+        for (let j = i + 1; j < particles.length; j += 1) {
+          const q = particles[j];
+          const dist = Math.hypot(p.x - q.x, p.y - q.y);
+          if (dist < 136) {
+            ctx.globalAlpha = (1 - dist / 136) * 0.26;
+            ctx.strokeStyle = colors[(p.hue + q.hue) % colors.length];
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+      particles.forEach((p) => {
+        ctx.fillStyle = colors[p.hue];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      if (!prefersReducedMotion && !document.hidden) animationId = requestAnimationFrame(drawScene);
+    }
+
+    canvas.addEventListener("pointermove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - rect.left;
+      pointer.y = event.clientY - rect.top;
+      pointer.active = true;
+    }, { passive: true });
+    canvas.addEventListener("pointerleave", () => { pointer.active = false; });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(animationId);
+      else if (!prefersReducedMotion) animationId = requestAnimationFrame(drawScene);
+    });
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+    resizeCanvas();
+    drawScene();
+  </script>
+</body>
+</html>
