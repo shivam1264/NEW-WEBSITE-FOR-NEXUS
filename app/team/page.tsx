@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Brain, Code, Smartphone, Layout, Zap, ArrowUpRight, Check, Activity, MapPin, Briefcase } from "lucide-react";
 
@@ -8,61 +8,87 @@ export default function Team() {
   const [activeTab, setActiveTab] = useState<"specialists" | "process">("specialists");
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [mobileExpandedIdx, setMobileExpandedIdx] = useState<number>(0);
+  const [autoplayPaused, setAutoplayPaused] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [flipKey, setFlipKey] = useState(0);
+  const accordionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPageLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleTabSwitch = useCallback((tab: "specialists" | "process") => {
+    setActiveTab(tab);
+    setHoveredIdx(null);
+    setMobileExpandedIdx(0);
+    setFlipKey(prev => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    if (activeTab !== "specialists" || autoplayPaused || hoveredIdx !== null) return;
+
+    const interval = setInterval(() => {
+      setMobileExpandedIdx((prev) => (prev + 1) % 5);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [activeTab, autoplayPaused, hoveredIdx]);
 
   const members = [
     {
-      id: "aarav",
+      id: "shubham",
       code: "POD-01",
-      name: "Aarav Mehta",
-      role: "AI Lead & Engineer",
+      name: "Shubham Pawar",
+      role: "AI Lead Engineer",
       desc: "Architects specialized vector index databases, qualifies customer intent profiles, and structures secure cognitive agent workflows to automate operations.",
       specs: ["Python", "FastAPI", "VectorDB", "LangChain"],
-      portfolio: "/team/aarav-mehta",
-      photo: "/images/team_member_1.png",
+      portfolio: "/team/shubham-pawar",
+      photo: "/images/team_member_1.jpg",
       icon: <Brain size={13} />,
     },
     {
-      id: "kavya",
+      id: "shivansh",
       code: "POD-02",
-      name: "Kavya Sharma",
-      role: "Full Stack Lead",
+      name: "Shivansh Mehra",
+      role: "Full Stack Developer",
       desc: "Constructs Next.js server structures, scalable API endpoints, secure database migrations, and edge-caching architectures for instant loads.",
       specs: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
-      portfolio: "/team/kavya-sharma",
-      photo: "/images/team_member_2.png",
+      portfolio: "/team/shivansh-mehra",
+      photo: "/images/team_member_2.jpg",
       icon: <Code size={13} />,
     },
     {
-      id: "rohan",
+      id: "prakash",
       code: "POD-03",
-      name: "Rohan Das",
-      role: "Flutter Developer",
+      name: "Prakash Kumar Biswal",
+      role: "Agentic AI & Flutter Developer",
       desc: "Builds high-fidelity cross-platform mobile apps, local dispatch notifications, offline state sync, and secure payment checkout flows.",
-      specs: ["Flutter", "Dart", "SQLite", "Firebase"],
-      portfolio: "/team/rohan-das",
-      photo: "/images/team_member_3.png",
+      specs: ["Flutter", "Dart", "Firebase", "Agentic AI"],
+      portfolio: "/team/prakash-biswal",
+      photo: "/images/team_member_3.jpg",
       icon: <Smartphone size={13} />,
     },
     {
-      id: "isha",
+      id: "shivam",
       code: "POD-04",
-      name: "Isha Patel",
-      role: "UI/UX Designer",
+      name: "Shivam Kumar Maurya",
+      role: "UI/UX & Frontend Developer",
       desc: "Designs polished dark-mode interfaces, interactive Figma wireframes, customized brand system assets, and high-fidelity prototype flows.",
-      specs: ["Figma", "UI Design", "CSS3", "Illustrator"],
-      portfolio: "/team/isha-patel",
-      photo: "/images/team_member_4.png",
+      specs: ["Figma", "UI Design", "Tailwind", "CSS3"],
+      portfolio: "/team/shivam-maurya",
+      photo: "/images/team_member_4.jpg",
       icon: <Layout size={13} />,
     },
     {
-      id: "kabir",
+      id: "tushar",
       code: "POD-05",
-      name: "Kabir Malhotra",
-      role: "Ops & Strategy Lead",
+      name: "Tushar Das",
+      role: "Ops & Marketing Lead",
       desc: "Manages agile milestones, validates early MVP scopes, and coordinates launch schedules to prevent timeline slip and ensure outcome alignments.",
-      specs: ["MVP Scoping", "Agile", "Launch Ops", "Product Strategy"],
-      portfolio: "/team/kabir-malhotra",
-      photo: "/images/team_member_5.png",
+      specs: ["MVP Scoping", "Agile Sprints", "Launch Ops", "Marketing"],
+      portfolio: "/team/tushar-das",
+      photo: "/images/team_member_5.jpg",
       icon: <Zap size={13} />,
     },
   ];
@@ -186,12 +212,8 @@ export default function Team() {
       <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "40px" }}>
         <div className="services-tab-bar">
           <button
-            className={`services-view-tab ${activeTab === "specialists" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("specialists");
-              setHoveredIdx(null);
-              setMobileExpandedIdx(0);
-            }}
+            className={`services-view-tab tab-switch-enter ${activeTab === "specialists" ? "active" : ""}`}
+            onClick={() => handleTabSwitch("specialists")}
             data-hover="true"
           >
             <span className="tab-icon-wrap"><Brain size={14} /></span>
@@ -199,13 +221,10 @@ export default function Team() {
             <span>Specialist Pods</span>
           </button>
           <button
-            className={`services-view-tab ${activeTab === "process" ? "active" : ""}`}
-            onClick={() => {
-              setActiveTab("process");
-              setHoveredIdx(null);
-              setMobileExpandedIdx(0);
-            }}
+            className={`services-view-tab tab-switch-enter ${activeTab === "process" ? "active" : ""}`}
+            onClick={() => handleTabSwitch("process")}
             data-hover="true"
+            style={{ animationDelay: "0.1s" }}
           >
             <span className="tab-icon-wrap"><Activity size={14} /></span>
             <span className="tab-badge">02</span>
@@ -216,7 +235,11 @@ export default function Team() {
 
       {/* 3. CORE ACCORDION VIEWPORT */}
       <div className="container" style={{ margin: "0 auto", width: "100%" }}>
-        <div className="accordion-viewport-container">
+        <div 
+          className="accordion-viewport-container"
+          onMouseEnter={() => setAutoplayPaused(true)}
+          onMouseLeave={() => setAutoplayPaused(false)}
+        >
           {activeTab === "specialists" ? (
             /* Specialists Accordion Columns */
             members.map((member, idx) => {

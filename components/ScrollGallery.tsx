@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sparkles, Layers, ShieldCheck, HeartPulse, Trophy, Code } from "lucide-react";
+import { Sparkles, Layers, ShieldCheck, HeartPulse, Trophy, Code, Shield } from "lucide-react";
 
 export default function ScrollGallery() {
   const [scrollY, setScrollY] = useState(0);
+  const [hoveredR1, setHoveredR1] = useState<number | null>(null);
+  const [hoveredR2, setHoveredR2] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,25 +17,87 @@ export default function ScrollGallery() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Professional speeds: slower, refined, and stable sliding motion
   // Row 1 slides left-to-right (positive offset)
   const offset1 = (scrollY * 0.12) - 100;
   // Row 2 slides right-to-left (negative offset)
   const offset2 = -(scrollY * 0.12) + 100;
 
   const row1Images = [
-    { src: "/images/careforyou_ui.png", label: "CareForYou AI Platform", icon: <HeartPulse size={14} style={{ color: "#00e5c8" }} /> },
-    { src: "/images/dashboard_ui.png", label: "Launch Ops Control Center", icon: <Layers size={14} style={{ color: "var(--accent)" }} /> },
-    { src: "/images/restaurant_app_ui.png", label: "Food Delivery Dispatch Client", icon: <Code size={14} style={{ color: "#ffd600" }} /> },
-    { src: "/images/hackathon_win.png", label: "Smart India Hackathon MVP", icon: <Trophy size={14} style={{ color: "#ff007f" }} /> },
+    {
+      src: "/images/careforyou_ui.png",
+      title: "SHEild AI Platform",
+      category: "Women Safety & Emergency Response",
+      icon: <Shield size={14} style={{ color: "#00e5ff" }} />,
+      accent: "#00e5ff",
+      accentRgb: "0, 229, 255"
+    },
+    {
+      src: "/images/dashboard_ui.png",
+      title: "Launch Ops Control Center",
+      category: "Operations Telemetry",
+      icon: <Layers size={14} style={{ color: "var(--accent)" }} />,
+      accent: "var(--accent)",
+      accentRgb: "255, 92, 43"
+    },
+    {
+      src: "/images/restaurant_app_ui.png",
+      title: "Food Delivery Dispatch Client",
+      category: "Mobile Dispatch",
+      icon: <Code size={14} style={{ color: "#ffd600" }} />,
+      accent: "#ffd600",
+      accentRgb: "255, 214, 0"
+    },
+    {
+      src: "/images/hackathon_tic.jpg",
+      title: "TIC Hackathon Championship",
+      category: "Award Winning MVP",
+      icon: <Trophy size={14} style={{ color: "#ff007f" }} />,
+      accent: "#ff007f",
+      accentRgb: "255, 0, 127"
+    },
   ];
 
   const row2Images = [
-    { src: "/images/team_member_1.png", label: "Aman Gupta · Full-Stack Lead", icon: <Code size={14} style={{ color: "#00e5ff" }} /> },
-    { src: "/images/team_member_2.png", label: "Rohan Verma · AI Engineer", icon: <Sparkles size={14} style={{ color: "var(--accent)" }} /> },
-    { src: "/images/team_member_3.png", label: "Shreya Sen · Product Designer", icon: <Layers size={14} style={{ color: "#ffd600" }} /> },
-    { src: "/images/team_member_4.png", label: "Rahul Nair · Native App Lead", icon: <Code size={14} style={{ color: "#ff007f" }} /> },
-    { src: "/images/team_member_5.png", label: "Priya Das · System Architect", icon: <ShieldCheck size={14} style={{ color: "#00e676" }} /> },
+    {
+      src: "/images/team_member_1.jpg",
+      title: "Shubham Pawar",
+      category: "AI Lead Engineer",
+      icon: <Sparkles size={14} style={{ color: "#00e5ff" }} />,
+      accent: "#00e5ff",
+      accentRgb: "0, 229, 255"
+    },
+    {
+      src: "/images/team_member_2.jpg",
+      title: "Shivansh Mehra",
+      category: "Full-Stack Developer",
+      icon: <Code size={14} style={{ color: "#ff5c2b" }} />,
+      accent: "#ff5c2b",
+      accentRgb: "255, 92, 43"
+    },
+    {
+      src: "/images/team_member_3.jpg",
+      title: "Prakash Kumar Biswal",
+      category: "Agentic AI & Flutter Dev",
+      icon: <Code size={14} style={{ color: "#00e676" }} />,
+      accent: "#00e676",
+      accentRgb: "0, 230, 118"
+    },
+    {
+      src: "/images/team_member_4.jpg",
+      title: "Shivam Kumar Maurya",
+      category: "UI/UX & Frontend Dev",
+      icon: <Layers size={14} style={{ color: "#d500f9" }} />,
+      accent: "#d500f9",
+      accentRgb: "213, 0, 249"
+    },
+    {
+      src: "/images/team_member_5.jpg",
+      title: "Tushar Das",
+      category: "Ops & Marketing Lead",
+      icon: <ShieldCheck size={14} style={{ color: "#ffd600" }} />,
+      accent: "#ffd600",
+      accentRgb: "255, 214, 0"
+    },
   ];
 
   return (
@@ -94,7 +158,7 @@ export default function ScrollGallery() {
           }}
         />
 
-        {/* Row 1: Left to Right */}
+        {/* Row 1: Left to Right (Projects) */}
         <div 
           style={{ 
             display: "flex", 
@@ -105,49 +169,111 @@ export default function ScrollGallery() {
             paddingLeft: "12vw"
           }}
         >
-          {row1Images.map((img, idx) => (
-            <div 
-              key={idx} 
-              className="s3-card"
-              style={{ 
-                width: "clamp(280px, 24vw, 380px)", 
-                height: "clamp(180px, 15vw, 240px)", 
-                borderRadius: "20px",
-                overflow: "hidden",
-                position: "relative",
-                flexShrink: 0
-              }}
-            >
-              <img 
-                src={img.src} 
-                alt={img.label} 
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-              />
+          {row1Images.map((img, idx) => {
+            const isHovered = hoveredR1 === idx;
+            return (
               <div 
+                key={idx} 
+                onMouseEnter={() => setScrollY(window.scrollY)} // trigger small update to stabilize layout
                 style={{ 
-                  position: "absolute", 
-                  bottom: 0, 
-                  left: 0, 
-                  right: 0, 
-                  padding: "16px 20px", 
-                  background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px"
+                  width: "clamp(280px, 24vw, 380px)", 
+                  height: "clamp(180px, 15vw, 240px)", 
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  position: "relative",
+                  flexShrink: 0,
+                  transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  border: isHovered ? `1px solid ${img.accent}` : "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: isHovered 
+                    ? `0 20px 48px rgba(0,0,0,0.7), 0 0 35px rgba(${img.accentRgb}, 0.22)`
+                    : "0 10px 30px rgba(0, 0, 0, 0.4)",
+                  transform: isHovered ? "translate3d(0, -6px, 0) scale(1.02)" : "translate3d(0, 0, 0)",
+                  cursor: "pointer"
                 }}
+                onMouseEnter={() => setHoveredR1(idx)}
+                onMouseLeave={() => setHoveredR1(null)}
               >
-                {img.icon}
-                {img.label}
+                {/* Image */}
+                <img 
+                  src={img.src} 
+                  alt={img.title} 
+                  style={{ 
+                    width: "100%", 
+                    height: "100%", 
+                    objectFit: "cover",
+                    transition: "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
+                    transform: isHovered ? "scale(1.08)" : "scale(1)"
+                  }} 
+                />
+
+                {/* Ambient dynamic backglow inside card */}
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: isHovered 
+                    ? `radial-gradient(circle at center, rgba(${img.accentRgb}, 0.06) 0%, transparent 70%)`
+                    : "transparent",
+                  pointerEvents: "none",
+                  transition: "background 0.5s ease"
+                }} />
+
+                {/* Sheen sweep animation overlay */}
+                <div style={{
+                  position: "absolute",
+                  top: "-150%",
+                  left: isHovered ? "150%" : "-150%",
+                  width: "300%",
+                  height: "300%",
+                  background: "linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.12) 50%, transparent 55%)",
+                  transform: "rotate(-45deg)",
+                  transition: isHovered ? "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
+                  pointerEvents: "none"
+                }} />
+
+                {/* Bottom Card Title Banner */}
+                <div 
+                  style={{ 
+                    position: "absolute", 
+                    bottom: 0, 
+                    left: 0, 
+                    right: 0, 
+                    padding: "18px 24px", 
+                    background: isHovered
+                      ? "linear-gradient(to top, rgba(5,5,15,0.95) 0%, rgba(5,5,15,0.7) 100%)"
+                      : "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
+                    backdropFilter: isHovered ? "blur(12px)" : "blur(0px)",
+                    WebkitBackdropFilter: isHovered ? "blur(12px)" : "blur(0px)",
+                    borderTop: isHovered ? `1px solid rgba(${img.accentRgb}, 0.25)` : "1px solid transparent",
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px",
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {img.icon}
+                    <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ffffff" }}>{img.title}</span>
+                  </div>
+                  <span style={{ 
+                    fontSize: "0.72rem", 
+                    fontWeight: 600, 
+                    color: isHovered ? img.accent : "#8892a4",
+                    fontFamily: "var(--font-mono), monospace",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    marginLeft: "22px",
+                    transition: "color 0.3s ease"
+                  }}>
+                    {img.category}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Row 2: Right to Left */}
+        {/* Row 2: Right to Left (Team Members) */}
         <div 
           style={{ 
             display: "flex", 
@@ -159,46 +285,108 @@ export default function ScrollGallery() {
             paddingRight: "12vw"
           }}
         >
-          {row2Images.map((img, idx) => (
-            <div 
-              key={idx} 
-              className="s3-card"
-              style={{ 
-                width: "clamp(180px, 16vw, 240px)", 
-                height: "clamp(220px, 20vw, 300px)", 
-                borderRadius: "20px",
-                overflow: "hidden",
-                position: "relative",
-                flexShrink: 0
-              }}
-            >
-              <img 
-                src={img.src} 
-                alt={img.label} 
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-              />
+          {row2Images.map((img, idx) => {
+            const isHovered = hoveredR2 === idx;
+            return (
               <div 
+                key={idx} 
                 style={{ 
-                  position: "absolute", 
-                  bottom: 0, 
-                  left: 0, 
-                  right: 0, 
-                  padding: "16px 20px", 
-                  background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
-                  fontSize: "0.8rem",
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px"
+                  width: "clamp(180px, 16vw, 240px)", 
+                  height: "clamp(220px, 20vw, 300px)", 
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  position: "relative",
+                  flexShrink: 0,
+                  transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  border: isHovered ? `1px solid ${img.accent}` : "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: isHovered 
+                    ? `0 20px 48px rgba(0,0,0,0.7), 0 0 35px rgba(${img.accentRgb}, 0.22)`
+                    : "0 10px 30px rgba(0, 0, 0, 0.4)",
+                  transform: isHovered ? "translate3d(0, -6px, 0) scale(1.02)" : "translate3d(0, 0, 0)",
+                  cursor: "pointer"
                 }}
+                onMouseEnter={() => setHoveredR2(idx)}
+                onMouseLeave={() => setHoveredR2(null)}
               >
-                {img.icon}
-                {img.label}
+                {/* Image (Centered and cropped beautifully at the face level) */}
+                <img 
+                  src={img.src} 
+                  alt={img.title} 
+                  style={{ 
+                    width: "100%", 
+                    height: "100%", 
+                    objectFit: "cover",
+                    objectPosition: "50% 12%", // Centered face crop
+                    transition: "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
+                    transform: isHovered ? "scale(1.08)" : "scale(1)"
+                  }} 
+                />
+
+                {/* Ambient dynamic backglow inside card */}
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: isHovered 
+                    ? `radial-gradient(circle at center, rgba(${img.accentRgb}, 0.06) 0%, transparent 70%)`
+                    : "transparent",
+                  pointerEvents: "none",
+                  transition: "background 0.5s ease"
+                }} />
+
+                {/* Sheen sweep animation overlay */}
+                <div style={{
+                  position: "absolute",
+                  top: "-150%",
+                  left: isHovered ? "150%" : "-150%",
+                  width: "300%",
+                  height: "300%",
+                  background: "linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.12) 50%, transparent 55%)",
+                  transform: "rotate(-45deg)",
+                  transition: isHovered ? "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)" : "none",
+                  pointerEvents: "none"
+                }} />
+
+                {/* Bottom Card Title Banner */}
+                <div 
+                  style={{ 
+                    position: "absolute", 
+                    bottom: 0, 
+                    left: 0, 
+                    right: 0, 
+                    padding: "18px 20px", 
+                    background: isHovered
+                      ? "linear-gradient(to top, rgba(5,5,15,0.95) 0%, rgba(5,5,15,0.7) 100%)"
+                      : "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)",
+                    backdropFilter: isHovered ? "blur(12px)" : "blur(0px)",
+                    WebkitBackdropFilter: isHovered ? "blur(12px)" : "blur(0px)",
+                    borderTop: isHovered ? `1px solid rgba(${img.accentRgb}, 0.25)` : "1px solid transparent",
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px",
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    {img.icon}
+                    <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#ffffff", letterSpacing: "-0.015em" }}>{img.title}</span>
+                  </div>
+                  <span style={{ 
+                    fontSize: "0.68rem", 
+                    fontWeight: 600, 
+                    color: isHovered ? img.accent : "#8892a4",
+                    fontFamily: "var(--font-mono), monospace",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    marginLeft: "22px",
+                    transition: "color 0.3s ease"
+                  }}>
+                    {img.category}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

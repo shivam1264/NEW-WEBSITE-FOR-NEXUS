@@ -77,7 +77,7 @@ function AnimatedCounter({ value, duration = 1500, suffix = "", prefix = "" }: C
           const end = value;
           const totalMiliseconds = duration;
           const incrementTime = Math.max(Math.floor(totalMiliseconds / end), 20);
-          
+
           const timer = setInterval(() => {
             start += Math.ceil(end / (totalMiliseconds / incrementTime));
             if (start >= end) {
@@ -120,7 +120,7 @@ const renderServiceSvg = (idx: number, isHovered: boolean) => {
           <line x1="9" y1="18" x2="20" y2="12" strokeOpacity={isHovered ? "0.9" : "0.3"} strokeWidth={isHovered ? "2.5" : "2"} />
           <line x1="15" y1="6" x2="20" y2="12" strokeOpacity={isHovered ? "0.9" : "0.3"} strokeWidth={isHovered ? "2.5" : "2"} />
           <line x1="15" y1="18" x2="20" y2="12" strokeOpacity={isHovered ? "0.9" : "0.3"} strokeWidth={isHovered ? "2.5" : "2"} />
-          
+
           {isHovered && (
             <circle cx="12" cy="9" r="2.5" fill={color}>
               <animate attributeName="cx" values="4;9;15;20" dur="2s" repeatCount="indefinite" />
@@ -159,7 +159,7 @@ const renderServiceSvg = (idx: number, isHovered: boolean) => {
           <rect x="6" y="2" width="12" height="20" rx="3" strokeWidth="2" />
           <line x1="10" y1="4" x2="14" y2="4" strokeWidth="1.5" />
           <circle cx="12" cy="20" r="1" strokeWidth="1.5" />
-          
+
           <g style={{ transform: isHovered ? "translateY(-2px)" : "none", transition: "transform 0.4s ease" }}>
             <rect x="8" y="7" width="8" height="3" rx="0.5" fill={isHovered ? "rgba(232, 96, 46, 0.2)" : "none"} strokeWidth="1.5" />
             <rect x="8" y="11.5" width="8" height="3" rx="0.5" fill={isHovered ? "rgba(232, 96, 46, 0.2)" : "none"} strokeWidth="1.5" />
@@ -186,7 +186,7 @@ const renderServiceSvg = (idx: number, isHovered: boolean) => {
           <rect x="20" y="17" width="2" height="2" fill={color} />
           <line x1="12" y1="10" x2="12" y2="4" strokeWidth="1.5" strokeDasharray="1 1" />
           <circle cx="12" cy="10" r="1.5" fill="#0d0d12" stroke={color} strokeWidth="2" />
-          
+
           <g style={{ transform: isHovered ? "rotate(15deg)" : "none", transformOrigin: "12px 10px", transition: "transform 0.4s ease-in-out" }}>
             <line x1="7" y1="10" x2="17" y2="10" strokeWidth="1.5" />
             <circle cx="7" cy="10" r="1.5" fill={color} />
@@ -200,7 +200,7 @@ const renderServiceSvg = (idx: number, isHovered: boolean) => {
           <circle cx="12" cy="12" r="8" strokeOpacity="0.25" strokeWidth="2" />
           <path d="M3 12h4M17 12h4" strokeWidth="2" strokeOpacity="0.4" />
           <rect x="7" y="10" width="10" height="4" rx="1" fill={isHovered ? "rgba(232, 96, 46, 0.2)" : "none"} strokeWidth="2" />
-          
+
           {isHovered ? (
             <circle cx="12" cy="12" r="8" stroke={color} strokeWidth="2" strokeDasharray="4 6" style={{ transformOrigin: "center", animation: "rotateGeom 4s linear infinite" }} />
           ) : (
@@ -282,6 +282,21 @@ export default function Home() {
   const [hoveredSvc, setHoveredSvc] = useState<number | null>(null);
   const [activeMember, setActiveMember] = useState<number>(0);
   const [isTeamAutoplayPaused, setIsTeamAutoplayPaused] = useState<boolean>(false);
+  const [ticImageIdx, setTicImageIdx] = useState(0);
+  const [ticHovered, setTicHovered] = useState(false);
+  const [bgiImageIdx, setBgiImageIdx] = useState(0);
+  const [bgiHovered, setBgiHovered] = useState(false);
+
+  const [activePrinciple, setActivePrinciple] = useState<number>(0);
+  const [isPrincipleAutoplayPaused, setIsPrincipleAutoplayPaused] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isPrincipleAutoplayPaused) return;
+    const interval = setInterval(() => {
+      setActivePrinciple((prev) => (prev + 1) % 3);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isPrincipleAutoplayPaused]);
 
   useEffect(() => {
     if (isTeamAutoplayPaused) return;
@@ -292,6 +307,22 @@ export default function Home() {
     }, 3500);
     return () => clearInterval(interval);
   }, [isTeamAutoplayPaused]);
+
+  useEffect(() => {
+    if (ticHovered) return;
+    const interval = setInterval(() => {
+      setTicImageIdx((prev) => (prev === 0 ? 1 : 0));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [ticHovered]);
+
+  useEffect(() => {
+    if (bgiHovered) return;
+    const interval = setInterval(() => {
+      setBgiImageIdx((prev) => (prev === 0 ? 1 : 0));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [bgiHovered]);
 
   useEffect(() => {
     // Scroll Progress Bar
@@ -319,6 +350,7 @@ export default function Home() {
       <div id="nexus-progress-bar" style={{ position: "fixed", top: 0, left: 0, height: "2px", width: "0%", background: "linear-gradient(90deg, var(--accent), #ff6b35, #00e5ff)", zIndex: 10001, boxShadow: "0 0 10px var(--accent)", transition: "width 0.08s linear", pointerEvents: "none" }} />
       {/* 1. HERO SECTION (MOST IMPORTANT) */}
       <section
+        className="home-hero"
         style={{
           minHeight: "100vh",
           display: "flex",
@@ -328,7 +360,7 @@ export default function Home() {
         }}
       >
         <div
-          className="container"
+          className="container home-hero-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
@@ -337,7 +369,7 @@ export default function Home() {
           }}
         >
           {/* Hero Left Content */}
-          <div className="reveal-text">
+          <div className="hero-copy reveal-text">
             {/* Business Positioning Badge */}
             <div
               className="eyebrow-mono reveal-text status-badge"
@@ -353,7 +385,7 @@ export default function Home() {
               }}
             >
               <span className="pulsing-dot pulsing-dot-coral" />
-              AI &amp; Full Stack Product Agency
+              AI &amp; Full Stack Studio
             </div>
 
             {/* Headline */}
@@ -366,8 +398,8 @@ export default function Home() {
                 marginBottom: "24px",
               }}
             >
-              We Ship <span className="font-serif-i text-accent" style={{ color: "var(--accent)", textShadow: "0 0 60px rgba(255, 92, 43, 0.25), 0 0 120px rgba(255, 92, 43, 0.1)" }}>Products</span> That<br />
-              Actually <span className="font-serif-i" style={{ color: "var(--accent)" }}>Grow</span> Businesses
+              We Ship <span className="hero-gradient-word">Products</span> That<br />
+              Actually <span className="hero-gradient-word">Grow</span> Businesses
             </h1>
 
             {/* Subheading */}
@@ -383,8 +415,20 @@ export default function Home() {
             >
               Team Nexus is a specialist engineering collective. We build production-grade websites, mobile apps, and AI automation systems — fast, clean, and focused on measurable results.
             </p>
+            <div className="hero-metric-strip" aria-label="Team Nexus project highlights">
+              {[
+                { value: "48h", label: "prototype sprint" },
+                { value: "180ms", label: "edge response" },
+                { value: "3+", label: "product lanes" },
+              ].map((metric) => (
+                <div className="hero-metric" key={metric.label}>
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </div>
+              ))}
+            </div>
             {/* Who We Build For Tags */}
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "36px" }}>
+            <div className="hero-tags" style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "36px" }}>
               {["Startups", "Local Businesses", "SaaS Founders", "Coaching Institutes"].map((tag) => (
                 <span key={tag} style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", padding: "5px 14px", background: "rgba(255, 92, 43, 0.04)", border: "1px solid rgba(255, 92, 43, 0.15)", borderRadius: "99px", color: "#8892a4", letterSpacing: "0.06em", textTransform: "uppercase" }}>{tag}</span>
               ))}
@@ -426,7 +470,7 @@ export default function Home() {
           </div>
 
           {/* Hero Right Laptop/Mobile/Dashboard Visuals */}
-          <div style={{ display: "flex", justifySelf: "center" }}>
+          <div className="hero-visual-shell" style={{ display: "flex", justifySelf: "center" }}>
             <SalesVisual />
           </div>
         </div>
@@ -536,62 +580,45 @@ export default function Home() {
         </div>
         <div className="tech-marquee-wrap">
           <div className="tech-marquee-track">
-            {[
-              ...[
-                { name: "React", color: "#00d8ff", rgb: "0, 216, 255" },
-                { name: "Next.js", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "Python", color: "#3776ab", rgb: "55, 118, 171" },
-                { name: "FastAPI", color: "#009688", rgb: "0, 150, 136" },
-                { name: "Flutter", color: "#02569b", rgb: "2, 86, 155" },
-                { name: "PostgreSQL", color: "#336791", rgb: "51, 103, 145" },
-                { name: "LangChain", color: "#00e676", rgb: "0, 230, 118" },
-                { name: "Vercel", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "TypeScript", color: "#3178c6", rgb: "49, 120, 198" },
-                { name: "TensorFlow", color: "#ff6f00", rgb: "255, 111, 0" },
-                { name: "Firebase", color: "#ffca28", rgb: "255, 202, 40" },
-                { name: "Node.js", color: "#339933", rgb: "51, 153, 51" }
-              ],
-              ...[
-                { name: "React", color: "#00d8ff", rgb: "0, 216, 255" },
-                { name: "Next.js", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "Python", color: "#3776ab", rgb: "55, 118, 171" },
-                { name: "FastAPI", color: "#009688", rgb: "0, 150, 136" },
-                { name: "Flutter", color: "#02569b", rgb: "2, 86, 155" },
-                { name: "PostgreSQL", color: "#336791", rgb: "51, 103, 145" },
-                { name: "LangChain", color: "#00e676", rgb: "0, 230, 118" },
-                { name: "Vercel", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "TypeScript", color: "#3178c6", rgb: "49, 120, 198" },
-                { name: "TensorFlow", color: "#ff6f00", rgb: "255, 111, 0" },
-                { name: "Firebase", color: "#ffca28", rgb: "255, 202, 40" },
-                { name: "Node.js", color: "#339933", rgb: "51, 153, 51" }
-              ],
-              ...[
-                { name: "React", color: "#00d8ff", rgb: "0, 216, 255" },
-                { name: "Next.js", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "Python", color: "#3776ab", rgb: "55, 118, 171" },
-                { name: "FastAPI", color: "#009688", rgb: "0, 150, 136" },
-                { name: "Flutter", color: "#02569b", rgb: "2, 86, 155" },
-                { name: "PostgreSQL", color: "#336791", rgb: "51, 103, 145" },
-                { name: "LangChain", color: "#00e676", rgb: "0, 230, 118" },
-                { name: "Vercel", color: "#ffffff", rgb: "255, 255, 255" },
-                { name: "TypeScript", color: "#3178c6", rgb: "49, 120, 198" },
-                { name: "TensorFlow", color: "#ff6f00", rgb: "255, 111, 0" },
-                { name: "Firebase", color: "#ffca28", rgb: "255, 202, 40" },
-                { name: "Node.js", color: "#339933", rgb: "51, 153, 51" }
-              ]
-            ].map((tech, i) => (
-              <span
-                key={i}
-                className="tech-pill"
-                style={{
-                  "--pill-accent": tech.color,
-                  "--pill-accent-rgb": tech.rgb
-                } as React.CSSProperties}
-              >
-                <span className="tech-dot" />
-                {tech.name}
-              </span>
-            ))}
+            {(() => {
+              const techs = [
+                { name: "React", slug: "react", color: "#00d8ff", rgb: "0, 216, 255" },
+                { name: "Next.js", slug: "nextdotjs", color: "#ffffff", rgb: "255, 255, 255" },
+                { name: "Python", slug: "python", color: "#3776ab", rgb: "55, 118, 171" },
+                { name: "FastAPI", slug: "fastapi", color: "#009688", rgb: "0, 150, 136" },
+                { name: "Flutter", slug: "flutter", color: "#02569b", rgb: "2, 86, 155" },
+                { name: "PostgreSQL", slug: "postgresql", color: "#336791", rgb: "51, 103, 145" },
+                { name: "LangChain", slug: "langchain", color: "#00e676", rgb: "0, 230, 118" },
+                { name: "Vercel", slug: "vercel", color: "#ffffff", rgb: "255, 255, 255" },
+                { name: "TypeScript", slug: "typescript", color: "#3178c6", rgb: "49, 120, 198" },
+                { name: "TensorFlow", slug: "tensorflow", color: "#ff6f00", rgb: "255, 111, 0" },
+                { name: "Firebase", slug: "firebase", color: "#ffca28", rgb: "255, 202, 40" },
+                { name: "Node.js", slug: "nodedotjs", color: "#339933", rgb: "51, 153, 51" }
+              ];
+              return [...techs, ...techs, ...techs].map((tech, i) => (
+                <span
+                  key={i}
+                  className="tech-pill"
+                  style={{
+                    "--pill-accent": tech.color,
+                    "--pill-accent-rgb": tech.rgb
+                  } as React.CSSProperties}
+                >
+                  <img
+                    src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace("#", "")}`}
+                    alt={`${tech.name} logo`}
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      objectFit: "contain",
+                      transition: "transform 0.2s ease, filter 0.2s ease"
+                    }}
+                    className="tech-logo-img"
+                  />
+                  {tech.name}
+                </span>
+              ));
+            })()}
           </div>
         </div>
       </div>
@@ -661,7 +688,7 @@ export default function Home() {
                     marginBottom: "20px",
                   }}
                 >
-                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> Grand Prize Winner
+                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> 🏆 GRAND PRIZE WINNER
                 </div>
 
                 <h3
@@ -673,7 +700,7 @@ export default function Home() {
                     marginBottom: "12px",
                   }}
                 >
-                  Smart India Hackathon <span className="font-serif-i" style={{ color: "var(--accent)" }}>(SIH)</span>
+                  Technocrats Innovation Challenge <span className="font-serif-i" style={{ color: "var(--accent)" }}>(TIC 2K26)</span>
                 </h3>
                 <span
                   style={{
@@ -685,7 +712,7 @@ export default function Home() {
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                   }}
                 >
-                  Organized by Ministry of Education, Govt. of India | Indore Hub Champion
+                  Organized by Technocrats Institute of Technology & Science, Bhopal | First Prize Winner
                 </span>
 
                 <p
@@ -696,7 +723,7 @@ export default function Home() {
                     marginBottom: "20px",
                   }}
                 >
-                  Out of thousands of competing student-led startups and developer teams across the nation, Team Nexus won the <strong style={{ color: "#ffffff" }}>Grand Prize (₹1,00,000)</strong>. We designed, coded, and deployed a high-capacity triage model and medical scheduling client dashboard within a continuous 36-hour sprint.
+                  Out of <strong style={{ color: "#ffffff" }}>200+ competing teams</strong> and innovators across multiple institutions, Team NEXUS secured the <strong style={{ color: "var(--accent)" }}>1st Prize (₹20,000)</strong> at the prestigious Technocrats Innovation Challenge 2K26. Through a demanding <strong style={{ color: "#ffffff" }}>36-hour innovation sprint</strong>, our team successfully advanced through multiple evaluation rounds and emerged as the overall champions with <strong style={{ color: "#ffffff" }}>SHEild AI</strong>, an AI-powered platform focused on Women Safety, Empowerment, and Social Impact.
                 </p>
 
                 <div
@@ -713,7 +740,7 @@ export default function Home() {
                     Core Tested Scope:
                   </strong>
                   <span style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.4" }}>
-                    Automated patient intent classifications utilizing custom vector embeds. Tested query delay of 180ms under intensive concurrent mock traffic.
+                    Developed and deployed an intelligent assistance ecosystem integrating <strong style={{ color: "#ffffff" }}>AI-driven emergency response</strong>, <strong style={{ color: "#ffffff" }}>safety analytics</strong>, and <strong style={{ color: "#ffffff" }}>real-time support features</strong>. The solution was evaluated on <strong style={{ color: "#ffffff" }}>innovation, scalability, social impact, technical execution, and user experience</strong> under intensive hackathon conditions.
                   </span>
                 </div>
               </div>
@@ -724,36 +751,48 @@ export default function Home() {
                 style={{
                   border: "1px solid rgba(255, 214, 0, 0.15)",
                 }}
-                onMouseEnter={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "1"; overlay.style.transform = "translateY(0)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1.07)";
-                }}
-                onMouseLeave={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "0"; overlay.style.transform = "translateY(10px)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1)";
-                }}
+                onMouseEnter={() => setTicHovered(true)}
+                onMouseLeave={() => setTicHovered(false)}
               >
-                <img
-                  src="/images/hackathon_win.png"
-                  alt="Smart India Hackathon championship stage"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
+                <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+                  <img
+                    src="/images/hackathon_tic.jpg"
+                    alt="Technocrats Innovation Challenge championship stage"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "opacity 0.8s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                      opacity: ticImageIdx === 0 ? 1 : 0,
+                      transform: ticHovered ? "scale(1.07)" : "scale(1)",
+                      zIndex: ticImageIdx === 0 ? 1 : 0,
+                    }}
+                  />
+                  <img
+                    src="/images/hackathon_tic_2.jpg"
+                    alt="Technocrats Innovation Challenge 1st prize certificate"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "opacity 0.8s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                      opacity: ticImageIdx === 1 ? 1 : 0,
+                      transform: ticHovered ? "scale(1.07)" : "scale(1)",
+                      zIndex: ticImageIdx === 1 ? 1 : 0,
+                    }}
+                  />
+                </div>
                 {/* Always-visible subtle bottom gradient */}
                 <div style={{
                   position: "absolute",
                   inset: 0,
                   background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
                   pointerEvents: "none",
+                  zIndex: 2,
                 }} />
                 {/* Hover Overlay */}
                 <div
@@ -767,11 +806,12 @@ export default function Home() {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "10px",
-                    opacity: 0,
-                    transform: "translateY(10px)",
+                    opacity: ticHovered ? 1 : 0,
+                    transform: ticHovered ? "translateY(0)" : "translateY(10px)",
                     transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                     padding: "24px",
                     textAlign: "center",
+                    zIndex: 2,
                   }}
                 >
                   <Trophy size={32} style={{ color: "#ffd600", filter: "drop-shadow(0 0 12px rgba(255,214,0,0.6))" }} />
@@ -782,7 +822,7 @@ export default function Home() {
                     fontFamily: "var(--font-display), sans-serif",
                     lineHeight: 1.2,
                     letterSpacing: "-0.02em",
-                  }}>Smart India Hackathon</span>
+                  }}>Technocrats Innovation Challenge</span>
                   <span style={{
                     fontSize: "0.8rem",
                     color: "#ffd600",
@@ -790,7 +830,7 @@ export default function Home() {
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                  }}>Grand Prize Winner · ₹1,00,000</span>
+                  }}>🏆 GRAND PRIZE WINNER · ₹20,000</span>
                 </div>
               </div>
             </div>
@@ -825,7 +865,7 @@ export default function Home() {
                     marginBottom: "20px",
                   }}
                 >
-                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> Championship Title
+                  <Trophy size={12} style={{ display: "inline-block", marginRight: "6px", verticalAlign: "middle" }} /> 🥈 NATIONAL RUNNER-UP
                 </div>
 
                 <h3
@@ -837,7 +877,7 @@ export default function Home() {
                     marginBottom: "12px",
                   }}
                 >
-                  National AI <span className="font-serif-i" style={{ color: "var(--accent)" }}>Innovation</span> Challenge
+                  BGI Hackathon 2026 <span className="font-serif-i" style={{ color: "var(--accent)" }}>(Vision 2047 | Viksit Bharat)</span>
                 </h3>
                 <span
                   style={{
@@ -849,7 +889,7 @@ export default function Home() {
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                   }}
                 >
-                  Organized by National Technology Consortium &amp; MeitY | Edge Systems Award
+                  Organized by Bansal Group of Institutes &amp; MPSEDC | National Runner-Up
                 </span>
 
                 <p
@@ -860,7 +900,7 @@ export default function Home() {
                     marginBottom: "20px",
                   }}
                 >
-                  Recognized nationally for pioneering architecture, Team Nexus designed and demonstrated a live-telemetry edge monitor dashboard. Under testing, the dashboard tracked multi-department data loops and detected system drift latency errors instantly.
+                  Competing against <strong style={{ color: "#ffffff" }}>600+ teams</strong> and over <strong style={{ color: "#ffffff" }}>2,800 participants</strong> from across India, Team NEXUS secured the <strong style={{ color: "#00e5ff" }}>Runner-Up Position (₹12,000)</strong> at the prestigious BGI Hackathon 2026 held in Indore. Through multiple rounds of technical evaluation, mentorship sessions, and final pitching, our team demonstrated exceptional innovation and execution with <strong style={{ color: "#ffffff" }}>SHEild AI</strong>, an intelligent safety platform designed to empower women and vulnerable communities.
                 </p>
 
                 <div
@@ -877,7 +917,7 @@ export default function Home() {
                     Core Tested Scope:
                   </strong>
                   <span style={{ color: "#94a3b8", fontSize: "0.85rem", lineHeight: "1.4" }}>
-                    Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead.
+                    AI-driven safety ecosystem integrating <strong style={{ color: "#ffffff" }}>risk-aware navigation</strong>, <strong style={{ color: "#ffffff" }}>emergency response automation</strong>, <strong style={{ color: "#ffffff" }}>intelligent alerts</strong>, and <strong style={{ color: "#ffffff" }}>real-time assistance mechanisms</strong> validated during a <strong style={{ color: "#ffffff" }}>national-level innovation challenge</strong>.
                   </span>
                 </div>
               </div>
@@ -888,36 +928,48 @@ export default function Home() {
                 style={{
                   border: "1px solid rgba(0, 229, 255, 0.15)",
                 }}
-                onMouseEnter={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "1"; overlay.style.transform = "translateY(0)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1.07)";
-                }}
-                onMouseLeave={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hackathon-hover-overlay") as HTMLElement | null;
-                  if (overlay) { overlay.style.opacity = "0"; overlay.style.transform = "translateY(10px)"; }
-                  const img = e.currentTarget.querySelector("img") as HTMLElement | null;
-                  if (img) img.style.transform = "scale(1)";
-                }}
+                onMouseEnter={() => setBgiHovered(true)}
+                onMouseLeave={() => setBgiHovered(false)}
               >
-                <img
-                  src="/images/hackathon_trophy.png"
-                  alt="National AI Innovation Challenge trophy"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
+                <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+                  <img
+                    src="/images/hackathon_bgi.jpg"
+                    alt="BGI Hackathon 2026 championship stage"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "opacity 0.8s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                      opacity: bgiImageIdx === 0 ? 1 : 0,
+                      transform: bgiHovered ? "scale(1.07)" : "scale(1)",
+                      zIndex: bgiImageIdx === 0 ? 1 : 0,
+                    }}
+                  />
+                  <img
+                    src="/images/hackathon_bgi_2.png"
+                    alt="BGI Hackathon 2026 runner-up certificate"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "opacity 0.8s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                      opacity: bgiImageIdx === 1 ? 1 : 0,
+                      transform: bgiHovered ? "scale(1.07)" : "scale(1)",
+                      zIndex: bgiImageIdx === 1 ? 1 : 0,
+                    }}
+                  />
+                </div>
                 {/* Always-visible subtle bottom gradient */}
                 <div style={{
                   position: "absolute",
                   inset: 0,
                   background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
                   pointerEvents: "none",
+                  zIndex: 2,
                 }} />
                 {/* Hover Overlay */}
                 <div
@@ -931,11 +983,12 @@ export default function Home() {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "10px",
-                    opacity: 0,
-                    transform: "translateY(10px)",
+                    opacity: bgiHovered ? 1 : 0,
+                    transform: bgiHovered ? "translateY(0)" : "translateY(10px)",
                     transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                     padding: "24px",
                     textAlign: "center",
+                    zIndex: 2,
                   }}
                 >
                   <Trophy size={32} style={{ color: "#00e5ff", filter: "drop-shadow(0 0 12px rgba(0,229,255,0.6))" }} />
@@ -946,7 +999,7 @@ export default function Home() {
                     fontFamily: "var(--font-display), sans-serif",
                     lineHeight: 1.2,
                     letterSpacing: "-0.02em",
-                  }}>National AI Innovation Challenge</span>
+                  }}>BGI Hackathon 2026</span>
                   <span style={{
                     fontSize: "0.8rem",
                     color: "#00e5ff",
@@ -954,7 +1007,7 @@ export default function Home() {
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
-                  }}>Championship Title · Edge Systems Award</span>
+                  }}>🥈 NATIONAL RUNNER-UP · ₹12,000</span>
                 </div>
               </div>
             </div>
@@ -1045,7 +1098,7 @@ export default function Home() {
                 data-hover="true"
               >
                 <div className="capability-card-glow" />
-                
+
                 <div className="capability-compact-card-header">
                   <div
                     className="svc-icon"
@@ -1093,7 +1146,7 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="capability-compact-card-body">
                   <p style={{ color: "#b4c6ef", fontSize: "0.85rem", lineHeight: "1.5", margin: 0 }}>
                     {service.desc}
@@ -1286,18 +1339,19 @@ export default function Home() {
           <div className="works-editorial-grid">
             {[
               {
-                id: "careforyou",
+                id: "sheild-ai",
                 code: "PRJ-01",
-                title: "CareForYou AI Platform",
-                subtitle: "Conversational healthcare agent & appointment system",
-                desc: "An AI-powered healthcare portal designed to resolve patient scheduling overhead and triage symptoms autonomously.",
-                tags: ["AI Assistant", "Healthcare", "Next.js"],
+                title: "SHEild AI Platform",
+                subtitle: "AI-Powered Women Safety & Emergency Response System",
+                desc: "An intelligent safety platform leveraging Artificial Intelligence, safe-route navigation, predictive risk detection, and automated emergency response workflows to enhance personal security and community well-being.",
+                tags: ["Flutter", "ML", "Geolocation", "Node.js"],
                 colorRGB: "0, 229, 255",
                 metricsList: [
-                  { val: "180ms", name: "Triage" },
-                  { val: "94%", name: "Accuracy" }
+                  { val: "95%", name: "Risk Detection" },
+                  { val: "<3s", name: "Response Time" }
                 ],
-                img: "/images/careforyou_ui.png"
+                img: "/images/careforyou_ui.png",
+                video: "/images/sheild_ai_demo.mp4"
               },
               {
                 id: "nexus-room",
@@ -1351,10 +1405,28 @@ export default function Home() {
                   textDecoration: "none"
                 } as React.CSSProperties}
               >
-                {/* Screenshot Image Container */}
-                <div className="works-editorial-image-box">
-                  <span className="works-editorial-badge">{proj.code}</span>
-                  <img src={proj.img} alt={proj.title} />
+                {/* Screenshot Image/Video Container */}
+                <div className="works-editorial-image-box" style={{ position: "relative", overflow: "hidden" }}>
+                  <span className="works-editorial-badge" style={{ zIndex: 5 }}>{proj.code}</span>
+                  {proj.video ? (
+                    <video
+                      src={proj.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      suppressHydrationWarning
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}
+                    />
+                  ) : (
+                    <img src={proj.img} alt={proj.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  )}
                 </div>
 
                 {/* Card Info Box */}
@@ -1421,41 +1493,62 @@ export default function Home() {
             </div>
 
             {/* Column 2: Terminal Card */}
-            <div style={{ height: "100%", display: "flex", alignItems: "center" }}>
-              <Terminal />
+            <div
+              style={{ height: "100%", display: "flex", alignItems: "center" }}
+              onMouseEnter={() => setIsPrincipleAutoplayPaused(true)}
+              onMouseLeave={() => setIsPrincipleAutoplayPaused(false)}
+            >
+              <Terminal activeIdx={activePrinciple} />
             </div>
 
             {/* Column 3: Principles List Card */}
-            <div className="statement-card bento-principles-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "32px", height: "100%" }}>
-              <div className="bento-principles-list" style={{ position: "relative", zIndex: 1 }}>
+            <div
+              className="statement-card bento-principles-card"
+              style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "32px", height: "100%" }}
+              onMouseEnter={() => setIsPrincipleAutoplayPaused(true)}
+              onMouseLeave={() => setIsPrincipleAutoplayPaused(false)}
+            >
+              <div className="bento-principles-list" style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: "12px" }}>
                 {[
                   {
                     title: "Rapid MVP Timelines",
                     desc: "We define, build, and deploy functional MVPs in a matter of weeks.",
                     color: "#00e5ff",
-                    bg: "rgba(0, 229, 255, 0.06)",
-                    border: "rgba(0, 229, 255, 0.15)",
+                    bg: "rgba(0, 229, 255, 0.08)",
+                    border: "rgba(0, 229, 255, 0.2)",
                   },
                   {
                     title: "AI + Scalable Code",
                     desc: "We hook automated LLM workflows directly into Next.js or mobile frames.",
                     color: "#ffd600",
-                    bg: "rgba(255, 214, 0, 0.06)",
-                    border: "rgba(255, 214, 0, 0.15)",
+                    bg: "rgba(255, 214, 0, 0.08)",
+                    border: "rgba(255, 214, 0, 0.2)",
                   },
                   {
                     title: "Dedicated Product Pods",
                     desc: "You deal directly with the engineers and designers building your system.",
                     color: "#ff007f",
-                    bg: "rgba(255, 0, 127, 0.06)",
-                    border: "rgba(255, 0, 127, 0.15)",
+                    bg: "rgba(255, 0, 127, 0.08)",
+                    border: "rgba(255, 0, 127, 0.2)",
                   },
                 ].map((p, idx) => (
                   <div
                     key={idx}
-                    className="bento-principle-item"
+                    className={`bento-principle-item ${activePrinciple === idx ? "active" : ""}`}
+                    onMouseEnter={() => setActivePrinciple(idx)}
                     style={{
-                      "--item-hover-color": p.border
+                      "--item-hover-color": p.color,
+                      border: "1px solid",
+                      borderColor: activePrinciple === idx ? p.border : "rgba(255, 255, 255, 0.03)",
+                      background: activePrinciple === idx ? p.bg : "rgba(255, 255, 255, 0.01)",
+                      boxShadow: activePrinciple === idx ? `0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px ${p.bg}` : "none",
+                      borderRadius: "14px",
+                      padding: "16px",
+                      transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                      cursor: "pointer",
+                      display: "flex",
+                      gap: "16px",
+                      alignItems: "flex-start"
                     } as React.CSSProperties}
                   >
                     <div
@@ -1463,32 +1556,34 @@ export default function Home() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        width: "30px",
-                        height: "30px",
+                        width: "32px",
+                        height: "32px",
                         borderRadius: "50%",
-                        background: p.bg,
+                        background: activePrinciple === idx ? p.color : p.bg,
                         border: `1px solid ${p.border}`,
-                        color: p.color,
+                        color: activePrinciple === idx ? "#000000" : p.color,
                         flexShrink: 0,
-                        fontSize: "0.8rem",
-                        fontWeight: 800
+                        fontSize: "0.85rem",
+                        fontWeight: 900,
+                        transition: "all 0.3s ease"
                       }}
                     >
                       0{idx + 1}
                     </div>
-                    <div>
+                    <div style={{ flex: 1 }}>
                       <h4
                         style={{
                           fontFamily: "var(--font-space-grotesk), sans-serif",
-                          fontSize: "0.92rem",
+                          fontSize: "0.95rem",
                           fontWeight: 700,
                           color: "#ffffff",
                           marginBottom: "4px",
+                          transition: "color 0.3s ease"
                         }}
                       >
                         {p.title}
                       </h4>
-                      <p style={{ color: "#94a3b8", fontSize: "0.78rem", lineHeight: "1.4", margin: 0 }}>
+                      <p style={{ color: activePrinciple === idx ? "#cbd5e1" : "#94a3b8", fontSize: "0.78rem", lineHeight: "1.4", margin: 0, transition: "color 0.3s ease" }}>
                         {p.desc}
                       </p>
                     </div>
@@ -1534,39 +1629,39 @@ export default function Home() {
             {(() => {
               const members = [
                 {
-                  name: "Aarav Mehta",
-                  role: "AI Lead & Engineer",
+                  name: "Shubham Pawar",
+                  role: "AI Lead Engineer",
                   desc: "LLMs, Vector Databases, Python Agentic scripting.",
-                  photo: "/images/team_member_1.png",
-                  portfolio: "/team/aarav-mehta"
+                  photo: "/images/team_member_1.jpg",
+                  portfolio: "/team/shubham-pawar"
                 },
                 {
-                  name: "Kavya Sharma",
-                  role: "Full Stack Lead",
+                  name: "Shivansh Mehra",
+                  role: "Full Stack Developer",
                   desc: "Next.js core structures, secure server APIs, databases.",
-                  photo: "/images/team_member_2.png",
-                  portfolio: "/team/kavya-sharma"
+                  photo: "/images/team_member_2.jpg",
+                  portfolio: "/team/shivansh-mehra"
                 },
                 {
-                  name: "Rohan Das",
-                  role: "Flutter Developer",
-                  desc: "Cross-platform mobile apps, native notifications.",
-                  photo: "/images/team_member_3.png",
-                  portfolio: "/team/rohan-das"
+                  name: "Prakash Kumar Biswal",
+                  role: "Agentic AI & Flutter Developer",
+                  desc: "Cross-platform mobile apps, offline databases.",
+                  photo: "/images/team_member_3.jpg",
+                  portfolio: "/team/prakash-biswal"
                 },
                 {
-                  name: "Isha Patel",
-                  role: "UI/UX Designer",
-                  desc: "Figma wireframes, modern styling systems.",
-                  photo: "/images/team_member_4.png",
-                  portfolio: "/team/isha-patel"
+                  name: "Shivam Kumar Maurya",
+                  role: "UI/UX & Frontend Developer",
+                  desc: "Figma wireframes, modern responsive layouts.",
+                  photo: "/images/team_member_4.jpg",
+                  portfolio: "/team/shivam-maurya"
                 },
                 {
-                  name: "Kabir Malhotra",
-                  role: "Ops & Strategy Lead",
+                  name: "Tushar Das",
+                  role: "Ops & Marketing Lead",
                   desc: "MVP scopes, agile scheduling, delivery management.",
-                  photo: "/images/team_member_5.png",
-                  portfolio: "/team/kabir-malhotra"
+                  photo: "/images/team_member_5.jpg",
+                  portfolio: "/team/tushar-das"
                 }
               ];
               const member = members[activeMember] || members[0];
@@ -1635,11 +1730,11 @@ export default function Home() {
             {/* Right: Specialists Interactive List */}
             <div className="team-members-list">
               {[
-                { name: "Aarav Mehta", role: "AI Lead & Engineer" },
-                { name: "Kavya Sharma", role: "Full Stack Lead" },
-                { name: "Rohan Das", role: "Flutter Developer" },
-                { name: "Isha Patel", role: "UI/UX Designer" },
-                { name: "Kabir Malhotra", role: "Ops & Strategy Lead" }
+                { name: "Shubham Pawar", role: "AI Lead Engineer" },
+                { name: "Shivansh Mehra", role: "Full Stack Developer" },
+                { name: "Prakash Kumar Biswal", role: "Agentic AI & Flutter Developer" },
+                { name: "Shivam Kumar Maurya", role: "UI/UX & Frontend Developer" },
+                { name: "Tushar Das", role: "Ops & Marketing Lead" }
               ].map((member, idx) => (
                 <div
                   key={idx}
@@ -1664,39 +1759,39 @@ export default function Home() {
           <div className="mobile-team-accordion">
             {[
               {
-                name: "Aarav Mehta",
-                role: "AI Lead & Engineer",
+                name: "Shubham Pawar",
+                role: "AI Lead Engineer",
                 desc: "LLMs, Vector Databases, Python Agentic scripting.",
-                photo: "/images/team_member_1.png",
-                portfolio: "/team/aarav-mehta"
+                photo: "/images/team_member_1.jpg",
+                portfolio: "/team/shubham-pawar"
               },
               {
-                name: "Kavya Sharma",
-                role: "Full Stack Lead",
+                name: "Shivansh Mehra",
+                role: "Full Stack Developer",
                 desc: "Next.js core structures, secure server APIs, databases.",
-                photo: "/images/team_member_2.png",
-                portfolio: "/team/kavya-sharma"
+                photo: "/images/team_member_2.jpg",
+                portfolio: "/team/shivansh-mehra"
               },
               {
-                name: "Rohan Das",
-                role: "Flutter Developer",
-                desc: "Cross-platform mobile apps, native notifications.",
-                photo: "/images/team_member_3.png",
-                portfolio: "/team/rohan-das"
+                name: "Prakash Kumar Biswal",
+                role: "Agentic AI & Flutter Developer",
+                desc: "Cross-platform mobile apps, offline databases.",
+                photo: "/images/team_member_3.jpg",
+                portfolio: "/team/prakash-biswal"
               },
               {
-                name: "Isha Patel",
-                role: "UI/UX Designer",
-                desc: "Figma wireframes, modern styling systems.",
-                photo: "/images/team_member_4.png",
-                portfolio: "/team/isha-patel"
+                name: "Shivam Kumar Maurya",
+                role: "UI/UX & Frontend Developer",
+                desc: "Figma wireframes, modern responsive layouts.",
+                photo: "/images/team_member_4.jpg",
+                portfolio: "/team/shivam-maurya"
               },
               {
-                name: "Kabir Malhotra",
-                role: "Ops & Strategy Lead",
+                name: "Tushar Das",
+                role: "Ops & Marketing Lead",
                 desc: "MVP scopes, agile scheduling, delivery management.",
-                photo: "/images/team_member_5.png",
-                portfolio: "/team/kabir-malhotra"
+                photo: "/images/team_member_5.jpg",
+                portfolio: "/team/tushar-das"
               }
             ].map((member, idx) => {
               const isOpen = activeMember === idx;
@@ -1912,7 +2007,7 @@ export default function Home() {
               >
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div className="testimonial-stars">
-                    {[1,2,3,4,5].map(s => <span key={s} style={{ color: "#fbbf24" }}>★</span>)}
+                    {[1, 2, 3, 4, 5].map(s => <span key={s} style={{ color: "#fbbf24" }}>★</span>)}
                   </div>
                   <p style={{ color: "#e2e8f0", fontSize: "0.92rem", lineHeight: "1.65", fontStyle: "italic", marginBottom: "24px" }}>
                     &ldquo;{test.quote}&rdquo;
@@ -2077,7 +2172,7 @@ export default function Home() {
                   textDecoration: "none",
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                 WhatsApp Us
               </a>
             </div>

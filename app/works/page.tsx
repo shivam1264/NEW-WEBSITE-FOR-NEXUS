@@ -4,6 +4,95 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X, Trophy, ArrowRight, Shield, Zap, Sparkles, Box } from "lucide-react";
 
+interface WorksCardImageProps {
+  item: {
+    code: string;
+    title: string;
+    img: string;
+    imgs?: string[];
+    video?: string;
+  };
+}
+
+function WorksCardImage({ item }: WorksCardImageProps) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (!item.imgs || item.imgs.length <= 1 || hovered) return;
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % item.imgs!.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [hovered, item.imgs]);
+
+  if (item.video) {
+    return (
+      <div 
+        className="works-editorial-image-box"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        <span className="works-editorial-badge" style={{ zIndex: 5 }}>{item.code}</span>
+        <video
+          src={item.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transform: hovered ? "scale(1.07)" : "scale(1)",
+          }}
+        />
+      </div>
+    );
+  }
+
+  if (!item.imgs || item.imgs.length <= 1) {
+    return (
+      <div className="works-editorial-image-box">
+        <span className="works-editorial-badge">{item.code}</span>
+        <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="works-editorial-image-box"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ position: "relative", overflow: "hidden" }}
+    >
+      <span className="works-editorial-badge" style={{ zIndex: 5 }}>{item.code}</span>
+      {item.imgs.map((imgSrc, idx) => (
+        <img
+          key={imgSrc}
+          src={imgSrc}
+          alt={`${item.title} slide ${idx + 1}`}
+          style={{
+            position: idx === 0 ? "relative" : "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: currentIdx === idx ? 1 : 0,
+            transition: "opacity 0.8s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transform: hovered ? "scale(1.07)" : "scale(1)",
+            zIndex: currentIdx === idx ? 2 : 1,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function Works() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [filter, setFilter] = useState<"all" | "project" | "championship">("all");
@@ -72,46 +161,60 @@ export default function Works() {
   const registryItems = [
     {
       type: "project",
-      id: "careforyou",
+      id: "sheild-ai",
       code: "PRJ-01",
-      title: "CareForYou AI Platform",
-      subtitle: "Conversational healthcare agent & appointment system",
-      desc: "An AI-powered healthcare portal designed to resolve patient scheduling overhead and triage symptoms autonomously.",
-      details: "Traditional healthcare portals suffer from massive coordination overhead and patient delays. CareForYou AI maps client health profiles using specialized vector indexes, qualifying symptom severity and routing queries dynamically in real-time.",
-      tags: ["AI Assistant", "Healthcare", "Next.js"],
-      icon: <Sparkles size={22} />,
+      title: "SHEild AI Platform",
+      subtitle: "AI-Powered Women Safety & Emergency Response System",
+      desc: "An intelligent safety platform leveraging Artificial Intelligence, safe-route navigation, predictive risk detection, and automated emergency response workflows to enhance personal security and community well-being.",
+      details: "Traditional safety solutions are reactive and depend heavily on manual intervention after an incident occurs. SHEild AI introduces a proactive protection framework capable of identifying potential risks, recommending safer routes, and triggering intelligent emergency workflows in real time.\n\nDeveloped and validated during multiple national-level hackathons, the platform demonstrates how AI can be leveraged to address critical social challenges while maintaining accessibility, scalability, and reliability.",
+      tags: ["Flutter", "Machine Learning", "Geolocation Services", "Emergency Response Automation", "Node.js", "Firebase"],
+      icon: <Shield size={22} />,
       color: "#00e5ff",
       colorRGB: "0, 229, 255",
       metricsList: [
-        { val: "180ms", name: "Triage Delay" },
-        { val: "94%", name: "Routing Accuracy" },
-        { val: "24/7", name: "Agent Uptime" }
+        { val: "95%", name: "Risk Detection Accuracy" },
+        { val: "<3s", name: "Emergency Response Time" },
+        { val: "24/7", name: "AI Safety Monitoring" }
       ],
-      achievement: "Deploying high-fidelity healthcare automation built for local clinics.",
-      img: "/images/careforyou_ui.png"
+      achievement: "🏆 Building AI-powered safety infrastructure for a safer and more empowered society.",
+      img: "/images/careforyou_ui.png",
+      video: "/images/sheild_ai_demo.mp4"
     },
     {
       type: "championship",
-      id: "sih",
+      id: "tic",
       code: "HACK-01",
-      title: "Smart India Hackathon (SIH)",
-      subtitle: "Ministry of Education, Govt. of India | Indore Hub Champion",
-      desc: "Out of thousands of competing student-led startups and developer teams across the nation, Team Nexus won the Grand Prize (₹1,00,000).",
-      details: "We designed, coded, and deployed a high-capacity triage model and medical scheduling client dashboard within a continuous 36-hour sprint. Team Nexus built a unified clinical coordination dashboard, reducing triage delay under intensive concurrent traffic.",
-      tags: ["Grand Prize", "Govt. of India", "₹1,00,000"],
+      title: "Technocrats Innovation Challenge (TIC 2K26)",
+      subtitle: "Organized by Technocrats Institute of Technology & Science, Bhopal | First Prize Winner",
+      desc: (
+        <span>
+          Out of <strong style={{ color: "#ffffff" }}>200+ competing teams</strong> and innovators across multiple institutions, Team NEXUS secured the <strong style={{ color: "var(--accent)" }}>1st Prize (₹20,000)</strong> at the prestigious Technocrats Innovation Challenge 2K26.
+        </span>
+      ),
+      details: (
+        <span>
+          Through a demanding <strong style={{ color: "#ffffff" }}>36-hour innovation sprint</strong>, our team successfully advanced through multiple evaluation rounds and emerged as the overall champions with <strong style={{ color: "#ffffff" }}>SHEild AI</strong>, an AI-powered platform focused on Women Safety, Empowerment, and Social Impact.
+        </span>
+      ),
+      tags: ["Grand Prize", "TIC 2K26", "₹20,000"],
       icon: <Trophy size={22} />,
       color: "#ffd600",
       colorRGB: "255, 214, 0",
       metricsList: [
-        { val: "1st Place", name: "National Rank" },
-        { val: "₹1,00,000", name: "Grand Prize" },
+        { val: "1st Place", name: "Rank" },
+        { val: "₹20,000", name: "Grand Prize" },
         { val: "36 Hours", name: "Sprint Duration" }
       ],
-      achievement: "Smart India Hackathon Grand Prize Champion out of 1000+ national developer teams.",
-      img: "/images/hackathon_win.png",
-      badge: "Grand Prize Winner · ₹1,00,000",
-      org: "Ministry of Education, Govt. of India",
-      scope: "Automated patient intent classifications utilizing custom vector embeds. Tested query delay of 180ms under intensive concurrent mock traffic."
+      achievement: "🏆 GRAND PRIZE WINNER",
+      img: "/images/hackathon_tic.jpg",
+      imgs: ["/images/hackathon_tic.jpg", "/images/hackathon_tic_2.jpg"],
+      badge: "🏆 GRAND PRIZE WINNER · ₹20,000",
+      org: "Technocrats Institute of Technology & Science, Bhopal",
+      scope: (
+        <span>
+          Developed and deployed an intelligent assistance ecosystem integrating <strong style={{ color: "#ffffff" }}>AI-driven emergency response</strong>, <strong style={{ color: "#ffffff" }}>safety analytics</strong>, and <strong style={{ color: "#ffffff" }}>real-time support features</strong>. The solution was evaluated on <strong style={{ color: "#ffffff" }}>innovation, scalability, social impact, technical execution, and user experience</strong> under intensive hackathon conditions.
+        </span>
+      )
     },
     {
       type: "project",
@@ -135,26 +238,39 @@ export default function Works() {
     },
     {
       type: "championship",
-      id: "ai-challenge",
+      id: "bgi-hackathon",
       code: "HACK-02",
-      title: "National AI Innovation Challenge",
-      subtitle: "National Technology Consortium & MeitY | Edge Systems Award",
-      desc: "Recognized nationally for pioneering architecture, Team Nexus designed and demonstrated a live-telemetry edge monitor dashboard.",
-      details: "Under testing, the dashboard tracked multi-department data loops and detected system drift latency errors instantly. Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead.",
-      tags: ["Championship", "Edge Systems", "MeitY Award"],
+      title: "BGI Hackathon 2026 (Vision 2047 | Viksit Bharat)",
+      subtitle: "Organized by Bansal Group of Institutes & MPSEDC | National Runner-Up",
+      desc: (
+        <span>
+          Competing against <strong style={{ color: "#ffffff" }}>600+ teams</strong> and over <strong style={{ color: "#ffffff" }}>2,800 participants</strong> from across India, Team NEXUS secured the <strong style={{ color: "#00e5ff" }}>Runner-Up Position (₹12,000)</strong> at the prestigious BGI Hackathon 2026 held in Indore.
+        </span>
+      ),
+      details: (
+        <span>
+          Through multiple rounds of technical evaluation, mentorship sessions, and final pitching, our team demonstrated exceptional innovation and execution with <strong style={{ color: "#ffffff" }}>SHEild AI</strong>, an intelligent safety platform designed to empower women and vulnerable communities.
+        </span>
+      ),
+      tags: ["National Runner-Up", "BGI 2026", "₹12,000"],
       icon: <Trophy size={22} />,
       color: "#00e5ff",
       colorRGB: "0, 229, 255",
       metricsList: [
-        { val: "Championship", name: "Award Title" },
-        { val: "0ms Latency", name: "Edge Cache" },
-        { val: "100%", name: "Data Fidelity" }
+        { val: "2nd Place", name: "Rank" },
+        { val: "₹12,000", name: "Runner-Up Prize" },
+        { val: "600+ Teams", name: "Competitors" }
       ],
-      achievement: "National Technology Consortium & MeitY Edge Systems Award.",
-      img: "/images/hackathon_trophy.png",
-      badge: "Championship Title · Edge Systems Award",
-      org: "National Technology Consortium & MeitY",
-      scope: "Engineered real-time FastAPI endpoints cached on edge models, verifying 100% data fidelity with 0ms database cache latency overhead."
+      achievement: "🥈 NATIONAL RUNNER-UP",
+      img: "/images/hackathon_bgi.jpg",
+      imgs: ["/images/hackathon_bgi.jpg", "/images/hackathon_bgi_2.png"],
+      badge: "🥈 NATIONAL RUNNER-UP · ₹12,000",
+      org: "Bansal Group of Institutes & MPSEDC",
+      scope: (
+        <span>
+          AI-driven safety ecosystem integrating <strong style={{ color: "#ffffff" }}>risk-aware navigation</strong>, <strong style={{ color: "#ffffff" }}>emergency response automation</strong>, <strong style={{ color: "#ffffff" }}>intelligent alerts</strong>, and <strong style={{ color: "#ffffff" }}>real-time assistance mechanisms</strong> validated during a <strong style={{ color: "#ffffff" }}>national-level innovation challenge</strong>.
+        </span>
+      )
     },
     {
       type: "project",
@@ -270,10 +386,7 @@ export default function Works() {
                 onClick={() => setActiveProject(originalIndex)}
               >
                 {/* Screenshot Image Container */}
-                <div className="works-editorial-image-box">
-                  <span className="works-editorial-badge">{item.code}</span>
-                  <img src={item.img} alt={item.title} />
-                </div>
+                <WorksCardImage item={item} />
 
                 {/* Card Info Box */}
                 <div className="works-editorial-details">
@@ -384,15 +497,30 @@ export default function Works() {
                     position: "relative",
                   }}
                 >
-                  <img
-                    src={registryItems[activeProject].img}
-                    alt={registryItems[activeProject].title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
+                  {registryItems[activeProject].video ? (
+                    <video
+                      src={registryItems[activeProject].video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={registryItems[activeProject].img}
+                      alt={registryItems[activeProject].title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
                   <div
                     style={{
                       position: "absolute",

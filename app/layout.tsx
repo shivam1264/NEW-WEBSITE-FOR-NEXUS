@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import CanvasBackground from "@/components/CanvasBackground";
+import PageIntro from "@/components/PageIntro";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <PageIntro />
         {/* Lenis Smooth Scrolling wrapper */}
         <SmoothScroll>
           {/* Ambient Theme Backgrounds */}
