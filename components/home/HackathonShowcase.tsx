@@ -123,7 +123,7 @@ export default function HackathonShowcase() {
             }}
           >
             {/* Metadata Left */}
-            <div style={{ flex: "1 1 500px", maxWidth: "650px" }}>
+            <div style={{ flex: "1 1 500px", maxWidth: "100%", minWidth: 0 }}>
               <div
                 className="eyebrow-mono"
                 style={{
@@ -296,7 +296,7 @@ export default function HackathonShowcase() {
             }}
           >
             {/* Metadata Left */}
-            <div style={{ flex: "1 1 500px", maxWidth: "650px" }}>
+            <div style={{ flex: "1 1 500px", maxWidth: "100%", minWidth: 0 }}>
               <div
                 className="eyebrow-mono"
                 style={{

@@ -490,9 +490,9 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
               onMouseEnter={() => setHoveredProject(i)}
               onMouseLeave={() => setHoveredProject(null)}
               style={{
+              style={{
                 background: "rgba(255,255,255,0.02)",
                 border: hoveredProject === i ? `1px solid ${member.accent}` : "1px solid rgba(255,255,255,0.05)",
-                borderRadius: "32px", padding: "48px",
                 transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                 transform: hoveredProject === i ? "translateY(-10px)" : "translateY(0)",
                 display: "flex", flexDirection: "column"
@@ -525,7 +525,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
 
       {/* ── GET IN TOUCH ── */}
       <div className="container" style={{ marginTop: "160px" }}>
-        <div className="contact-hub" style={{ background: `linear-gradient(135deg, rgba(${member.accentRgb}, 0.1) 0%, rgba(255,255,255,0.02) 100%)`, border: `1px solid rgba(${member.accentRgb}, 0.2)`, borderRadius: "40px", padding: "80px", position: "relative", overflow: "hidden", boxShadow: `0 40px 100px rgba(${member.accentRgb}, 0.1)` }}>
+        <div className="contact-hub" style={{ background: `linear-gradient(135deg, rgba(${member.accentRgb}, 0.1) 0%, rgba(255,255,255,0.02) 100%)`, border: `1px solid rgba(${member.accentRgb}, 0.2)`, position: "relative", overflow: "hidden", boxShadow: `0 40px 100px rgba(${member.accentRgb}, 0.1)` }}>
           
           <div style={{ position: "absolute", inset: 0, opacity: 0.1, backgroundImage: "radial-gradient(#ffffff 2px, transparent 2px)", backgroundSize: "40px 40px", pointerEvents: "none" }} />
 
@@ -556,8 +556,8 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
             </div>
 
             {/* Right */}
-            <div style={{ background: "var(--background)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "32px", padding: "48px", display: "flex", flexDirection: "column", gap: "24px" }}>
-              <a href={`mailto:${member.email}`} onClick={handleEmailClick} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "24px 32px", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)", cursor: "pointer" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
+            <div className="contact-links-container" style={{ background: "var(--background)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", gap: "24px" }}>
+              <a href={`mailto:${member.email}`} onClick={handleEmailClick} className="contact-link-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)", cursor: "pointer" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                   <Mail size={24} style={{ color: member.accent }} />
                   <div>
@@ -570,7 +570,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
                 {copiedEmail ? <CheckCircle2 size={20} color="#00e676" /> : <ChevronRight size={20} />}
               </a>
 
-              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "24px 32px", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="contact-link-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                   <LinkedinIcon size={24} style={{ color: member.accent }} />
                   <div>
@@ -581,7 +581,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
                 <ChevronRight size={20} />
               </a>
 
-              <a href={member.github} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "24px 32px", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
+              <a href={member.github} target="_blank" rel="noopener noreferrer" className="contact-link-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                   <GithubIcon size={24} style={{ color: member.accent }} />
                   <div>
