@@ -490,7 +490,6 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
               onMouseEnter={() => setHoveredProject(i)}
               onMouseLeave={() => setHoveredProject(null)}
               style={{
-              style={{
                 background: "rgba(255,255,255,0.02)",
                 border: hoveredProject === i ? `1px solid ${member.accent}` : "1px solid rgba(255,255,255,0.05)",
                 transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
