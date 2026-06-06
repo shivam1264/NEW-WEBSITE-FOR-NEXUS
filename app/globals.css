@@ -4606,7 +4606,7 @@ div[style*="padding: 0 24px 24px"] {
 
 @media (max-width: 1024px) {
   .team-hero-grid, .team-content-grid, .team-contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 48px;
   }
   .team-hero-photo {
