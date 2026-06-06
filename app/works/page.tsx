@@ -636,9 +636,9 @@ export default function Works() {
                     position: "relative",
                   }}
                 >
-                  {registryItems[activeProject].video ? (
+                  {(registryItems[activeProject] as any).video ? (
                     <video
-                      src={registryItems[activeProject].video}
+                      src={(registryItems[activeProject] as any).video}
                       autoPlay
                       loop
                       muted
