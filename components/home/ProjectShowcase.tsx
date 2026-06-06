@@ -227,9 +227,9 @@ export default function ProjectShowcase() {
                         ))}
                       </div>
                     </>
-                  ) : proj.video ? (
+                  ) : (proj as any).video ? (
                     <video
-                      src={proj.video}
+                      src={(proj as any).video}
                       autoPlay
                       loop
                       muted
@@ -247,7 +247,7 @@ export default function ProjectShowcase() {
                     />
                   ) : (
                     <Image
-                      src={proj.img}
+                      src={(proj as any).img}
                       alt={proj.title}
                       fill
                       priority
