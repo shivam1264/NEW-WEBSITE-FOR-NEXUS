@@ -36,6 +36,7 @@ export interface MemberData {
   email: string;
   github: string;
   linkedin: string;
+  resume?: string;
   skills: Skill[];
   stats: Stat[];
   projects: Project[];
@@ -50,11 +51,12 @@ export const members: Record<string, MemberData> = {
     accent: "#00e5ff",
     accentRgb: "0, 229, 255",
     bio: "I build the intelligence layer — vector pipelines, LLM orchestration, and agentic workflows that make our products think. With a focus on low-latency inference and precise retrieval systems, I architect AI systems that handle real clinical, commercial, and operational workloads.",
-    location: "Indore, India",
+    location: "Bhopal, India",
     available: true,
-    email: "shubham@teamnexus.agency",
-    github: "https://github.com/shubhampawar-ai",
-    linkedin: "https://linkedin.com/in/shubham-pawar-ai",
+    email: "shubhampawar1263@gmail.com",
+    github: "https://github.com/codewithS1",
+    linkedin: "https://www.linkedin.com/in/shubham-pawar-527b88284/",
+    resume: "/SUBHAM_Resume.pdf",
     skills: [
       { name: "Python / FastAPI", level: 95 },
       { name: "LangChain / LLM Agents", level: 90 },
@@ -95,7 +97,7 @@ export const members: Record<string, MemberData> = {
       { year: "2026", event: "Grand Prize — Technocrats Innovation Challenge (TIC 2K26)", type: "award" },
       { year: "2026", event: "National Runner-Up — BGI Hackathon 2026", type: "award" },
       { year: "2024", event: "Built SHEild AI safety engine — deployed to production", type: "project" },
-      { year: "2023", event: "Joined Team Nexus as AI Systems Lead", type: "milestone" },
+      { year: "2023", event: "Joined NEXUS as AI Systems Lead", type: "milestone" },
     ],
   },
 
@@ -106,11 +108,12 @@ export const members: Record<string, MemberData> = {
     accent: "#ff5c2b",
     accentRgb: "255, 92, 43",
     bio: "I architect the full digital surface — scalable Next.js applications, hardened API layers, and the database architecture that holds everything together. My obsession is shipping clean, production-grade systems that perform under real-world load without breaking.",
-    location: "Indore, India",
+    location: "Bhopal, India",
     available: true,
-    email: "shivansh@teamnexus.agency",
-    github: "https://github.com/shivanshmehra-dev",
-    linkedin: "https://linkedin.com/in/shivansh-mehra-fullstack",
+    email: "meharashiv8889@gmail.com",
+    github: "https://github.com/shivansh-mehra-01",
+    linkedin: "https://www.linkedin.com/in/shivanshmehra01/",
+    resume: "/SHIVANSH_RESUME.pdf",
     skills: [
       { name: "Next.js / React", level: 96 },
       { name: "TypeScript", level: 92 },
@@ -140,7 +143,7 @@ export const members: Record<string, MemberData> = {
         color: "#00e5ff",
       },
       {
-        title: "Team Nexus Agency Website",
+        title: "NEXUS Agency Website",
         desc: "Designed and shipped the complete Next.js app router codebase for this website — performance-optimized, dark-mode first, fully responsive. Lenis scroll, reveal animations, and all SEO metadata wired.",
         tags: ["Next.js 14", "CSS3", "Lenis", "Vercel"],
         result: "95+ Lighthouse score, sub-1s LCP on all pages",
@@ -151,7 +154,7 @@ export const members: Record<string, MemberData> = {
       { year: "2024", event: "Shipped 3 production-grade client products on Next.js 14", type: "project" },
       { year: "2026", event: "Led full-stack architecture for TIC hackathon winning project", type: "award" },
       { year: "2023", event: "Designed scalable multi-tenant API pattern for Nexus systems", type: "milestone" },
-      { year: "2023", event: "Joined Team Nexus as Full Stack Lead", type: "milestone" },
+      { year: "2023", event: "Joined NEXUS as Full Stack Lead", type: "milestone" },
     ],
   },
 
@@ -162,11 +165,12 @@ export const members: Record<string, MemberData> = {
     accent: "#00e676",
     accentRgb: "0, 230, 118",
     bio: "I make mobile apps that feel native, perform at 60fps, and work offline. From direct-to-consumer ordering to driver dispatch systems, I build Flutter apps that bypass the bloat and serve businesses directly — no platform fees, no compromises.",
-    location: "Indore, India",
+    location: "Bhopal, India",
     available: true,
-    email: "prakash@teamnexus.agency",
-    github: "https://github.com/prakashbiswal-dev",
-    linkedin: "https://linkedin.com/in/prakash-kumar-biswal",
+    email: "prakashkumarbiswal503@gmail.com",
+    github: "https://github.com/PrakashKumar-2006",
+    linkedin: "https://www.linkedin.com/in/prakash-kumar-biswal-138160309/",
+    resume: "/Prakash_Resume.pdf",
     skills: [
       { name: "Flutter / Dart", level: 94 },
       { name: "Firebase / Firestore", level: 88 },
@@ -197,10 +201,10 @@ export const members: Record<string, MemberData> = {
       },
     ],
     timeline: [
-      { year: "2024", event: "Shipped Restaurant App to production for Indore merchant group", type: "project" },
+      { year: "2024", event: "Shipped Restaurant App to production for Bhopal merchant group", type: "project" },
       { year: "2024", event: "Built SHEild AI mobile safety application integrated with emergency backend", type: "project" },
       { year: "2023", event: "Mastered offline-first architecture with Hive + SQLite", type: "milestone" },
-      { year: "2023", event: "Joined Team Nexus as Mobile Engineering Lead", type: "milestone" },
+      { year: "2023", event: "Joined NEXUS as Mobile Engineering Lead", type: "milestone" },
     ],
   },
 
@@ -211,11 +215,12 @@ export const members: Record<string, MemberData> = {
     accent: "#d500f9",
     accentRgb: "213, 0, 249",
     bio: "Design is the first product decision. I build interfaces that guide users, build trust, and convert — not just look good. From wireframe to production CSS, I own every visual decision: dark-mode systems, motion design, brand identity, and responsive layouts that actually hold together.",
-    location: "Indore, India",
+    location: "Bhopal, India",
     available: true,
-    email: "shivam@teamnexus.agency",
-    github: "https://github.com/shivamkumar-uiux",
-    linkedin: "https://linkedin.com/in/shivam-kumar-maurya",
+    email: "mauryashivamkumar841@gmail.com",
+    github: "https://github.com/shivam1264",
+    linkedin: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/",
+    resume: "/ShivamKumarMauryaResume.pdf",
     skills: [
       { name: "Figma / Prototyping", level: 96 },
       { name: "CSS3 / Advanced Animations", level: 90 },
@@ -231,8 +236,8 @@ export const members: Record<string, MemberData> = {
     ],
     projects: [
       {
-        title: "Team Nexus Brand & Design System",
-        desc: "Designed the complete visual identity for Team Nexus — typography scale, color tokens, component library in Figma, and all CSS custom property mappings. Every layout, animation, and micro-interaction on this site is mine.",
+        title: "NEXUS Brand & Design System",
+        desc: "Designed the complete visual identity for NEXUS — typography scale, color tokens, component library in Figma, and all CSS custom property mappings. Every layout, animation, and micro-interaction on this site is mine.",
         tags: ["Figma", "CSS3", "Design Tokens", "Typography"],
         result: "Consistent design language across 6 pages + 30+ components",
         color: "#d500f9",
@@ -253,10 +258,10 @@ export const members: Record<string, MemberData> = {
       },
     ],
     timeline: [
-      { year: "2024", event: "Designed full brand identity and site for Team Nexus", type: "project" },
+      { year: "2024", event: "Designed full brand identity and site for NEXUS", type: "project" },
       { year: "2026", event: "Led UI design for TIC hackathon winning project (36-hour sprint)", type: "award" },
       { year: "2023", event: "Built first complete Figma design system for multi-product agency", type: "milestone" },
-      { year: "2023", event: "Joined Team Nexus as UI/UX Design Lead", type: "milestone" },
+      { year: "2023", event: "Joined NEXUS as UI/UX Design Lead", type: "milestone" },
     ],
   },
 
@@ -267,11 +272,12 @@ export const members: Record<string, MemberData> = {
     accent: "#ffd600",
     accentRgb: "255, 214, 0",
     bio: "I translate ambiguous client briefs into airtight delivery contracts, then make sure the team actually ships on time. Every product we launch has passed through my MVP scoping, sprint planning, and launch coordination. I keep chaos out of the critical path.",
-    location: "Indore, India",
+    location: "Bhopal, India",
     available: true,
-    email: "tushar@teamnexus.agency",
-    github: "https://github.com/tushardas-ops",
-    linkedin: "https://linkedin.com/in/tushar-das-ops",
+    email: "tushar260104@gmail.com",
+    github: "https://github.com/KenKaneki23-ux",
+    linkedin: "https://www.linkedin.com/in/tushar-das-96aa14266/",
+    resume: "/Tushar_Das_Resume.pdf",
     skills: [
       { name: "MVP Scoping & Requirements", level: 95 },
       { name: "Agile / Sprint Planning", level: 92 },
@@ -311,8 +317,8 @@ export const members: Record<string, MemberData> = {
     timeline: [
       { year: "2024", event: "Managed 5 concurrent product launches with 0 critical delays", type: "milestone" },
       { year: "2026", event: "Led team ops for Grand Prize TIC 2K26 win (₹20,000)", type: "award" },
-      { year: "2023", event: "Wrote Team Nexus internal delivery playbook — still in use", type: "milestone" },
-      { year: "2023", event: "Joined Team Nexus as Operations & Product Strategy Lead", type: "milestone" },
+      { year: "2023", event: "Wrote NEXUS internal delivery playbook — still in use", type: "milestone" },
+      { year: "2023", event: "Joined NEXUS as Operations & Product Strategy Lead", type: "milestone" },
     ],
   },
 };

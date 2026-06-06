@@ -1,11 +1,11 @@
 "use client";
- 
+
 import { useState } from "react";
- 
+
 interface TerminalProps {
   activeIdx: number;
 }
- 
+
 const videos = [
   {
     src: "/images/delivery_demo.mp4",
@@ -32,11 +32,11 @@ const videos = [
     glow: "radial-gradient(circle, rgba(255, 0, 127, 0.12) 0%, rgba(255, 0, 127, 0.05) 55%, transparent 75%)",
   }
 ];
- 
+
 export default function Terminal({ activeIdx }: TerminalProps) {
   const currentVid = videos[activeIdx] || videos[0];
   const [hovered, setHovered] = useState(false);
- 
+
   return (
     <div style={{
       position: "relative",
@@ -56,7 +56,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
           50% { transform: translateY(6px); }
         }
       `}</style>
- 
+
       {/* Ambient Backdrop Glow */}
       <div style={{
         position: "absolute",
@@ -71,9 +71,9 @@ export default function Terminal({ activeIdx }: TerminalProps) {
         pointerEvents: "none",
         transition: "background 0.6s ease",
       }} />
- 
+
       {/* IDE Window Mockup Frame */}
-      <div 
+      <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -118,7 +118,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
             {currentVid.title}
           </div>
         </div>
- 
+
         {/* Video Player Container */}
         <div style={{ flex: 1, position: "relative", background: "#060608", overflow: "hidden" }}>
           {videos.map((vid, i) => (
@@ -144,7 +144,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
               }}
             />
           ))}
- 
+
           {/* Sweep Telemetry Scanner */}
           <div style={{
             position: "absolute",
@@ -163,7 +163,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
             animation: "telemetryScan 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite",
             transition: "opacity 0.3s ease"
           }} />
- 
+
           {/* Reflective Overlay */}
           <div style={{
             position: "absolute",
@@ -174,7 +174,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
           }} />
         </div>
       </div>
- 
+
       {/* Floating Badge 1 - Left */}
       <div style={{
         position: "absolute",
@@ -205,7 +205,7 @@ export default function Terminal({ activeIdx }: TerminalProps) {
           {currentVid.badgeLeft}
         </span>
       </div>
- 
+
       {/* Floating Badge 2 - Right */}
       <div style={{
         position: "absolute",

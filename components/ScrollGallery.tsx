@@ -1,26 +1,48 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { Sparkles, Layers, ShieldCheck, HeartPulse, Trophy, Code, Shield } from "lucide-react";
 
 export default function ScrollGallery() {
-  const [scrollY, setScrollY] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [offset1, setOffset1] = useState(0);
+  const [offset2, setOffset2] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
   const [hoveredR1, setHoveredR1] = useState<number | null>(null);
   const [hoveredR2, setHoveredR2] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    const handleScrollAndResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      if (!sectionRef.current) return;
+      
+      const rect = sectionRef.current.getBoundingClientRect();
+      const vh = window.innerHeight;
+      
+      // Calculate how far the center of the section is from the center of the screen
+      const sectionCenter = rect.top + (rect.height / 2);
+      const viewportCenter = vh / 2;
+      const distanceFromCenter = viewportCenter - sectionCenter;
+      
+      // Speed multiplier for the parallax effect
+      const speed = mobile ? 0.15 : 0.25;
+      
+      setOffset1(distanceFromCenter * speed);
+      setOffset2(-distanceFromCenter * speed);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScrollAndResize, { passive: true });
+    window.addEventListener("resize", handleScrollAndResize, { passive: true });
+    handleScrollAndResize();
+    return () => {
+      window.removeEventListener("scroll", handleScrollAndResize);
+      window.removeEventListener("resize", handleScrollAndResize);
+    };
   }, []);
-
-  // Row 1 slides left-to-right (positive offset)
-  const offset1 = (scrollY * 0.12) - 100;
-  // Row 2 slides right-to-left (negative offset)
-  const offset2 = -(scrollY * 0.12) + 100;
 
   const row1Images = [
     {
@@ -102,6 +124,7 @@ export default function ScrollGallery() {
 
   return (
     <section 
+      ref={sectionRef}
       style={{ 
         padding: "100px 0", 
         overflow: "hidden", 
@@ -160,13 +183,13 @@ export default function ScrollGallery() {
 
         {/* Row 1: Left to Right (Projects) */}
         <div 
-          style={{ 
+            style={{ 
             display: "flex", 
             gap: "24px", 
             transform: `translate3d(${offset1}px, 0, 0)`,
-            transition: "transform 0.2s cubic-bezier(0.1, 0.8, 0.3, 1)",
+            transition: "transform 0.1s linear",
             width: "max-content",
-            paddingLeft: "12vw"
+            paddingLeft: isMobile ? "5vw" : "12vw"
           }}
         >
           {row1Images.map((img, idx) => {
@@ -174,10 +197,9 @@ export default function ScrollGallery() {
             return (
               <div 
                 key={idx} 
-                onMouseEnter={() => setScrollY(window.scrollY)} // trigger small update to stabilize layout
                 style={{ 
-                  width: "clamp(280px, 24vw, 380px)", 
-                  height: "clamp(180px, 15vw, 240px)", 
+                  width: "clamp(220px, 45vw, 380px)", 
+                  height: "clamp(140px, 30vw, 240px)", 
                   borderRadius: "24px",
                   overflow: "hidden",
                   position: "relative",
@@ -194,9 +216,11 @@ export default function ScrollGallery() {
                 onMouseLeave={() => setHoveredR1(null)}
               >
                 {/* Image */}
-                <img 
+                <Image 
                   src={img.src} 
                   alt={img.title} 
+                  width={600}
+                  height={400}
                   style={{ 
                     width: "100%", 
                     height: "100%", 
@@ -279,10 +303,10 @@ export default function ScrollGallery() {
             display: "flex", 
             gap: "24px", 
             transform: `translate3d(${offset2}px, 0, 0)`,
-            transition: "transform 0.2s cubic-bezier(0.1, 0.8, 0.3, 1)",
+            transition: "transform 0.1s linear",
             width: "max-content",
             alignSelf: "flex-end",
-            paddingRight: "12vw"
+            paddingRight: isMobile ? "5vw" : "12vw"
           }}
         >
           {row2Images.map((img, idx) => {
@@ -291,8 +315,8 @@ export default function ScrollGallery() {
               <div 
                 key={idx} 
                 style={{ 
-                  width: "clamp(180px, 16vw, 240px)", 
-                  height: "clamp(220px, 20vw, 300px)", 
+                  width: "clamp(160px, 35vw, 240px)", 
+                  height: "clamp(200px, 45vw, 300px)", 
                   borderRadius: "24px",
                   overflow: "hidden",
                   position: "relative",
@@ -309,9 +333,11 @@ export default function ScrollGallery() {
                 onMouseLeave={() => setHoveredR2(null)}
               >
                 {/* Image (Centered and cropped beautifully at the face level) */}
-                <img 
+                <Image 
                   src={img.src} 
                   alt={img.title} 
+                  width={400}
+                  height={500}
                   style={{ 
                     width: "100%", 
                     height: "100%", 

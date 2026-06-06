@@ -119,6 +119,10 @@ export default function Contact() {
 
   const canProceedToStep3 = formData.name.trim() !== "" && formData.email.trim() !== "" && formData.email.includes("@");
 
+  const greenAccent = "#00e676";
+  const darkSurface = "#0d1116";
+  const borderSoft = "rgba(255,255,255,0.06)";
+
   return (
     <div
       style={{
@@ -132,224 +136,217 @@ export default function Contact() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "60px",
+          gap: "80px",
           alignItems: "start",
         }}
       >
         {/* Left Side Copy & HUD */}
         <div className="reveal-text">
-          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
-            <span className="pulsing-dot pulsing-dot-coral" />
-            Contact
-          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+            <div style={{ width: "20px", height: "2px", background: greenAccent }} />
+            <span className="eyebrow-mono" style={{ color: greenAccent, letterSpacing: "0.15em", fontSize: "0.75rem", fontWeight: 700 }}>
+              CONTACT
+            </span>
+          </div>
           <h1
             className="hero-title font-display"
             style={{
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              fontSize: "clamp(2.8rem, 5.5vw, 4.4rem)",
               fontWeight: 700,
               color: "#ffffff",
-              marginBottom: "20px",
+              marginBottom: "24px",
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em"
             }}
           >
             Ready to Build Your <br />
-            Next <span className="font-serif-i" style={{ color: "var(--accent)" }}>Digital Product</span>?
+            Next <span style={{ color: greenAccent }}>Digital</span> <br />
+            <span style={{ 
+              background: "linear-gradient(90deg, #6ae372 0%, #d89648 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              display: "inline-block"
+            }}>Product?</span>
           </h1>
           <p
             style={{
-              color: "#94a3b8",
-              fontSize: "1.02rem",
-              lineHeight: "1.65",
-              marginBottom: "32px",
+              color: "rgba(255,255,255,0.7)",
+              fontSize: "1.15rem",
+              lineHeight: "1.7",
+              marginBottom: "48px",
               maxWidth: "480px",
+              fontFamily: "var(--font-space-grotesk), sans-serif",
             }}
           >
             Tell us about your startup concept or local business system requirements. Book a call to align on MVP timeline options and exact deliverables.
           </p>
 
-          {/* Project Status HUD */}
-          <div className="contact-status-hud">
-            <div className="hud-title">
-              <span>System Telemetry</span>
-              <span style={{ color: "#25d366", display: "flex", alignItems: "center", gap: "6px" }}>
-                <span className="pulsing-dot pulsing-dot-mint" style={{ width: "8px", height: "8px" }} />
-                Online
+          {/* Premium Glassmorphic System Telemetry Card */}
+          <div style={{
+            position: "relative",
+            background: "rgba(10, 10, 15, 0.4)",
+            border: `1px solid rgba(0, 229, 255, 0.2)`,
+            borderRadius: "24px",
+            padding: "32px",
+            marginBottom: "48px",
+            maxWidth: "480px",
+            backdropFilter: "blur(20px)",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(0, 229, 255, 0.05)",
+            overflow: "hidden"
+          }}>
+            {/* Glowing Background Orb */}
+            <div style={{
+              position: "absolute",
+              top: "-50%",
+              left: "-50%",
+              width: "200%",
+              height: "200%",
+              background: "radial-gradient(circle at top right, rgba(0, 229, 255, 0.1) 0%, transparent 50%)",
+              pointerEvents: "none"
+            }} />
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid rgba(255,255,255,0.1)`, paddingBottom: "20px", marginBottom: "20px", position: "relative", zIndex: 1 }}>
+              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.8rem", color: "#00E5FF", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>
+                System Telemetry
+              </span>
+              <span style={{ color: "#00FFAB", display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-mono), monospace", fontSize: "0.75rem", fontWeight: 700, background: "rgba(0, 255, 171, 0.1)", padding: "4px 12px", borderRadius: "100px", border: "1px solid rgba(0, 255, 171, 0.2)" }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00FFAB", boxShadow: `0 0 10px #00FFAB`, animation: "pulse 2s infinite" }} />
+                ONLINE
               </span>
             </div>
-            <div className="hud-row">
-              <span className="hud-label">Response SLA</span>
-              <span className="hud-value" style={{ color: "var(--accent)" }}>&lt; 24 Hours</span>
-            </div>
-            <div className="hud-row">
-              <span className="hud-label">Sprint Load</span>
-              <span className="hud-value">2 Slots Available</span>
-            </div>
-            <div className="hud-row">
-              <span className="hud-label">NDAs</span>
-              <span className="hud-value" style={{ color: "#00e5ff" }}>Instant Signing</span>
-            </div>
-            <div className="hud-row">
-              <span className="hud-label">Deployment Core</span>
-              <span className="hud-value">Indore, IN</span>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", zIndex: 1 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Response SLA</span>
+                <span style={{ color: "#00FFAB", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>&lt; 24 Hours</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Sprint Load</span>
+                <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>2 Slots Available</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>NDAs</span>
+                <span style={{ color: "#00E5FF", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>Instant Signing</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Deployment Core</span>
+                <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>Bhopal, IN</span>
+              </div>
             </div>
           </div>
 
-          {/* Direct Channels Links */}
+          {/* Social Icons Redesign */}
           <div
             style={{
               display: "flex",
-              gap: "12px",
+              gap: "16px",
               flexWrap: "wrap",
-              marginBottom: "32px"
             }}
           >
-            <a
-              href="https://wa.me/919999999999?text=Hello%20Team%20Nexus,%20I%20want%20to%20build%20a%20digital%20product."
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "rgba(37, 211, 102, 0.08)",
-                border: "1px solid rgba(37, 211, 102, 0.2)",
-                color: "#25d366",
-                transition: "all 0.3s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(37, 211, 102, 0.15)";
-                e.currentTarget.style.transform = "translateY(-3px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(37, 211, 102, 0.08)";
-                e.currentTarget.style.transform = "none";
-              }}
-            >
-              <Phone size={18} />
-            </a>
-
-            <a
-              href="mailto:build@teamnexus.agency?subject=Project%20Inquiry"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "rgba(255, 92, 43, 0.08)",
-                border: "1px solid rgba(255, 92, 43, 0.2)",
-                color: "var(--accent)",
-                transition: "all 0.3s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255, 92, 43, 0.15)";
-                e.currentTarget.style.transform = "translateY(-3px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 92, 43, 0.08)";
-                e.currentTarget.style.transform = "none";
-              }}
-            >
-              <Mail size={18} />
-            </a>
-
-            <a
-              href="https://linkedin.com/company/teamnexus"
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                color: "#cbd5e1",
-                transition: "all 0.3s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
-                e.currentTarget.style.transform = "translateY(-3px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
-                e.currentTarget.style.transform = "none";
-              }}
-            >
-              <LinkedinIcon size={18} />
-            </a>
-
-            <a
-              href="https://instagram.com/teamnexus"
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                color: "#cbd5e1",
-                transition: "all 0.3s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
-                e.currentTarget.style.transform = "translateY(-3px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
-                e.currentTarget.style.transform = "none";
-              }}
-            >
-              <InstagramIcon size={18} />
-            </a>
+            {[
+              { icon: <Phone size={18} />, link: "https://wa.me/919999999999?text=Hello", color: greenAccent },
+              { icon: <Mail size={18} />, link: "mailto:build@nexus.ac.in", color: greenAccent },
+              { icon: <LinkedinIcon size={18} />, link: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/", color: "#cbd5e1" },
+              { icon: <InstagramIcon size={18} />, link: "https://www.instagram.com/mauryashivamkumar841/", color: "#cbd5e1" },
+            ].map((item, idx) => (
+              <a
+                key={idx}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "50%",
+                  background: "rgba(255, 255, 255, 0.02)",
+                  border: `1px solid ${borderSoft}`,
+                  color: item.color,
+                  transition: "all 0.3s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                  e.currentTarget.style.borderColor = item.color;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+                  e.currentTarget.style.borderColor = borderSoft;
+                }}
+              >
+                {item.icon}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Right Side: Wizard Cards or Holographic Boarding Pass */}
+        {/* Right Side: Wizard Cards */}
         <div>
           {step <= 3 ? (
-            <div className="contact-form-card" style={{ minHeight: "520px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div style={{ 
+              background: darkSurface, 
+              border: `1px solid ${borderSoft}`, 
+              borderRadius: "24px", 
+              padding: "40px",
+              minHeight: "560px", 
+              display: "flex", 
+              flexDirection: "column", 
+              justifyContent: "space-between",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+            }}>
               {/* Step indicator header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: "16px", marginBottom: "24px" }}>
-                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.75rem", color: "var(--accent)", fontWeight: 700 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${borderSoft}`, paddingBottom: "24px", marginBottom: "32px" }}>
+                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.85rem", color: greenAccent, fontWeight: 700, letterSpacing: "0.05em" }}>
                   STEP 0{step} / 03
                 </span>
-                <span style={{ color: "#64748b", fontSize: "0.75rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+                <span style={{ color: "#3b82f6", fontSize: "0.85rem", fontFamily: "var(--font-space-grotesk), sans-serif", fontWeight: 500 }}>
                   {step === 1 ? "Choose service focus" : step === 2 ? "Provide identity links" : "Submit vision details"}
                 </span>
               </div>
 
               {/* Wizard Step 1: Services Choices */}
               {step === 1 && (
-                <div className="wizard-step-container" style={{ display: "flex", flexDirection: "column", gap: "20px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.15rem", color: "#ffffff", fontWeight: 700, margin: "0 0 4px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px", flex: 1 }}>
+                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: "0 0 8px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
                     Select your project category:
                   </h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                     {[
-                      { id: "AI & Automation", title: "AI Solutions", desc: "LLMs, Automations, Agents", icon: <Cpu size={24} style={{ color: "var(--accent)" }} /> },
-                      { id: "Web Platform", title: "Web Dev", desc: "Next.js core structures", icon: <Layers size={24} style={{ color: "#00e5ff" }} /> },
-                      { id: "Mobile App", title: "Mobile Client", desc: "Flutter mobile platforms", icon: <Smartphone size={24} style={{ color: "#ffd600" }} /> },
-                      { id: "UI/UX & Styling", title: "UI/UX & Design", desc: "Modern styling interfaces", icon: <Sparkles size={24} style={{ color: "#ff007f" }} /> }
+                      { id: "AI & Automation", title: "AI Solutions", desc: "LLMs, Automations, Agents", icon: <Cpu size={22} style={{ color: greenAccent }} /> },
+                      { id: "Web Platform", title: "Web Dev", desc: "Next.js core structures", icon: <Layers size={22} style={{ color: "#00e5ff" }} /> },
+                      { id: "Mobile App", title: "Mobile Client", desc: "Flutter mobile platforms", icon: <Smartphone size={22} style={{ color: "#ffd600" }} /> },
+                      { id: "UI/UX & Styling", title: "UI/UX & Design", desc: "Modern styling interfaces", icon: <Sparkles size={22} style={{ color: "#ff007f" }} /> }
                     ].map((svc) => (
                       <div
                         key={svc.id}
                         onClick={() => selectService(svc.id)}
-                        className={`tactile-service-card ${formData.project === svc.id ? "active" : ""}`}
+                        style={{
+                          background: "#0b0f12",
+                          border: `1px solid ${borderSoft}`,
+                          borderRadius: "16px",
+                          padding: "24px",
+                          cursor: "pointer",
+                          transition: "all 0.3s ease",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "16px"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                          e.currentTarget.style.transform = "translateY(-2px)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = borderSoft;
+                          e.currentTarget.style.transform = "none";
+                        }}
                       >
-                        <div className="card-icon">{svc.icon}</div>
+                        <div style={{ width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          {svc.icon}
+                        </div>
                         <div>
-                          <h3>{svc.title}</h3>
-                          <p>{svc.desc}</p>
+                          <h3 style={{ color: "#ffffff", fontSize: "1rem", fontWeight: 700, marginBottom: "4px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>{svc.title}</h3>
+                          <p style={{ color: "#64748b", fontSize: "0.8rem", margin: 0 }}>{svc.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -359,8 +356,8 @@ export default function Contact() {
 
               {/* Wizard Step 2: Name & Email */}
               {step === 2 && (
-                <div className="wizard-step-container" style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.15rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
+                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
                     How should we address you?
                   </h3>
                   <div className="contact-input-wrapper">
@@ -398,8 +395,8 @@ export default function Contact() {
                         alignItems: "center",
                         gap: "8px",
                         background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.06)",
-                        padding: "12px 24px",
+                        border: `1px solid ${borderSoft}`,
+                        padding: "14px 28px",
                         borderRadius: "28px",
                         color: "#cbd5e1",
                         fontSize: "0.85rem",
@@ -407,8 +404,8 @@ export default function Contact() {
                         cursor: "pointer",
                         transition: "all 0.3s"
                       }}
-                      onMouseEnter={(e) => e.currentTarget.style.borderColor = "var(--accent)"}
-                      onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)"}
+                      onMouseEnter={(e) => e.currentTarget.style.borderColor = greenAccent}
+                      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderSoft}
                     >
                       <ArrowLeft size={14} /> Back
                     </button>
@@ -421,15 +418,16 @@ export default function Contact() {
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "8px",
-                        background: canProceedToStep3 ? "linear-gradient(135deg, var(--accent) 0%, #d63a12 100%)" : "rgba(255,255,255,0.02)",
+                        background: canProceedToStep3 ? greenAccent : "rgba(255,255,255,0.02)",
                         border: "none",
-                        padding: "12px 28px",
+                        padding: "14px 28px",
                         borderRadius: "28px",
-                        color: canProceedToStep3 ? "#ffffff" : "#64748b",
+                        color: canProceedToStep3 ? "#000000" : "#64748b",
                         fontSize: "0.85rem",
                         fontFamily: "var(--font-mono), monospace",
+                        fontWeight: canProceedToStep3 ? 700 : 400,
                         cursor: canProceedToStep3 ? "pointer" : "not-allowed",
-                        boxShadow: canProceedToStep3 ? "0 4px 15px rgba(255,92,43,0.3)" : "none",
+                        boxShadow: canProceedToStep3 ? `0 4px 15px rgba(0,230,118,0.3)` : "none",
                         flex: 1,
                         transition: "all 0.3s"
                       }}
@@ -442,8 +440,8 @@ export default function Contact() {
 
               {/* Wizard Step 3: Project Vision Message & Submit */}
               {step === 3 && (
-                <form onSubmit={handleFormSubmit} className="wizard-step-container" style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.15rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+                <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
+                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
                     Share your vision with our developers:
                   </h3>
                   <div className="contact-input-wrapper">
@@ -470,8 +468,8 @@ export default function Contact() {
                         alignItems: "center",
                         gap: "8px",
                         background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.06)",
-                        padding: "12px 24px",
+                        border: `1px solid ${borderSoft}`,
+                        padding: "14px 28px",
                         borderRadius: "28px",
                         color: "#cbd5e1",
                         fontSize: "0.85rem",
@@ -479,8 +477,8 @@ export default function Contact() {
                         cursor: "pointer",
                         transition: "all 0.3s"
                       }}
-                      onMouseEnter={(e) => e.currentTarget.style.borderColor = "var(--accent)"}
-                      onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)"}
+                      onMouseEnter={(e) => e.currentTarget.style.borderColor = greenAccent}
+                      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderSoft}
                     >
                       <ArrowLeft size={14} /> Back
                     </button>
@@ -488,21 +486,24 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting || formData.message.trim() === ""}
-                      className="btn-premium btn-pill-premium"
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "10px",
-                        background: "linear-gradient(135deg, var(--accent) 0%, #d63a12 100%)",
+                        background: (isSubmitting || formData.message.trim() === "") ? "rgba(255,255,255,0.02)" : greenAccent,
                         border: "none",
-                        color: "#ffffff",
+                        color: (isSubmitting || formData.message.trim() === "") ? "#64748b" : "#000000",
+                        padding: "14px 28px",
+                        borderRadius: "28px",
+                        fontWeight: 700,
+                        fontSize: "0.85rem",
+                        fontFamily: "var(--font-mono), monospace",
                         cursor: formData.message.trim() === "" ? "not-allowed" : "pointer",
-                        boxShadow: "0 4px 20px rgba(255, 92, 43, 0.38)",
+                        boxShadow: (isSubmitting || formData.message.trim() === "") ? "none" : `0 4px 20px rgba(0,230,118,0.3)`,
                         flex: 1,
                         transition: "all 0.3s",
                       }}
-                      data-hover="true"
                     >
                       {isSubmitting ? "Initializing Transmission..." : "Initialize Project Brief"}{" "}
                       <Send size={14} />
@@ -513,13 +514,13 @@ export default function Contact() {
             </div>
           ) : (
             /* Step 4: Holographic Digital Boarding Pass Ticket */
-            <div className="project-ticket" style={{ padding: "36px 32px" }}>
+            <div className="project-ticket" style={{ padding: "36px 32px", background: darkSurface, border: `1px solid ${greenAccent}`, borderRadius: "24px" }}>
               {/* Holographic glowing stamp indicator */}
-              <div className="hologram-stamp" />
+              <div className="hologram-stamp" style={{ background: `linear-gradient(135deg, transparent 0%, rgba(0,230,118,0.15) 100%)` }} />
 
               {/* Ticket header */}
-              <div style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "20px", marginBottom: "24px" }}>
-                <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.62rem", color: "var(--accent)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "4px" }}>
+              <div style={{ borderBottom: `1px solid ${borderSoft}`, paddingBottom: "20px", marginBottom: "24px" }}>
+                <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.62rem", color: greenAccent, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "4px" }}>
                   Nexus Project System brief
                 </span>
                 <h3 style={{ margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.40rem", fontWeight: 800, color: "#ffffff" }}>
@@ -562,7 +563,7 @@ export default function Contact() {
                     <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
                       TICKET HASH ID
                     </span>
-                    <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.92rem", fontFamily: "var(--font-mono), monospace" }}>
+                    <span style={{ color: greenAccent, fontWeight: 700, fontSize: "0.92rem", fontFamily: "var(--font-mono), monospace" }}>
                       {ticketId}
                     </span>
                   </div>
@@ -577,11 +578,8 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Dotted tear line divider */}
-              <div className="ticket-divider" />
-
               {/* Bottom ticket details */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center", marginTop: "32px", paddingTop: "24px", borderTop: `1px dashed rgba(255,255,255,0.15)` }}>
                 <div style={{ textAlign: "center" }}>
                   <span style={{ display: "inline-block", padding: "4px 10px", background: "rgba(37, 211, 102, 0.08)", border: "1px solid rgba(37, 211, 102, 0.2)", borderRadius: "99px", color: "#25d366", fontSize: "0.65rem", fontWeight: 700, fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
                     ✓ active queue slot secured
@@ -592,12 +590,10 @@ export default function Contact() {
                 </div>
 
                 {/* Simulated Barcode */}
-                <div className="ticket-barcode">
-                  <div className="barcode-lines" />
-                  <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", letterSpacing: "0.3em", color: "#64748b" }}>
-                    *NEXUS-SHIPPING*
-                  </span>
-                </div>
+                <div className="ticket-barcode" style={{ width: "100%", height: "40px", background: `repeating-linear-gradient(90deg, #64748b, #64748b 2px, transparent 2px, transparent 6px, #64748b 6px, #64748b 8px, transparent 8px, transparent 12px)`, opacity: 0.5, marginBottom: "8px" }} />
+                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", letterSpacing: "0.3em", color: "#64748b" }}>
+                  *NEXUS-SHIPPING*
+                </span>
 
                 {/* Reset button to submit a new brief */}
                 <button
@@ -610,7 +606,7 @@ export default function Contact() {
                   }}
                   style={{
                     background: "rgba(255, 255, 255, 0.02)",
-                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    border: `1px solid ${borderSoft}`,
                     color: "#ffffff",
                     padding: "10px 24px",
                     borderRadius: "24px",
@@ -618,16 +614,16 @@ export default function Contact() {
                     fontFamily: "var(--font-mono), monospace",
                     cursor: "pointer",
                     transition: "all 0.2s",
-                    marginTop: "8px",
+                    marginTop: "16px",
                     width: "100%",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255,92,43,0.08)";
-                    e.currentTarget.style.borderColor = "var(--accent)";
+                    e.currentTarget.style.background = "rgba(0, 230, 118, 0.08)";
+                    e.currentTarget.style.borderColor = greenAccent;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.06)";
+                    e.currentTarget.style.borderColor = borderSoft;
                   }}
                 >
                   &lt; New Project Brief / Reset &gt;
@@ -637,11 +633,6 @@ export default function Contact() {
           )}
         </div>
       </div>
-      <style>{`
-        @keyframes blink {
-          50% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

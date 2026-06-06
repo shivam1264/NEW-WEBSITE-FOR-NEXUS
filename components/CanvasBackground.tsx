@@ -2,27 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-interface Star {
-  x: number; // 3D coordinate space
-  y: number;
-  z: number; // Depth (1 to 1000)
-  color: string;
-  baseAlpha: number;
-  twinklePhase: number;
-  twinkleSpeed: number;
-}
-
-interface ShootingStar {
-  x: number;
-  y: number;
-  dx: number;
-  dy: number;
-  length: number;
-  speed: number;
-  opacity: number;
-  active: boolean;
-}
-
 export default function CanvasBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -30,206 +9,254 @@ export default function CanvasBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Use default transparent context to let CSS glows show through
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let width = 0;
     let height = 0;
     let animationId = 0;
+    let offset = 0;
 
-    // Camera perspective and mouse interpolation
-    const perspective = 480;
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-
-    // Star initialization
-    const starCount = 180;
+    // Stars
+    interface Star {
+      x: number;
+      y: number;
+      r: number;
+      alpha: number;
+      twinkleSpeed: number;
+      twinklePhase: number;
+    }
     const stars: Star[] = [];
-    
-    // Brand-aligned colors for select stars
-    const colors = [
-      "rgba(255, 255, 255, ",  // Warm White
-      "rgba(240, 246, 255, ",  // Soft Silver-Blue
-      "rgba(255, 92, 43, ",    // Brand Accent
-      "rgba(0, 229, 200, ",    // Teal Accent
-    ];
+
+    const mouse = { x: 0.5, y: 0.5, active: false };
 
     const initStars = () => {
       stars.length = 0;
+      const starCount = Math.floor((width * height) / 8000);
       for (let i = 0; i < starCount; i++) {
-        // Pick star colors: 75% white/silver, 12% orange, 13% cyan
-        let colorPrefix = colors[0];
-        const rand = Math.random();
-        if (rand > 0.88) {
-          colorPrefix = colors[2];
-        } else if (rand > 0.75) {
-          colorPrefix = colors[3];
-        } else if (rand > 0.5) {
-          colorPrefix = colors[1];
-        }
-
         stars.push({
-          // Spawn stars in a wide 3D space surrounding the camera
-          x: (Math.random() - 0.5) * 2200,
-          y: (Math.random() - 0.5) * 1600,
-          z: Math.random() * 999 + 1,
-          color: colorPrefix,
-          baseAlpha: Math.random() * 0.5 + 0.25,
+          x: Math.random() * width,
+          y: Math.random() * height * 0.58, // only in upper portion
+          r: Math.random() * 1.2 + 0.2,
+          alpha: Math.random() * 0.6 + 0.15,
+          twinkleSpeed: Math.random() * 0.02 + 0.005,
           twinklePhase: Math.random() * Math.PI * 2,
-          twinkleSpeed: Math.random() * 0.025 + 0.008,
         });
       }
     };
 
-    // Shooting Star (Meteor) Config
-    const shootingStar: ShootingStar = {
-      x: 0,
-      y: 0,
-      dx: 0,
-      dy: 0,
-      length: 0,
-      speed: 0,
-      opacity: 0,
-      active: false,
-    };
-
-    const triggerShootingStar = () => {
-      // Spawn shooting star randomly in upper half, moving fast diagonally down-right
-      shootingStar.x = Math.random() * (width * 0.6);
-      shootingStar.y = Math.random() * (height * 0.4);
-      shootingStar.speed = Math.random() * 7 + 5;
-      shootingStar.dx = shootingStar.speed;
-      shootingStar.dy = shootingStar.speed * 0.45;
-      shootingStar.length = Math.random() * 90 + 40;
-      shootingStar.opacity = 1;
-      shootingStar.active = true;
-    };
-
     const resizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.floor(width * ratio);
-      canvas.height = Math.floor(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-      // Re-init stars when width changes to fit screen bounding boxes
-      if (stars.length === 0) {
-        initStars();
-      }
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      initStars();
     };
 
-    const drawScene = () => {
-      ctx.clearRect(0, 0, width, height);
+    const drawBackground = () => {
+      // Dark background gradient — very deep black with slight green undertone
+      const bg = ctx.createLinearGradient(0, 0, 0, height);
+      bg.addColorStop(0, "#020907");
+      bg.addColorStop(0.45, "#030C08");
+      bg.addColorStop(1, "#051510");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, width, height);
+    };
 
-      // Smooth mouse coordinate tracking
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
-
-      // Mouse parallax camera offsets
-      const cameraOffsetX = mouse.x * 140;
-      const cameraOffsetY = mouse.y * 140;
-
-      // Render all stars
+    const drawStars = (time: number) => {
       stars.forEach((star) => {
-        // Twinkle update (pulsing alpha cycle)
-        star.twinklePhase += star.twinkleSpeed;
-        const twinkle = Math.sin(star.twinklePhase) * 0.35 + 0.65;
+        const twinkle =
+          Math.sin(time * star.twinkleSpeed + star.twinklePhase) * 0.3 + 0.7;
+        const alpha = star.alpha * twinkle;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.fill();
 
-        // Apply depth-based fade: stars further away are naturally dimmer
-        const depthFade = Math.max(0, 1 - star.z / 1000);
-        const finalAlpha = star.baseAlpha * twinkle * depthFade;
-
-        // 3D-to-2D Perspective Projection + Parallax Shifting
-        const scale = perspective / star.z;
-        const screenX = (star.x - cameraOffsetX) * scale + width / 2;
-        const screenY = (star.y - cameraOffsetY) * scale + height / 2;
-
-        // Draw star if it falls inside visible screen bounds
-        if (screenX >= 0 && screenX <= width && screenY >= 0 && screenY <= height && finalAlpha > 0) {
-          const starSize = Math.max(0.4, depthFade * 2.3);
-
-          ctx.fillStyle = star.color + finalAlpha.toFixed(3) + ")";
+        // Slight green-tinted bloom on brighter stars
+        if (star.r > 0.9) {
           ctx.beginPath();
-          ctx.arc(screenX, screenY, starSize, 0, Math.PI * 2);
+          ctx.arc(star.x, star.y, star.r * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 255, 171, ${alpha * 0.08})`;
           ctx.fill();
-
-          // Add a subtle bloom glow around close, bright stars
-          if (star.z < 250 && finalAlpha > 0.5) {
-            ctx.fillStyle = star.color + (finalAlpha * 0.15).toFixed(3) + ")";
-            ctx.beginPath();
-            ctx.arc(screenX, screenY, starSize * 4, 0, Math.PI * 2);
-            ctx.fill();
-          }
         }
       });
+    };
 
-      // Update and render shooting star
-      if (shootingStar.active) {
-        shootingStar.x += shootingStar.dx;
-        shootingStar.y += shootingStar.dy;
-        shootingStar.opacity -= 0.018; // Slow fade out
+    const drawPerspectiveGrid = (time: number) => {
+      // Vanishing point — center horizontally, ~42% from top
+      const vpX = width / 2;
+      const vpY = height * 0.42;
 
-        if (shootingStar.opacity <= 0 || shootingStar.x > width || shootingStar.y > height) {
-          shootingStar.active = false;
-        } else {
-          // Draw diagonal tail gradient
-          const grad = ctx.createLinearGradient(
-            shootingStar.x,
-            shootingStar.y,
-            shootingStar.x - shootingStar.length,
-            shootingStar.y - (shootingStar.length * 0.45)
-          );
-          grad.addColorStop(0, `rgba(255, 255, 255, ${shootingStar.opacity})`);
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+      // The grid plane starts at the vanishing point and goes to the bottom
+      const gridBottom = height + 60;
+      const gridHeight = gridBottom - vpY;
 
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.moveTo(shootingStar.x, shootingStar.y);
-          ctx.lineTo(
-            shootingStar.x - shootingStar.length,
-            shootingStar.y - (shootingStar.length * 0.45)
-          );
-          ctx.stroke();
-        }
-      } else {
-        // Random chance to spawn a shooting star
-        if (Math.random() < 0.004) {
-          triggerShootingStar();
-        }
+      // How wide the grid spreads at the bottom
+      const gridSpread = width * 1.35;
+
+      // ─── VERTICAL LINES (fan out from vanishing point) ───
+      const numVerticals = 24;
+      for (let i = 0; i <= numVerticals; i++) {
+        const t = i / numVerticals; // 0 → 1
+        const bottomX = vpX - gridSpread / 2 + gridSpread * t;
+
+        // Lines near the center are brighter
+        const centerDist = Math.abs(t - 0.5); // 0 = center, 0.5 = edge
+        const lineAlpha = 0.06 + (0.5 - centerDist) * 0.28;
+
+        // Gradient fade — invisible at horizon, visible at bottom
+        const grad = ctx.createLinearGradient(vpX, vpY, bottomX, gridBottom);
+        grad.addColorStop(0, `rgba(0, 255, 171, 0)`);
+        grad.addColorStop(0.15, `rgba(0, 255, 171, ${lineAlpha * 0.3})`);
+        grad.addColorStop(0.6, `rgba(0, 255, 171, ${lineAlpha * 0.8})`);
+        grad.addColorStop(1, `rgba(0, 255, 171, ${lineAlpha})`);
+
+        ctx.beginPath();
+        ctx.moveTo(vpX, vpY);
+        ctx.lineTo(bottomX, gridBottom);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = centerDist < 0.05 ? 1.5 : 0.9;
+        ctx.stroke();
       }
 
-      if (!document.hidden) {
-        animationId = requestAnimationFrame(drawScene);
+      // ─── HORIZONTAL LINES (animated — flow toward viewer) ───
+      const numHorizontals = 14;
+      // Speed of the flowing grid animation
+      const speed = 0.35;
+      offset = (offset + speed) % (gridHeight / numHorizontals);
+
+      for (let i = 0; i < numHorizontals + 2; i++) {
+        // Raw position in [0,1]
+        const rawT = i / numHorizontals + offset / gridHeight;
+        const t = rawT % 1;
+
+        // Perspective warping: exponential to create depth illusion
+        const perspT = Math.pow(t, 2.8);
+        const y = vpY + perspT * gridHeight;
+
+        if (y < vpY || y > gridBottom + 10) continue;
+
+        // How far along the grid floor (0 = horizon, 1 = viewer's feet)
+        const ratio = (y - vpY) / gridHeight;
+
+        // Width of this horizontal line — tapers to 0 at horizon
+        const halfWidth = (gridSpread / 2) * ratio;
+        const leftX = vpX - halfWidth;
+        const rightX = vpX + halfWidth;
+
+        // Alpha: faint near horizon, stronger near viewer
+        const hAlpha = Math.pow(ratio, 0.6) * 0.5;
+
+        // Horizontal fade (brightest in center, fades to edge)
+        const hGrad = ctx.createLinearGradient(leftX, y, rightX, y);
+        hGrad.addColorStop(0, `rgba(0, 255, 171, 0)`);
+        hGrad.addColorStop(0.08, `rgba(0, 255, 171, ${hAlpha})`);
+        hGrad.addColorStop(0.5, `rgba(0, 255, 171, ${hAlpha * 1.1})`);
+        hGrad.addColorStop(0.92, `rgba(0, 255, 171, ${hAlpha})`);
+        hGrad.addColorStop(1, `rgba(0, 255, 171, 0)`);
+
+        ctx.beginPath();
+        ctx.moveTo(leftX, y);
+        ctx.lineTo(rightX, y);
+        ctx.strokeStyle = hGrad;
+        ctx.lineWidth = 0.8 + ratio * 0.5;
+        ctx.stroke();
+      }
+
+      // ─── HORIZON GLOW ───
+      const horizonGlow = ctx.createRadialGradient(
+        vpX, vpY, 0,
+        vpX, vpY, width * 0.55
+      );
+      horizonGlow.addColorStop(0, "rgba(0, 255, 171, 0.10)");
+      horizonGlow.addColorStop(0.35, "rgba(0, 255, 171, 0.04)");
+      horizonGlow.addColorStop(1, "rgba(0, 255, 171, 0)");
+      ctx.fillStyle = horizonGlow;
+      ctx.fillRect(0, vpY - height * 0.15, width, height * 0.35);
+
+      // ─── HORIZON LINE ───
+      const hLine = ctx.createLinearGradient(0, vpY, width, vpY);
+      hLine.addColorStop(0, "rgba(0, 255, 171, 0)");
+      hLine.addColorStop(0.25, "rgba(0, 255, 171, 0.18)");
+      hLine.addColorStop(0.5, "rgba(0, 255, 171, 0.30)");
+      hLine.addColorStop(0.75, "rgba(0, 255, 171, 0.18)");
+      hLine.addColorStop(1, "rgba(0, 255, 171, 0)");
+      ctx.beginPath();
+      ctx.moveTo(0, vpY);
+      ctx.lineTo(width, vpY);
+      ctx.strokeStyle = hLine;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // ─── MOUSE SPOTLIGHT ───
+      if (mouse.active) {
+        const spotX = mouse.x * width;
+        const spotY = mouse.y * height;
+        const spotGrad = ctx.createRadialGradient(
+          spotX, spotY, 0,
+          spotX, spotY, width * 0.25
+        );
+        spotGrad.addColorStop(0, "rgba(0, 255, 171, 0.05)");
+        spotGrad.addColorStop(1, "rgba(0, 255, 171, 0)");
+        ctx.fillStyle = spotGrad;
+        ctx.fillRect(0, 0, width, height);
       }
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      // Map pointer to normalized coordinates [-0.5, 0.5]
-      mouse.targetX = (event.clientX / window.innerWidth) - 0.5;
-      mouse.targetY = (event.clientY / window.innerHeight) - 0.5;
+    const drawVignette = () => {
+      // Dark vignette edges
+      const vig = ctx.createRadialGradient(
+        width / 2, height / 2, height * 0.3,
+        width / 2, height / 2, Math.max(width, height) * 0.85
+      );
+      vig.addColorStop(0, "rgba(2, 9, 7, 0)");
+      vig.addColorStop(1, "rgba(2, 9, 7, 0.65)");
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, width, height);
+
+      // Top sky darkness
+      const topFade = ctx.createLinearGradient(0, 0, 0, height * 0.35);
+      topFade.addColorStop(0, "rgba(2, 9, 7, 0.9)");
+      topFade.addColorStop(1, "rgba(2, 9, 7, 0)");
+      ctx.fillStyle = topFade;
+      ctx.fillRect(0, 0, width, height * 0.35);
+    };
+
+    const drawScene = (time: number) => {
+      ctx.clearRect(0, 0, width, height);
+      drawBackground();
+      drawStars(time * 0.001);
+      drawPerspectiveGrid(time * 0.001);
+      drawVignette();
+
+      animationId = requestAnimationFrame(drawScene);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      mouse.x = e.clientX / width;
+      mouse.y = e.clientY / height;
+      mouse.active = true;
+    };
+    const onPointerLeave = () => {
+      mouse.active = false;
     };
 
     window.addEventListener("resize", resizeCanvas, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
-
-    const onVisibilityChange = () => {
-      if (document.hidden) {
-        cancelAnimationFrame(animationId);
-      } else {
-        animationId = requestAnimationFrame(drawScene);
-      }
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange, { passive: true });
+    document.addEventListener("pointerleave", onPointerLeave);
 
     resizeCanvas();
-    drawScene();
+    animationId = requestAnimationFrame(drawScene);
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("pointermove", onPointerMove);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
+      document.removeEventListener("pointerleave", onPointerLeave);
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -237,13 +264,15 @@ export default function CanvasBackground() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: "fixed",
         inset: 0,
         width: "100%",
         height: "100%",
-        zIndex: 1,
+        zIndex: -1,
         pointerEvents: "none",
+        display: "block",
       }}
     />
   );
