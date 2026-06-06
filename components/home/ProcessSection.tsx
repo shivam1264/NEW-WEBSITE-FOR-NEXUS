@@ -9,6 +9,8 @@ export default function ProcessSection() {
 
   // Stripe/Linear-grade 3D parallax mouse tilt effect
   const handleTiltMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
+    
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -30,6 +32,8 @@ export default function ProcessSection() {
   };
 
   const handleTiltMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
+    
     const card = e.currentTarget;
     card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
     
@@ -58,9 +62,9 @@ export default function ProcessSection() {
 
       // Animate Main Video Hero Card
       gsap.fromTo(".process-hero-card",
-        { scale: 0.95, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
-          scale: 1, opacity: 1, duration: 1, ease: "expo.out",
+          y: 0, opacity: 1, duration: 1, ease: "expo.out",
           scrollTrigger: {
             trigger: ".works-bento-layout",
             start: "top 80%",
