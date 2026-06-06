@@ -90,31 +90,61 @@ export default function Contact() {
     setStep(2);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || isSubmitted) return;
 
     setIsSubmitting(true);
     
-    // Generate secure boarding pass info
-    const tId = "NXS-" + Math.random().toString(36).substring(2, 9).toUpperCase();
-    const current = new Date().toLocaleString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true
-    });
-    setTicketId(tId);
-    setTimestamp(current);
+    try {
+      // API call to Web3Forms to send email
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // NEXUS Web3Forms Access Key
+          access_key: "fff30753-c3cf-4206-9b9d-17427151cc69", 
+          name: formData.name,
+          email: formData.email,
+          project_type: formData.project,
+          message: formData.message,
+          subject: "New Project Inquiry from NEXUS Website",
+        }),
+      });
 
-    setTimeout(() => {
+      const result = await response.json();
+
+      if (result.success) {
+        // Generate secure boarding pass info
+        const tId = "NXS-" + Math.random().toString(36).substring(2, 9).toUpperCase();
+        const current = new Date().toLocaleString("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true
+        });
+        setTicketId(tId);
+        setTimestamp(current);
+
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        setStep(4);
+      } else {
+        console.error("Error submitting form", result);
+        setIsSubmitting(false);
+        alert("Something went wrong submitting the form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Form submit error:", error);
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setStep(4);
-    }, 1200);
+      alert("Network error. Please try again.");
+    }
   };
 
   const canProceedToStep3 = formData.name.trim() !== "" && formData.email.trim() !== "" && formData.email.includes("@");
