@@ -16,6 +16,14 @@ export default function Navbar() {
 
   const isActive = (path: string) => pathname === path;
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    closeMenu();
+    if (pathname === path) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo} onClick={closeMenu}>
@@ -29,35 +37,35 @@ export default function Navbar() {
         <Link
           href="/"
           className={`${styles.link} ${isActive("/") ? styles.active : ""}`}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/")}
         >
           Home
         </Link>
         <Link
           href="/works"
           className={`${styles.link} ${isActive("/works") ? styles.active : ""}`}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/works")}
         >
           Works
         </Link>
         <Link
           href="/services"
           className={`${styles.link} ${isActive("/services") ? styles.active : ""}`}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/services")}
         >
           Services
         </Link>
         <Link
           href="/team"
           className={`${styles.link} ${isActive("/team") ? styles.active : ""}`}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/team")}
         >
           Team
         </Link>
         <Link
           href="/contact"
           className={`${styles.link} ${isActive("/contact") ? styles.active : ""}`}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/contact")}
         >
           Contact
         </Link>
@@ -67,7 +75,7 @@ export default function Navbar() {
           href="/contact"
           className={`${styles.ctaBtn} ${styles.mobileCta}`}
           style={{ display: "none" }}
-          onClick={closeMenu}
+          onClick={(e) => handleLinkClick(e, "/contact")}
         >
           Let's Build <Zap size={14} />
         </Link>
