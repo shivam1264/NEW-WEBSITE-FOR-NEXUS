@@ -66,19 +66,22 @@ export default function RootLayout({
       <body>
         {/* Lenis Smooth Scrolling wrapper */}
         <SmoothScroll>
-          {/* Retrowave Perspective Grid Background */}
-          <CanvasBackgroundWrapper />
+          {/* Wrapper to guarantee no horizontal overflow on mobile */}
+          <div style={{ overflowX: "hidden", width: "100%", position: "relative" }}>
+            {/* Retrowave Perspective Grid Background */}
+            <CanvasBackgroundWrapper />
 
-          {/* Navigation Bar */}
-          <Navbar />
+            {/* Navigation Bar */}
+            <Navbar />
 
-          {/* Page Content */}
-          <main style={{ minHeight: "100vh", position: "relative" }}>
-            {children}
-          </main>
+            {/* Page Content */}
+            <main style={{ minHeight: "100vh", position: "relative" }}>
+              {children}
+            </main>
 
-          {/* Footer */}
-          <Footer />
+            {/* Footer */}
+            <Footer />
+          </div>
 
           {/* Floating WhatsApp CTA */}
           <a
