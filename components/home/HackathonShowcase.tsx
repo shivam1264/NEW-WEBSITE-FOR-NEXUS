@@ -104,7 +104,7 @@ export default function HackathonShowcase() {
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateRows: "1fr", gap: "40px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gridTemplateRows: "1fr", gap: "40px" }}>
           {/* SIH Card */}
           <div
             className="pod-direction"
