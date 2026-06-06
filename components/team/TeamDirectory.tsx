@@ -272,15 +272,19 @@ export default function TeamDirectory() {
 
       {/* 2. TAB SWITCHER (Premium Glassmorphism) */}
       <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "60px", position: "relative", zIndex: 2 }}>
-        <div style={{
+        <div className="team-tab-switcher" style={{
           display: "flex",
           background: "rgba(255, 255, 255, 0.03)",
           border: "1px solid rgba(255, 255, 255, 0.08)",
           borderRadius: "100px",
           padding: "6px",
-          backdropFilter: "blur(12px)"
+          backdropFilter: "blur(12px)",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          maxWidth: "100%"
         }}>
           <button
+            className="team-tab-btn"
             onClick={() => handleTabSwitch("specialists")}
             style={{
               padding: "12px 32px",
@@ -301,6 +305,7 @@ export default function TeamDirectory() {
             <Brain size={16} /> Specialist Pods
           </button>
           <button
+            className="team-tab-btn"
             onClick={() => handleTabSwitch("process")}
             style={{
               padding: "12px 32px",
@@ -348,7 +353,6 @@ export default function TeamDirectory() {
                     overflow: "hidden",
                     backdropFilter: "blur(20px)",
                     boxShadow: isExpanded ? `0 20px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(${member.colorRGB}, 0.1)` : "none",
-                    margin: "0 4px",
                     transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
                   }}
                 >
@@ -462,7 +466,6 @@ export default function TeamDirectory() {
                     overflow: "hidden",
                     backdropFilter: "blur(20px)",
                     boxShadow: isExpanded ? `0 20px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(0, 229, 255, 0.1)` : "none",
-                    margin: "0 4px",
                     transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
                   }}
                 >
