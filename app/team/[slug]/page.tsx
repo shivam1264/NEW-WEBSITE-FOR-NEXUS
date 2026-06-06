@@ -260,7 +260,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
             <ArrowLeft size={16} /> Back to Nexus Team
           </Link>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+          <div className="team-hero-grid">
             
             {/* Left Info */}
             <div>
@@ -358,7 +358,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
             </div>
 
             {/* Right Photo */}
-            <div style={{ position: "relative", height: "80vh", borderRadius: "40px", overflow: "hidden", display: "flex", alignItems: "center" }}>
+            <div className="team-hero-photo">
               <Image
                 src={member.photo} alt={member.name}
                 width={800} height={1000}
@@ -389,7 +389,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
       {/* ── STATS BAR ─────────────────────────────────────── */}
       <div className="stats-container" style={{ margin: "100px 0", position: "relative" }}>
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "24px" }}>
+          <div className="team-stats-grid">
             {member.stats.map((stat, i) => (
               <div key={i} className="stat-card" style={{
                 background: "rgba(255,255,255,0.02)",
@@ -419,7 +419,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
       </div>
 
       {/* ── SKILLS + TIMELINE ─────────────────────────────── */}
-      <div className="container" style={{ marginTop: "160px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "100px" }}>
+      <div className="container team-content-grid" style={{ marginTop: "160px" }}>
         
         {/* Skills */}
         <div className="skills-container">
@@ -529,7 +529,7 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
           
           <div style={{ position: "absolute", inset: 0, opacity: 0.1, backgroundImage: "radial-gradient(#ffffff 2px, transparent 2px)", backgroundSize: "40px 40px", pointerEvents: "none" }} />
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", position: "relative", zIndex: 1, alignItems: "center" }}>
+          <div className="team-contact-grid" style={{ position: "relative", zIndex: 1 }}>
             
             {/* Left */}
             <div>

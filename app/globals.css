@@ -4565,7 +4565,52 @@ div[style*="padding: 0 24px 24px"] {
 }
 
 .works-editorial-card:hover::before {
-  opacity: 0.55;
+  opacity: 0;
+}
+
+/* TEAM PAGE RESPONSIVE GRIDS */
+.team-hero-grid, .team-content-grid, .team-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.team-hero-grid { gap: 80px; }
+.team-content-grid { gap: 100px; align-items: start; }
+.team-contact-grid { gap: 80px; }
+
+.team-hero-photo {
+  position: relative; 
+  height: 80vh; 
+  border-radius: 40px; 
+  overflow: hidden; 
+  display: flex; 
+  align-items: center;
+}
+
+.team-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .team-hero-grid, .team-content-grid, .team-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .team-hero-photo {
+    height: 60vh;
+    min-height: 400px;
+  }
+  .team-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .team-stats-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .works-editorial-card:hover {
@@ -4595,6 +4640,10 @@ div[style*="padding: 0 24px 24px"] {
     display: flex;
     flex-direction: column;
     gap: 24px;
+  }
+  
+  .works-bento-card {
+    min-height: 380px; /* Force height on mobile since grid-auto-rows is gone */
   }
 }
 
