@@ -10,19 +10,19 @@ export default function ProcessSection() {
   // Stripe/Linear-grade 3D parallax mouse tilt effect
   const handleTiltMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
-    
+
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = -(y - centerY) / 25; 
-    const rotateY = (x - centerX) / 25; 
-    
+    const rotateX = -(y - centerY) / 25;
+    const rotateY = (x - centerX) / 25;
+
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    
+
     const glow = card.querySelector(".bento-card-glow") as HTMLDivElement | null;
     if (glow) {
       glow.style.left = `${x}px`;
@@ -33,10 +33,10 @@ export default function ProcessSection() {
 
   const handleTiltMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
-    
+
     const card = e.currentTarget;
     card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-    
+
     const glow = card.querySelector(".bento-card-glow") as HTMLDivElement | null;
     if (glow) {
       glow.style.opacity = "0";
@@ -51,7 +51,7 @@ export default function ProcessSection() {
       // Animate Section Header
       gsap.fromTo(".process-header-wrapper > *",
         { y: 30, opacity: 0 },
-        { 
+        {
           y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power2.out",
           scrollTrigger: {
             trigger: ".process-header-wrapper",
@@ -89,44 +89,44 @@ export default function ProcessSection() {
   }, []);
 
   const steps = [
-    { 
-      num: "01", 
-      title: "Requirement Discussion", 
+    {
+      num: "01",
+      title: "Requirement Discussion",
       desc: "Align on target objectives, mock features, and critical project deadlines.",
       colorRGB: "255, 92, 43",
       spanClass: "span-4"
     },
-    { 
-      num: "02", 
-      title: "UI/UX Planning", 
+    {
+      num: "02",
+      title: "UI/UX Planning",
       desc: "Map navigation channels, key screens, wireframes, and verify styling options.",
       colorRGB: "0, 229, 255",
       spanClass: "span-4"
     },
-    { 
-      num: "03", 
-      title: "Development Phase", 
+    {
+      num: "03",
+      title: "Development Phase",
       desc: "Engineers code mobile routes, AI configurations, and database integrations.",
       colorRGB: "0, 230, 118",
       spanClass: "span-3"
     },
-    { 
-      num: "04", 
-      title: "System Testing", 
+    {
+      num: "04",
+      title: "System Testing",
       desc: "Exhaustive QA routines checking system drift, query load metrics, and UI bugs.",
       colorRGB: "255, 0, 127",
       spanClass: "span-3"
     },
-    { 
-      num: "05", 
-      title: "Production Deployment", 
+    {
+      num: "05",
+      title: "Production Deployment",
       desc: "Push application servers live on global Edge architectures and configure domain assets.",
       colorRGB: "213, 0, 249",
       spanClass: "span-3"
     },
-    { 
-      num: "06", 
-      title: "Maintenance & Support", 
+    {
+      num: "06",
+      title: "Maintenance & Support",
       desc: "Monitor live uptime SLA thresholds and patch dependency variables regularly.",
       colorRGB: "255, 214, 0",
       spanClass: "span-3"
@@ -144,7 +144,7 @@ export default function ProcessSection() {
       }}
     >
       <div className="container">
-        
+
         {/* Section Header */}
         <div className="process-header-wrapper" style={{ marginBottom: "50px", textAlign: "center" }}>
           <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px", display: "inline-block" }}>
@@ -170,9 +170,9 @@ export default function ProcessSection() {
         </div>
 
         {/* Compact Bento Grid Layout */}
-        <div 
-          className="works-bento-layout" 
-          style={{ 
+        <div
+          className="works-bento-layout"
+          style={{
             gridAutoRows: "200px",
             gap: "16px"
           }}
@@ -195,9 +195,9 @@ export default function ProcessSection() {
             }}
           >
             {/* Background Glow Tracker */}
-            <div 
-              className="bento-card-glow" 
-              style={{ 
+            <div
+              className="bento-card-glow"
+              style={{
                 position: "absolute",
                 width: "400px",
                 height: "400px",
@@ -207,40 +207,40 @@ export default function ProcessSection() {
                 opacity: 0,
                 transition: "opacity 0.3s ease",
                 zIndex: 2
-              }} 
+              }}
             />
 
             {/* Video Background Container */}
             <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "16px", overflow: "hidden" }}>
-              <video 
-                src="/images/workflow-nexus.mp4" 
-                autoPlay 
-                loop 
-                muted 
+              <video
+                src="/images/workflow-nexus.mp4"
+                autoPlay
+                loop
+                muted
                 playsInline
                 suppressHydrationWarning
-                style={{ 
+                style={{
                   width: "100%",
                   height: "100%",
                   objectFit: "contain", // Contain ensures no cropping of the video!
-                }} 
+                }}
               />
-              
+
               {/* Cinematic Vignette Overlay */}
-              <div style={{ 
-                position: "absolute", 
-                inset: 0, 
+              <div style={{
+                position: "absolute",
+                inset: 0,
                 background: "radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.6) 100%)",
                 pointerEvents: "none",
-                zIndex: 3 
+                zIndex: 3
               }} />
             </div>
 
             {/* Glassmorphism Video UI Badge */}
-            <div style={{ 
-              position: "absolute", 
-              top: "20px", 
-              left: "20px", 
+            <div style={{
+              position: "absolute",
+              top: "20px",
+              left: "20px",
               zIndex: 4,
               background: "rgba(0,0,0,0.5)",
               backdropFilter: "blur(12px)",
@@ -252,13 +252,13 @@ export default function ProcessSection() {
               gap: "8px"
             }}>
               <span className="pulsing-dot pulsing-dot-coral" style={{ background: "#00e5ff" }} />
-              <span style={{ 
-                color: "#00e5ff", 
-                fontSize: "0.7rem", 
-                fontWeight: 700, 
-                textTransform: "uppercase", 
-                letterSpacing: "0.1em", 
-                fontFamily: "var(--font-mono), monospace" 
+              <span style={{
+                color: "#00e5ff",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                fontFamily: "var(--font-mono), monospace"
               }}>
                 Live Architecture
               </span>
@@ -288,9 +288,9 @@ export default function ProcessSection() {
               } as React.CSSProperties}
             >
               {/* Glow Follower */}
-              <div 
-                className="bento-card-glow" 
-                style={{ 
+              <div
+                className="bento-card-glow"
+                style={{
                   position: "absolute",
                   width: "250px",
                   height: "250px",
@@ -300,7 +300,7 @@ export default function ProcessSection() {
                   opacity: 0,
                   transition: "opacity 0.3s ease",
                   zIndex: 2
-                }} 
+                }}
               />
 
               <div style={{ position: "relative", zIndex: 3 }}>
@@ -340,11 +340,11 @@ export default function ProcessSection() {
                   {step.title}
                 </h3>
 
-                <p style={{ 
-                  color: "var(--muted)", 
-                  fontSize: "0.8rem", 
-                  lineHeight: "1.4", 
-                  margin: 0 
+                <p style={{
+                  color: "var(--muted)",
+                  fontSize: "0.8rem",
+                  lineHeight: "1.4",
+                  margin: 0
                 }}>
                   {step.desc}
                 </p>
@@ -354,5 +354,7 @@ export default function ProcessSection() {
         </div>
       </div>
     </section>
+  );
+}
   );
 }

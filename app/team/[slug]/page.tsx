@@ -557,13 +557,13 @@ export default function MemberPortfolio({ params }: { params: Promise<{ slug: st
             {/* Right */}
             <div className="contact-links-container" style={{ background: "var(--background)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", gap: "24px" }}>
               <a href={`mailto:${member.email}`} onClick={handleEmailClick} className="contact-link-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderRadius: "20px", background: "rgba(255,255,255,0.03)", textDecoration: "none", color: "var(--foreground)", transition: "all 0.3s ease", border: "1px solid rgba(255,255,255,0.05)", cursor: "pointer" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = member.accent; e.currentTarget.style.background = `rgba(${member.accentRgb}, 0.05)`; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <Mail size={24} style={{ color: member.accent }} />
-                  <div>
-                    <div style={{ fontSize: "0.85rem", color: copiedEmail ? "#00e676" : "var(--muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px", transition: "color 0.3s ease" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "20px", minWidth: 0, flex: 1 }}>
+                  <Mail size={24} style={{ color: member.accent, flexShrink: 0 }} />
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{ fontSize: "0.85rem", color: copiedEmail ? "#00e676" : "var(--muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px", transition: "color 0.3s ease", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       {copiedEmail ? "Copied to Clipboard!" : "Send Email"}
                     </div>
-                    <div style={{ fontSize: "1.1rem", fontWeight: 700 }}>{member.email}</div>
+                    <div style={{ fontSize: "1.1rem", fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{member.email}</div>
                   </div>
                 </div>
                 {copiedEmail ? <CheckCircle2 size={20} color="#00e676" /> : <ChevronRight size={20} />}
