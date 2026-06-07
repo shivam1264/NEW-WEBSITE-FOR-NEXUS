@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://teamnexus.com';
+  const baseUrl = 'https://new-website-for-nexus.vercel.app';
 
   const staticRoutes = ['', '/about', '/services', '/works', '/contact', '/team'].map((route) => ({
     url: `${baseUrl}${route}`,

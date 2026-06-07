@@ -25,13 +25,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://teamnexus.com"),
+  metadataBase: new URL("https://new-website-for-nexus.vercel.app"),
   title: "NEXUS — Web, Mobile & AI Development Agency | Bhopal, India",
   description: "NEXUS builds production-grade websites, mobile apps, and AI systems for startups, local businesses, and SaaS founders. Hackathon champions. Delivering in weeks, not months.",
   openGraph: {
     title: "NEXUS — Web, Mobile & AI Development Agency",
     description: "NEXUS builds production-grade websites, mobile apps, and AI systems.",
-    url: "https://teamnexus.com",
+    url: "https://new-website-for-nexus.vercel.app",
     siteName: "NEXUS",
     images: [
       {
