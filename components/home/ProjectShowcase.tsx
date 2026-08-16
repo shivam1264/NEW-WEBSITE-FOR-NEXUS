@@ -108,8 +108,8 @@ export default function ProjectShowcase() {
             {
               id: "sistec-rsih",
               code: "PRJ-01",
-              title: "SISTec RSIH Platform",
-              subtitle: "Regional Student Innovation Hackathon portal",
+              title: "SISTec Innovation Hackathon Platform",
+              subtitle: "Official Digital Platform for SISTec Innovation Hackathon (SIH)",
               url: "https://www.sistecrsih.in/",
               colorRGB: "232, 96, 46",
               color: "#e8602e",

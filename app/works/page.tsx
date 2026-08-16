@@ -166,21 +166,32 @@ export default function Works() {
       type: "project",
       id: "sistec-rsih",
       code: "PRJ-01",
-      title: "SISTec RSIH Platform",
-      subtitle: "Regional Student Innovation Hackathon portal & registration system",
-      desc: "Official platform built for SISTec Regional Student Innovation Hackathon (RSIH), handling participant registrations, track submissions, and real-time event updates.",
-      details: "Built to power the regional hackathon ecosystem. Features responsive registration flows, live schedule broadcasts, track details, partner showcases, and real-time team metrics.",
+      title: "SISTec Innovation Hackathon Platform",
+      subtitle: "Official Digital Platform for SISTec Innovation Hackathon (SIH) · sistecrsih.in",
+      desc: "The official digital platform developed for the SISTec Innovation Hackathon (SIH), an innovation-focused initiative organized by Sagar Institute of Science and Technology (SISTec). Serves as a centralized digital hub for registrations, problem statements, event schedules, guidelines, and real-time updates.",
+      details: "Designed to deliver a seamless, responsive multi-device experience connecting students, innovators, mentors, judges, organizers, and industry partners throughout the complete hackathon journey. Built with Next.js for high performance, smooth navigation, and reliable event operations.",
       url: "https://www.sistecrsih.in/",
-      tags: ["Next.js", "Hackathon Portal", "Live System", "sistecrsih.in"],
+      tags: ["Next.js", "Innovation Hackathon Portal", "Team Workflows", "Live System", "sistecrsih.in"],
       icon: <Zap size={22} />,
       color: "#e8602e",
       colorRGB: "232, 96, 46",
       metricsList: [
-        { val: "Live", name: "Status" },
-        { val: "sistecrsih.in", name: "Domain" },
-        { val: "100%", name: "Uptime" }
+        { val: "Live", name: "Platform Status" },
+        { val: "sistecrsih.in", name: "Official Domain" },
+        { val: "100%", name: "System Uptime" }
       ],
-      achievement: "Official platform for SISTec Regional Student Innovation Hackathon (sistecrsih.in)",
+      features: [
+        "Digital Participant Registration",
+        "Team Registration & Management",
+        "Innovation Domains & Problem Statements",
+        "Hackathon Timeline & Event Schedule",
+        "Real-Time Announcements & Updates",
+        "Participant Guidelines & Information",
+        "Partner, Sponsor & Institutional Showcase",
+        "Responsive Multi-Device Experience"
+      ],
+      mission: "Empowering students and innovators to collaborate, explore ideas, solve real-world challenges, and transform innovative concepts into impactful technology-driven solutions through the SISTec Innovation Hackathon.",
+      achievement: "Official Digital Platform for SISTec Innovation Hackathon (sistecrsih.in)",
       img: "/images/custom-project-1.png",
       bentoSpan: "span-8"
     },
@@ -734,6 +745,34 @@ export default function Works() {
                   <p style={{ margin: "0 0 16px" }}>{registryItems[activeProject].desc}</p>
                   <p style={{ margin: 0 }}>{registryItems[activeProject].details}</p>
                 </div>
+
+                {/* Core Platform Features if available */}
+                {(registryItems[activeProject] as any).features && (
+                  <>
+                    <h4 style={{ color: "#ffffff", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "12px" }}>
+                      Core Platform Features
+                    </h4>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px", marginBottom: "32px" }}>
+                      {(registryItems[activeProject] as any).features.map((f: string, i: number) => (
+                        <div key={i} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "10px 14px", fontSize: "0.85rem", color: "var(--foreground)", display: "flex", alignItems: "center", gap: "8px" }}>
+                          <span style={{ color: registryItems[activeProject].color, fontWeight: 700 }}>✓</span> {f}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {/* Mission & Vision if available */}
+                {(registryItems[activeProject] as any).mission && (
+                  <div style={{ background: `rgba(${registryItems[activeProject].colorRGB}, 0.05)`, border: `1px solid rgba(${registryItems[activeProject].colorRGB}, 0.2)`, borderRadius: "12px", padding: "20px", marginBottom: "32px" }}>
+                    <h4 style={{ color: registryItems[activeProject].color, fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
+                      Platform Mission
+                    </h4>
+                    <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.92rem", lineHeight: "1.6", margin: 0 }}>
+                      {(registryItems[activeProject] as any).mission}
+                    </p>
+                  </div>
+                )}
 
                 {/* Hackathon scope details */}
                 {registryItems[activeProject].type === "championship" && (
