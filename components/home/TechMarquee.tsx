@@ -24,15 +24,15 @@ export default function TechMarquee() {
   ];
 
   const renderTrack = (techs: any[], reverse: boolean) => {
-    // Duplicate multiple times for smooth infinite scroll
-    const multipliedTechs = [...techs, ...techs, ...techs, ...techs, ...techs];
+    // Duplicate exactly twice so translateX(-50%) moves 1 full set cleanly without snapping
+    const multipliedTechs = [...techs, ...techs];
     return (
       <div 
         className="tech-track-container" 
         style={{
           display: "flex",
           width: "max-content",
-          animation: `scroll ${reverse ? "50s" : "45s"} linear infinite ${reverse ? "reverse" : "normal"}`,
+          animation: `scroll ${reverse ? "35s" : "30s"} linear infinite ${reverse ? "reverse" : "normal"}`,
           gap: "24px",
           paddingLeft: "24px"
         }}

@@ -44,9 +44,9 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
       </button>
       <div 
         style={{
-          maxHeight: isOpen ? "200px" : "0px",
+          maxHeight: isOpen ? "600px" : "0px",
           overflow: "hidden",
-          transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+          transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease",
           opacity: isOpen ? 1 : 0,
         }}
       >
@@ -67,7 +67,7 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
 export default function FaqSection() {
   return (
     <section className="section-padding" style={{ position: "relative", zIndex: 2, borderTop: "1px solid var(--card-border)" }}>
-      <div className="container" style={{ maxWidth: "800px" }}>
+      <div className="container" style={{ maxWidth: "1000px" }}>
         <div style={{ textAlign: "center", marginBottom: "60px" }}>
           <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
             <span className="pulsing-dot pulsing-dot-coral" />

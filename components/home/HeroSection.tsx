@@ -34,7 +34,7 @@ export default function HeroSection() {
         )
         .fromTo(".hero-btn", 
           { scale: 0.9, opacity: 0 }, 
-          { scale: 1, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 
+          { scale: 1, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)", clearProps: "all" }, 
           "-=0.3"
         );
     }, containerRef);

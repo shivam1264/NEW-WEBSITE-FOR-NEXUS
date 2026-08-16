@@ -55,6 +55,12 @@ export default function Terminal({ activeIdx }: TerminalProps) {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(6px); }
         }
+        @keyframes telemetryScan {
+          0% { transform: translateY(-100%); opacity: 0; }
+          30% { opacity: 1; }
+          70% { opacity: 1; }
+          100% { transform: translateY(100%); opacity: 0; }
+        }
       `}</style>
 
       {/* Ambient Backdrop Glow */}

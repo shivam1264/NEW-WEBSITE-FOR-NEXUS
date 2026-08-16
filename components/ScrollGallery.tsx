@@ -14,30 +14,41 @@ export default function ScrollGallery() {
   const [hoveredR2, setHoveredR2] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleScrollAndResize = () => {
+    let ticking = false;
+
+    const updatePosition = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       
-      if (!sectionRef.current) return;
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
-      
-      // Calculate how far the center of the section is from the center of the screen
-      const sectionCenter = rect.top + (rect.height / 2);
-      const viewportCenter = vh / 2;
-      const distanceFromCenter = viewportCenter - sectionCenter;
-      
-      // Speed multiplier for the parallax effect
-      const speed = mobile ? 0.15 : 0.25;
-      
-      setOffset1(distanceFromCenter * speed);
-      setOffset2(-distanceFromCenter * speed);
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const vh = window.innerHeight;
+        
+        // Calculate how far the center of the section is from the center of the screen
+        const sectionCenter = rect.top + (rect.height / 2);
+        const viewportCenter = vh / 2;
+        const distanceFromCenter = viewportCenter - sectionCenter;
+        
+        // Speed multiplier for the parallax effect
+        const speed = mobile ? 0.15 : 0.25;
+        
+        setOffset1(distanceFromCenter * speed);
+        setOffset2(-distanceFromCenter * speed);
+      }
+
+      ticking = false;
+    };
+
+    const handleScrollAndResize = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updatePosition);
+      }
     };
 
     window.addEventListener("scroll", handleScrollAndResize, { passive: true });
     window.addEventListener("resize", handleScrollAndResize, { passive: true });
-    handleScrollAndResize();
+    updatePosition();
     return () => {
       window.removeEventListener("scroll", handleScrollAndResize);
       window.removeEventListener("resize", handleScrollAndResize);

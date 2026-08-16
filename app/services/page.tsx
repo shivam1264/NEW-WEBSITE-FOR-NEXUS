@@ -268,7 +268,7 @@ export default function Services() {
       </div>
 
       {/* 3. CORE CONTENT VIEWPORT CONTAINER */}
-      <div className="container" style={{ margin: "0 auto", width: "100%", maxWidth: "1200px", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ margin: "0 auto", width: "100%", maxWidth: "1400px", position: "relative", zIndex: 2 }}>
         {activeTab === "capabilities" ? (
           <div style={{
             display: "grid",

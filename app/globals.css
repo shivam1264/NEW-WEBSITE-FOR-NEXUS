@@ -1596,8 +1596,8 @@ textarea:focus {
    FOOTER BOTTOM COPYRIGHT BAR
    ========================================================= */
 .footer-bottom-bar {
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1400px;
   margin: 48px auto 0;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   padding: 24px 0 0;
@@ -1634,10 +1634,10 @@ textarea:focus {
    STANDARD LAYOUT, CONTAINER & SECTION UTILITIES
    ========================================================= */
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
 .section-padding {
@@ -3276,7 +3276,7 @@ div[style*="padding: 0 24px 24px"] {
   grid-template-columns: 35% 65%;
   gap: 40px;
   align-items: stretch;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -3743,7 +3743,7 @@ div[style*="padding: 0 24px 24px"] {
   grid-template-columns: 35% 65%;
   gap: 40px;
   align-items: stretch;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -5498,33 +5498,7 @@ div[style*="padding: 0 24px 24px"] {
   animation: float-bobbing-alt 9s ease-in-out infinite;
 }
 
-/* Hero Image Carousel Animation */
-.char-carousel-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110%; /* Increased size */
-  max-width: 600px;
-  height: 110%; /* Increased size */
-  object-fit: contain;
-  filter: drop-shadow(0 16px 42px rgba(0, 0, 0, 0.45));
-  opacity: 0;
-  animation: hero-carousel-slide 12s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
 
-@keyframes hero-carousel-slide {
-  0% { opacity: 0; transform: translate(-50%, 20%) scale(0.95); filter: blur(8px); }
-  8.33% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
-  33.33% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
-  41.66% { opacity: 0; transform: translate(-50%, -120%) scale(0.95); filter: blur(8px); }
-  99.9% { opacity: 0; transform: translate(-50%, -120%) scale(0.95); filter: blur(8px); }
-  100% { opacity: 0; transform: translate(-50%, 20%) scale(0.95); filter: blur(8px); }
-}
-
-.char-carousel-img.img-1 { animation-delay: 0s; }
-.char-carousel-img.img-2 { animation-delay: 4s; }
-.char-carousel-img.img-3 { animation-delay: 8s; }
 
 /* Orbiting Tags System */
 .char-orbit-wrap {
@@ -5685,4 +5659,9 @@ div[style*="padding: 0 24px 24px"] {
 
 .shadow-accent {
   box-shadow: 0 0 10px var(--accent) !important;
+}
+
+@keyframes rotateGeom {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

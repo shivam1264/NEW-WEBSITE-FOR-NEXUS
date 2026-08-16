@@ -31,7 +31,7 @@ export default function PricingSection() {
             {
               tier: "Starter",
               label: "Landing Page / MVP",
-              price: "₹15,000",
+              price: "₹9,999",
               suffix: "onwards",
               desc: "Perfect for solopreneurs and local businesses needing a fast, professional online presence.",
               features: ["5-7 page website", "Mobile responsive", "Contact form", "SEO setup", "1 month support"],
@@ -42,7 +42,7 @@ export default function PricingSection() {
             {
               tier: "Growth",
               label: "Full Product Build",
-              price: "₹45,000",
+              price: "₹20,000",
               suffix: "onwards",
               desc: "For startups and businesses that need a complete product — web, mobile, or AI — built right.",
               features: ["Custom web or mobile app", "AI integration available", "Admin dashboard", "API integrations", "3 months post-launch support"],

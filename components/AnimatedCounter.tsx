@@ -13,6 +13,7 @@ export default function AnimatedCounter({ value, duration = 1500, suffix = "", p
   const [count, setCount] = useState(0);
   const elementRef = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Basic compatibility check for environments where IntersectionObserver is missing (e.g. server-side rendering)
@@ -29,12 +30,12 @@ export default function AnimatedCounter({ value, duration = 1500, suffix = "", p
           let start = 0;
           const end = value;
           const totalMiliseconds = duration;
-          const incrementTime = Math.max(Math.floor(totalMiliseconds / end), 20);
+          const incrementTime = Math.max(Math.floor(totalMiliseconds / Math.max(end, 1)), 20);
 
-          const timer = setInterval(() => {
+          timerRef.current = setInterval(() => {
             start += Math.ceil(end / (totalMiliseconds / incrementTime));
             if (start >= end) {
-              clearInterval(timer);
+              if (timerRef.current) clearInterval(timerRef.current);
               setCount(end);
             } else {
               setCount(start);
@@ -50,6 +51,9 @@ export default function AnimatedCounter({ value, duration = 1500, suffix = "", p
     }
 
     return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
       if (elementRef.current) {
         observer.unobserve(elementRef.current);
       }

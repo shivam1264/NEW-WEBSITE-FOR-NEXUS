@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export default function CtaSection() {
   return (
     <section className="section-padding" style={{ position: "relative", zIndex: 2 }}>
-      <div className="container" style={{ maxWidth: "960px" }}>
+      <div className="container" style={{ maxWidth: "1200px" }}>
         <div
           className="cta-glow-card"
           style={{

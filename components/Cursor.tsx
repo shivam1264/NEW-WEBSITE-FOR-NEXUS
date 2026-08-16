@@ -51,35 +51,29 @@ export default function Cursor() {
     };
     rafId = requestAnimationFrame(tick);
 
-    // Dynamic hover bindings for links and buttons
-    const handleMouseEnter = () => setHovering(true);
-    const handleMouseLeave = () => setHovering(false);
-
-    const updateHoverElements = () => {
-      const targets = document.querySelectorAll('a, button, [data-hover="true"], input, textarea, details summary');
-      targets.forEach((elem) => {
-        elem.removeEventListener("mouseenter", handleMouseEnter);
-        elem.removeEventListener("mouseleave", handleMouseLeave);
-        elem.addEventListener("mouseenter", handleMouseEnter, { passive: true });
-        elem.addEventListener("mouseleave", handleMouseLeave, { passive: true });
-      });
+    // High-performance event delegation for hover state (zero DOM queries, zero observer overhead)
+    const onPointerOver = (e: PointerEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('a, button, [data-hover="true"], input, textarea, details summary')) {
+        setHovering(true);
+      }
     };
 
-    updateHoverElements();
+    const onPointerOut = (e: PointerEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('a, button, [data-hover="true"], input, textarea, details summary')) {
+        setHovering(false);
+      }
+    };
 
-    // Create a MutationObserver to listen for DOM changes (like page changes or lazy renders)
-    const observer = new MutationObserver(updateHoverElements);
-    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("pointerover", onPointerOver, { passive: true });
+    window.addEventListener("pointerout", onPointerOut, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("pointerover", onPointerOver);
+      window.removeEventListener("pointerout", onPointerOut);
       cancelAnimationFrame(rafId);
-      observer.disconnect();
-      const targets = document.querySelectorAll('a, button, [data-hover="true"], input, textarea, details summary');
-      targets.forEach((elem) => {
-        elem.removeEventListener("mouseenter", handleMouseEnter);
-        elem.removeEventListener("mouseleave", handleMouseLeave);
-      });
     };
   }, []);
 
