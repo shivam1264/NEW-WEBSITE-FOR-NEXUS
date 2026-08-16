@@ -224,7 +224,7 @@ export default function TeamDirectory() {
         <h1
           className="font-display"
           style={{
-            fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)",
+            fontSize: "var(--fs-h1)",
             fontWeight: 800,
             color: "var(--foreground)",
             marginBottom: "0px",

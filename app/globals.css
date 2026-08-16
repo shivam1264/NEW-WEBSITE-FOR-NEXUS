@@ -6841,12 +6841,12 @@ section,
 
   /* Mobile Typography Scale Overrides */
   :root {
-    --fs-h1: clamp(2.1rem, 8vw, 2.75rem);        /* ~33.6px - 44px: Bold Prominent Mobile Main H1 */
-    --fs-h2: clamp(1.7rem, 6.8vw, 2.2rem);       /* ~27.2px - 35.2px: Impactful Mobile Section H2 */
-    --fs-h3: clamp(1.2rem, 4.8vw, 1.4rem);       /* ~19.2px - 22.4px: Clear Mobile Card H3 */
-    --fs-body: 0.98rem;                          /* ~15.7px: Bold & Crisp Mobile Body Text */
-    --fs-small: 0.88rem;                         /* ~14px: Mobile Subtext */
-    --fs-tiny: 0.8rem;                           /* ~12.8px: Mobile Eyebrows / Badges / Stat Labels */
+    --fs-h1: clamp(2.4rem, 9.5vw, 3.2rem);       /* ~38.4px - 51.2px: Large Bold Phone H1 */
+    --fs-h2: clamp(1.9rem, 7.5vw, 2.5rem);       /* ~30.4px - 40px: Prominent Phone Section H2 */
+    --fs-h3: clamp(1.35rem, 5.5vw, 1.6rem);      /* ~21.6px - 25.6px: Clear Phone Card H3 */
+    --fs-body: 1.02rem;                          /* ~16.3px: Readable Large Phone Body Text */
+    --fs-small: 0.9rem;                          /* ~14.4px: Phone Subtext */
+    --fs-tiny: 0.75rem;                          /* ~12px: Compact Badges & Stat Labels */
     --lh-body: 1.6;
   }
 

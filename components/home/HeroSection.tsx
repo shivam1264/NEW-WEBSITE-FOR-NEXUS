@@ -194,10 +194,17 @@ export default function HeroSection() {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
               }}>
-                <span style={{ color: "#00FFAB", fontSize: "1.45rem", fontWeight: 800, fontFamily: "var(--font-space-grotesk)" }}>
+                <span style={{ color: "#00FFAB", fontSize: "clamp(1.1rem, 3.5vw, 1.45rem)", fontWeight: 800, fontFamily: "var(--font-space-grotesk)" }}>
                   {metric.value}
                 </span>
-                <span style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "var(--fs-tiny)", fontFamily: "var(--font-mono)", fontWeight: 700, letterSpacing: "0.05em" }}>
+                <span style={{ 
+                  color: "rgba(255, 255, 255, 0.65)", 
+                  fontSize: "clamp(0.6rem, 2vw, 0.7rem)", 
+                  fontFamily: "var(--font-mono)", 
+                  fontWeight: 600, 
+                  letterSpacing: "0.02em",
+                  whiteSpace: "nowrap"
+                }}>
                   {metric.label}
                 </span>
               </div>
