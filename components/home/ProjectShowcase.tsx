@@ -272,45 +272,6 @@ export default function ProjectShowcase() {
                   }} />
                 </div>
 
-                {/* Top Badge */}
-                <div style={{ position: "absolute", top: "20px", left: "20px", right: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 4 }}>
-                  <div style={{
-                    background: "rgba(0,0,0,0.6)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    padding: "6px 12px",
-                    borderRadius: "6px",
-                    color: proj.color,
-                    fontSize: "0.7rem",
-                    fontWeight: 800,
-                    fontFamily: "var(--font-mono), monospace",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em"
-                  }}>
-                    {proj.code}
-                  </div>
-                  {proj.url && (
-                    <div style={{
-                      background: "rgba(0, 255, 171, 0.15)",
-                      backdropFilter: "blur(10px)",
-                      border: "1px solid rgba(0, 255, 171, 0.4)",
-                      padding: "6px 14px",
-                      borderRadius: "99px",
-                      color: "#00FFAB",
-                      fontSize: "0.72rem",
-                      fontWeight: 800,
-                      fontFamily: "var(--font-mono), monospace",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px"
-                    }}>
-                      LIVE ↗ sistecrsih.in
-                    </div>
-                  )}
-                </div>
-
                 {/* Bottom Info Glass */}
                 <div style={{
                   marginTop: "auto",
@@ -321,18 +282,37 @@ export default function ProjectShowcase() {
                   flexDirection: "column",
                   gap: "8px"
                 }}>
-                  <h3 style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    fontSize: "1.6rem",
-                    fontWeight: 700,
-                    color: "#fff",
-                    margin: 0,
-                    lineHeight: 1.2
-                  }}>
-                    {proj.title}
-                  </h3>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+                    <h3 style={{
+                      fontFamily: "var(--font-space-grotesk), sans-serif",
+                      fontSize: "1.6rem",
+                      fontWeight: 700,
+                      color: "#fff",
+                      margin: 0,
+                      lineHeight: 1.2
+                    }}>
+                      {proj.title}
+                    </h3>
+                    {proj.url && (
+                      <span style={{
+                        background: "rgba(0, 255, 171, 0.15)",
+                        border: "1px solid rgba(0, 255, 171, 0.4)",
+                        padding: "4px 10px",
+                        borderRadius: "99px",
+                        color: "#00FFAB",
+                        fontSize: "0.68rem",
+                        fontWeight: 800,
+                        fontFamily: "var(--font-mono), monospace",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.08em",
+                        whiteSpace: "nowrap"
+                      }}>
+                        sistecrsih.in ↗
+                      </span>
+                    )}
+                  </div>
                   <div style={{ display: "flex", gap: "16px", alignItems: "center", marginTop: "4px" }}>
-                    <span style={{ color: "var(--muted)", fontSize: "0.9rem" }}>System Deployment</span>
+                    <span style={{ color: "var(--muted)", fontSize: "0.88rem", fontFamily: "var(--font-mono), monospace" }}>{proj.code} · System Deployment</span>
                     <span style={{ color: "rgba(255,255,255,0.2)" }}>|</span>
                     <span style={{ color: proj.color, fontSize: "0.85rem", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
                       View Specs <ArrowRight size={14} style={{ transform: isHovered ? "translateX(4px)" : "none", transition: "transform 0.3s ease" }} />
