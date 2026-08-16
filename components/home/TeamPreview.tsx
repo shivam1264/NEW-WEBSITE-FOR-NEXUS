@@ -85,7 +85,7 @@ export default function TeamPreview() {
           <h2
             className="section-header-title font-display"
             style={{
-              fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
+              fontSize: "var(--fs-h2)",
               fontWeight: 800,
               color: "var(--foreground)",
               marginBottom: "14px",
@@ -95,7 +95,7 @@ export default function TeamPreview() {
           >
             Meet Our <span className="font-serif-i" style={{ color: "var(--accent)" }}>Specialists</span>
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: "1.6", margin: 0 }}>
+          <p style={{ color: "var(--muted)", fontSize: "var(--fs-body)", lineHeight: "1.6", margin: 0 }}>
             The experts powering our core client development pods. Passionate. Skilled. Committed to delivering excellence.
           </p>
         </div>

@@ -123,7 +123,7 @@ export default function HeroSection() {
           <h1
             className="font-display"
             style={{
-              fontSize: "clamp(3rem, 6vw, 5rem)",
+              fontSize: "var(--fs-h1)",
               fontWeight: 800,
               color: "var(--foreground)",
               lineHeight: 1.05,
@@ -152,8 +152,9 @@ export default function HeroSection() {
 
           {/* Premium Subheading */}
           <p className="hero-subheading" style={{
-            color: "rgba(255, 255, 255, 0.7)",
-            fontSize: "1.15rem",
+            color: "rgba(255, 255, 255, 0.85)",
+            fontSize: "var(--fs-body)",
+            fontWeight: 500,
             lineHeight: 1.6,
             maxWidth: "540px",
             margin: 0
@@ -165,7 +166,7 @@ export default function HeroSection() {
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "16px",
+            gap: "12px",
             marginTop: "8px"
           }}>
             {[
@@ -174,10 +175,10 @@ export default function HeroSection() {
               { value: "3+", label: "PRODUCT LANES" },
             ].map((metric, i) => (
               <div key={i} className="hero-metric" style={{
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                background: "rgba(255, 255, 255, 0.03)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
                 borderRadius: "16px",
-                padding: "16px",
+                padding: "14px 12px",
                 backdropFilter: "blur(10px)",
                 display: "flex",
                 flexDirection: "column",
@@ -187,16 +188,16 @@ export default function HeroSection() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)";
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
               }}>
-                <span style={{ color: "#00FFAB", fontSize: "1.5rem", fontWeight: 800, fontFamily: "var(--font-space-grotesk)" }}>
+                <span style={{ color: "#00FFAB", fontSize: "1.45rem", fontWeight: 800, fontFamily: "var(--font-space-grotesk)" }}>
                   {metric.value}
                 </span>
-                <span style={{ color: "var(--muted)", fontSize: "0.7rem", fontFamily: "var(--font-mono)", letterSpacing: "0.05em" }}>
+                <span style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "var(--fs-tiny)", fontFamily: "var(--font-mono)", fontWeight: 700, letterSpacing: "0.05em" }}>
                   {metric.label}
                 </span>
               </div>

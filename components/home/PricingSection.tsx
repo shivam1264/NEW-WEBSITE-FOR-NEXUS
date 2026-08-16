@@ -120,9 +120,9 @@ export default function PricingSection() {
           </div>
 
           <h2
-            className="section-header-title font-display"
+            className="font-display"
             style={{
-              fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)",
+              fontSize: "var(--fs-h2)",
               fontWeight: 800,
               color: "var(--foreground)",
               marginBottom: "16px",
@@ -132,7 +132,7 @@ export default function PricingSection() {
           >
             Simple <span className="font-serif-i" style={{ color: "var(--accent)" }}>Engagement</span> Models
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1rem", maxWidth: "560px", margin: "0 auto", lineHeight: 1.5 }}>
+          <p style={{ color: "var(--muted)", fontSize: "var(--fs-body)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.5 }}>
             No hidden fees. No bloated retainers. Pick the engagement model that matches your project scale.
           </p>
         </div>

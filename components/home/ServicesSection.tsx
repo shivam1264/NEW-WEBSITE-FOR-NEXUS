@@ -260,7 +260,7 @@ export default function ServicesSection() {
           <h2
             className="section-header-title font-display"
             style={{
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              fontSize: "var(--fs-h2)",
               fontWeight: 800,
               color: "var(--foreground)",
               marginBottom: "20px",
@@ -270,7 +270,7 @@ export default function ServicesSection() {
           >
             What We <span className="font-serif-i" style={{ color: "var(--accent)" }}>Do</span>
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: "1.6", maxWidth: "650px", margin: "0 auto" }}>
+          <p style={{ color: "var(--muted)", fontSize: "var(--fs-body)", lineHeight: "1.6", maxWidth: "650px", margin: "0 auto" }}>
             We build fast, scalable digital products designed to drive business efficiency and customer trust.
           </p>
         </div>

@@ -24,7 +24,7 @@ export default function CtaSection() {
             <h2
               className="font-display cta-title"
               style={{
-                fontSize: "clamp(1.75rem, 4.5vw, 3rem)",
+                fontSize: "var(--fs-h2)",
                 fontWeight: 700,
                 color: "var(--foreground)",
                 marginBottom: "12px",
@@ -38,7 +38,7 @@ export default function CtaSection() {
               className="cta-desc"
               style={{
                 color: "var(--muted)",
-                fontSize: "0.95rem",
+                fontSize: "var(--fs-body)",
                 lineHeight: "1.5",
                 maxWidth: "480px",
                 margin: "0 auto",

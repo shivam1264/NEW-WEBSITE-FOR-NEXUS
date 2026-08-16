@@ -89,7 +89,7 @@ export default function WhyChooseUs() {
               <h2
                 className="font-display"
                 style={{
-                  fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                  fontSize: "var(--fs-h2)",
                   fontWeight: 700,
                   color: "var(--foreground)",
                   marginBottom: "24px",
@@ -98,7 +98,7 @@ export default function WhyChooseUs() {
               >
                 We build <span className="font-serif-i" style={{ color: "var(--accent)" }}>tools</span>,<br />not tech homework.
               </h2>
-              <p style={{ color: "var(--muted)", fontSize: "1.1rem", lineHeight: "1.6", margin: 0, maxWidth: "600px" }}>
+              <p style={{ color: "var(--muted)", fontSize: "var(--fs-body)", lineHeight: "1.6", margin: 0, maxWidth: "600px" }}>
                 We are not freelancers working in silos. NEXUS is an agile product development partner. We focus on business outcomes, clear contracts, and rapid deployments that increase your revenue and trust.
               </p>
             </div>

@@ -17,7 +17,7 @@ export default function Testimonials() {
           <h2
             className="section-header-title font-display"
             style={{
-              fontSize: "clamp(2rem, 4vw, 2.8rem)",
+              fontSize: "var(--fs-h2)",
               fontWeight: 700,
               color: "var(--foreground)",
             }}

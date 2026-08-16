@@ -153,7 +153,7 @@ export default function ProcessSection() {
           <h2
             className="section-header-title font-display"
             style={{
-              fontSize: "clamp(2rem, 5vw, 3.8rem)",
+              fontSize: "var(--fs-h2)",
               fontWeight: 800,
               color: "var(--foreground)",
               marginBottom: "16px",
@@ -163,7 +163,7 @@ export default function ProcessSection() {
           >
             Our <span className="font-serif-i" style={{ color: "var(--accent)" }}>Workflow</span>
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: "1.5", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--muted)", fontSize: "var(--fs-body)", lineHeight: "1.5", maxWidth: "600px", margin: "0 auto" }}>
             How we take your product requirements from discussion to production maintenance.
           </p>
         </div>
