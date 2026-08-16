@@ -20,11 +20,50 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://new-website-for-nexus.vercel.app"),
-  title: "NEXUS — Web, Mobile & AI Development Agency | Bhopal, India",
+  title: {
+    default: "NEXUS — Web, Mobile & AI Development Agency | Bhopal, India",
+    template: "%s | NEXUS Agency",
+  },
   description: "NEXUS builds production-grade websites, mobile apps, and AI systems for startups, local businesses, and SaaS founders. Hackathon champions. Delivering in weeks, not months.",
+  keywords: [
+    "NEXUS agency",
+    "NEXUS Bhopal",
+    "web development agency Bhopal",
+    "mobile app development India",
+    "AI development agency",
+    "Next.js developers India",
+    "React developers Bhopal",
+    "Flutter app developers",
+    "UI UX design agency",
+    "software development company Bhopal",
+    "full stack development agency",
+    "AI chatbot developers",
+  ],
+  authors: [{ name: "NEXUS Team", url: "https://new-website-for-nexus.vercel.app" }],
+  creator: "NEXUS Agency",
+  publisher: "NEXUS Agency",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "NEXUS — Web, Mobile & AI Development Agency",
-    description: "NEXUS builds production-grade websites, mobile apps, and AI systems.",
+    description: "Production-grade websites, mobile apps, and AI systems for startups and SaaS founders. Hackathon champions.",
     url: "https://new-website-for-nexus.vercel.app",
     siteName: "NEXUS",
     images: [
@@ -32,7 +71,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "NEXUS Cover",
+        alt: "NEXUS Web, Mobile & AI Agency",
       },
     ],
     locale: "en_US",
@@ -41,13 +80,59 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NEXUS — Web, Mobile & AI Development Agency",
-    description: "NEXUS builds production-grade websites, mobile apps, and AI systems.",
+    description: "Production-grade websites, mobile apps, and AI systems for startups and SaaS founders.",
     images: ["/og-image.jpg"],
   },
 };
 
 export const viewport = {
   themeColor: "#000000",
+};
+
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "NEXUS",
+  "alternateName": "NEXUS Agency",
+  "url": "https://new-website-for-nexus.vercel.app",
+  "logo": "https://new-website-for-nexus.vercel.app/og-image.jpg",
+  "image": "https://new-website-for-nexus.vercel.app/og-image.jpg",
+  "description": "NEXUS is a premier software engineering agency building production-grade web applications, mobile apps, and AI systems.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bhopal",
+    "addressRegion": "Madhya Pradesh",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "23.2599",
+    "longitude": "77.4126"
+  },
+  "telephone": "+916263944626",
+  "email": "shubhampawar1263@gmail.com",
+  "priceRange": "$$",
+  "sameAs": [
+    "https://github.com/shivam1264",
+    "https://wa.me/916263944626"
+  ],
+  "knowsAbout": [
+    "Web Development",
+    "Mobile App Development",
+    "AI & LLM Solutions",
+    "UI/UX Design",
+    "Next.js",
+    "Flutter",
+    "Python",
+    "FastAPI"
+  ]
+};
+
+const jsonLdWebSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NEXUS",
+  "url": "https://new-website-for-nexus.vercel.app"
 };
 
 export default function RootLayout({
@@ -57,6 +142,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} ${inter.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
+        />
+      </head>
       <body>
         {/* Lenis Smooth Scrolling wrapper */}
         <SmoothScroll>

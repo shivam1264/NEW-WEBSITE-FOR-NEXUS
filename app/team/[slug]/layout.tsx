@@ -26,7 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${member.name} — ${member.role} | NEXUS`,
-    description: `View the portfolio and specializations of ${member.name}, ${member.role} at NEXUS.`,
+    description: `View the portfolio, case studies, and engineering specializations of ${member.name}, ${member.role} at NEXUS.`,
+    alternates: {
+      canonical: `/team/${slug}`,
+    },
+    openGraph: {
+      title: `${member.name} — ${member.role} | NEXUS`,
+      description: `View the portfolio and specializations of ${member.name}, ${member.role} at NEXUS.`,
+      url: `https://new-website-for-nexus.vercel.app/team/${slug}`,
+    },
   };
 }
 
