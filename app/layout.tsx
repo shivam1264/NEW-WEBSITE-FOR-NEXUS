@@ -74,8 +74,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "NEXUS (PTS CUBE) — Web, Mobile & AI Development Agency",
-    description: "NEXUS (PTS CUBE) delivers production-grade websites, mobile apps, and AI systems for startups and founders. Hackathon champions in Bhopal.",
+    title: "NEXUS (PTS CUBE) — Web, Mobile & AI Development Agency | Bhopal, India",
+    description: "NEXUS (PTS CUBE) delivers production-grade websites, mobile apps, and AI systems for startups and founders. Hackathon champions in Bhopal, India.",
     url: "https://new-website-for-nexus.vercel.app",
     siteName: "NEXUS (PTS CUBE)",
     images: [
@@ -83,15 +83,15 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "NEXUS (PTS CUBE) Web, Mobile & AI Agency",
+        alt: "NEXUS (PTS CUBE) Web, Mobile & AI Agency India",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NEXUS (PTS CUBE) — Web, Mobile & AI Development Agency",
+    title: "NEXUS (PTS CUBE) — Web, Mobile & AI Development Agency | India",
     description: "NEXUS (PTS CUBE) delivers production-grade websites, mobile apps, and AI systems.",
     images: ["/og-image.jpg"],
   },
@@ -133,6 +133,21 @@ const jsonLdOrganization = {
     "latitude": "23.2599",
     "longitude": "77.4126"
   },
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "India",
+      "identifier": "IN"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Madhya Pradesh"
+    },
+    {
+      "@type": "City",
+      "name": "Bhopal"
+    }
+  ],
   "telephone": "+916263944626",
   "email": "shubhampawar1263@gmail.com",
   "priceRange": "$$",
@@ -168,8 +183,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} ${inter.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${manrope.variable} ${inter.variable}`}>
       <head>
+        <meta name="geo.region" content="IN-MP" />
+        <meta name="geo.placename" content="Bhopal, Madhya Pradesh, India" />
+        <meta name="geo.position" content="23.2599;77.4126" />
+        <meta name="ICBM" content="23.2599, 77.4126" />
+        <link rel="alternate" hrefLang="en-in" href="https://new-website-for-nexus.vercel.app" />
+        <link rel="alternate" hrefLang="x-default" href="https://new-website-for-nexus.vercel.app" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
