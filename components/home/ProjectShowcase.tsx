@@ -114,7 +114,8 @@ export default function ProjectShowcase() {
               colorRGB: "232, 96, 46",
               color: "#e8602e",
               img: "/images/sistec_sih_platform.png",
-              objectFit: "contain",
+              objectFit: "cover",
+              aspectRatio: "1024 / 561",
               bentoSpan: "span-8"
             },
             {
@@ -158,7 +159,8 @@ export default function ProjectShowcase() {
               colorRGB: "213, 0, 249",
               color: "#d500f9",
               img: "/images/royalbite_desktop.png",
-              objectFit: "contain",
+              objectFit: "cover",
+              aspectRatio: "1024 / 565",
               bentoSpan: "span-7"
             }
           ].map((proj) => {
@@ -178,6 +180,8 @@ export default function ProjectShowcase() {
                 onMouseMove={handleTiltMouseMove}
                 style={{
                   "--card-theme": `rgba(${proj.colorRGB}, 0.5)`,
+                  aspectRatio: (proj as any).aspectRatio || undefined,
+                  height: (proj as any).aspectRatio ? "auto" : undefined,
                   textDecoration: "none"
                 } as React.CSSProperties}
               >

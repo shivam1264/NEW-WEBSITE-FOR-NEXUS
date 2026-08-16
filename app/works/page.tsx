@@ -193,7 +193,8 @@ export default function Works() {
       mission: "Empowering students and innovators to collaborate, explore ideas, solve real-world challenges, and transform innovative concepts into impactful technology-driven solutions through the SISTec Innovation Hackathon.",
       achievement: "Official Digital Platform for SISTec Innovation Hackathon (sistecrsih.in)",
       img: "/images/sistec_sih_platform.png",
-      objectFit: "contain",
+      objectFit: "cover",
+      aspectRatio: "1024 / 561",
       bentoSpan: "span-8"
     },
     {
@@ -354,7 +355,8 @@ export default function Works() {
       ],
       achievement: "Official Digital Platform for RoyalBite Fine Dine (resturant-ui-zeta.vercel.app)",
       img: "/images/royalbite_desktop.png",
-      objectFit: "contain",
+      objectFit: "cover",
+      aspectRatio: "1024 / 565",
       bentoSpan: "span-7"
     }
   ];
@@ -476,7 +478,9 @@ export default function Works() {
                 onMouseMove={handleTiltMouseMove}
                 onClick={() => setActiveProject(originalIndex)}
                 style={{
-                  "--card-theme": `rgba(${item.colorRGB}, 0.5)`
+                  "--card-theme": `rgba(${item.colorRGB}, 0.5)`,
+                  aspectRatio: (item as any).aspectRatio || undefined,
+                  height: (item as any).aspectRatio ? "auto" : undefined,
                 } as React.CSSProperties}
               >
                 {/* Glow Follower */}
