@@ -114,6 +114,7 @@ export default function ProjectShowcase() {
               colorRGB: "232, 96, 46",
               color: "#e8602e",
               img: "/images/sistec_sih_platform.png",
+              objectFit: "contain",
               bentoSpan: "span-8"
             },
             {
