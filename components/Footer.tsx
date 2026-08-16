@@ -336,7 +336,8 @@ export default function Footer() {
                 </div>
                 <div>
                   <span style={{ display: "block", fontSize: "0.88rem", fontWeight: 700, color: "var(--foreground)" }}>WhatsApp (Fastest)</span>
-                  <span style={{ display: "block", fontSize: "0.72rem", color: "var(--muted)" }}>Chat with us instantly</span>
+                  <span style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: accentGreen, marginTop: "2px" }}>+91 62639 44626</span>
+                  <span style={{ display: "block", fontSize: "0.70rem", color: "var(--muted)", marginTop: "1px" }}>Chat with us instantly</span>
                 </div>
               </div>
               <ChevronRight size={14} color="var(--muted-2)" />
