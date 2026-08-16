@@ -192,7 +192,7 @@ export default function Works() {
       ],
       mission: "Empowering students and innovators to collaborate, explore ideas, solve real-world challenges, and transform innovative concepts into impactful technology-driven solutions through the SISTec Innovation Hackathon.",
       achievement: "Official Digital Platform for SISTec Innovation Hackathon (sistecrsih.in)",
-      img: "/images/custom-project-1.png",
+      img: "/images/sistec_sih_platform.png",
       bentoSpan: "span-8"
     },
     {

@@ -113,7 +113,7 @@ export default function ProjectShowcase() {
               url: "https://www.sistecrsih.in/",
               colorRGB: "232, 96, 46",
               color: "#e8602e",
-              img: "/images/custom-project-1.png",
+              img: "/images/sistec_sih_platform.png",
               bentoSpan: "span-8"
             },
             {
