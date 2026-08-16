@@ -152,15 +152,11 @@ export default function ProjectShowcase() {
               id: "restaurant-app",
               code: "PRJ-04",
               title: "RoyalBite Fine Dine & Ordering System",
-              subtitle: "Full-stack restaurant platform & mobile ordering app",
+              subtitle: "Full-stack restaurant platform & ordering web application",
               url: "https://resturant-ui-zeta.vercel.app/",
               colorRGB: "213, 0, 249",
               color: "#d500f9",
               img: "/images/royalbite_desktop.png",
-              images: [
-                "/images/royalbite_desktop.png",
-                "/images/royalbite_mobile.png"
-              ],
               objectFit: "contain",
               bentoSpan: "span-7"
             }

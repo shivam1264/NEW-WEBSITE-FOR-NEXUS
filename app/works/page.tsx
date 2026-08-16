@@ -353,10 +353,6 @@ export default function Works() {
       ],
       achievement: "Official Digital Platform for RoyalBite Fine Dine (resturant-ui-zeta.vercel.app)",
       img: "/images/royalbite_desktop.png",
-      scrollingImages: [
-        "/images/royalbite_desktop.png",
-        "/images/royalbite_mobile.png"
-      ],
       objectFit: "contain",
       bentoSpan: "span-7"
     }
