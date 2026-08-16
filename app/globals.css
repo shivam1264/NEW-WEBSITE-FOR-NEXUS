@@ -49,12 +49,12 @@
   --cyber-pink: #00FFAB;
 
   /* === UNIFIED TYPOGRAPHY SCALE (DESKTOP / LAPTOP) === */
-  --fs-h1: clamp(2.2rem, 4.5vw, 3.2rem);       /* ~35px - 51px: Page H1 Title */
-  --fs-h2: clamp(1.75rem, 3.2vw, 2.3rem);      /* ~28px - 37px: Section H2 Title */
-  --fs-h3: clamp(1.25rem, 2.2vw, 1.5rem);      /* ~20px - 24px: Card H3 Subheading */
-  --fs-body: 1.0rem;                          /* 16px: Paragraph & Body Text */
-  --fs-small: 0.85rem;                        /* 13.6px: Subtext & Secondary Info */
-  --fs-tiny: 0.78rem;                         /* 12.5px: Eyebrows, Badges & Code Tags */
+  --fs-h1: clamp(2.5rem, 5vw, 3.8rem);        /* ~40px - 61px: Page H1 Title */
+  --fs-h2: clamp(2.0rem, 4vw, 3.0rem);        /* ~32px - 48px: Bold Section H2 Title */
+  --fs-h3: clamp(1.3rem, 2.5vw, 1.65rem);     /* ~20.8px - 26.4px: Card H3 Subheading */
+  --fs-body: 1.05rem;                         /* 16.8px: Paragraph & Body Text */
+  --fs-small: 0.9rem;                        /* 14.4px: Subtext & Secondary Info */
+  --fs-tiny: 0.8rem;                         /* 12.8px: Eyebrows, Badges & Code Tags */
 
   --lh-h1: 1.08;
   --lh-h2: 1.15;
@@ -95,23 +95,33 @@ h6 {
   letter-spacing: -0.03em;
 }
 
+/* === TYPOGRAPHY SPECIFICATION COMPLIANCE === */
 h1 {
+  font-family: var(--font-heading);
   font-size: var(--fs-h1);
-  font-weight: 800;
+  font-weight: 700; /* Manrope 700 Main Heading */
   line-height: var(--lh-h1);
   letter-spacing: -0.03em;
 }
 
+.hero-heading,
+.home-hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 800; /* Manrope 700 / 800 Hero Heading */
+}
+
 h2 {
+  font-family: var(--font-heading);
   font-size: var(--fs-h2);
-  font-weight: 800;
+  font-weight: 700; /* Manrope 600 / 700 Section Heading */
   line-height: var(--lh-h2);
   letter-spacing: -0.02em;
 }
 
 h3 {
+  font-family: var(--font-heading);
   font-size: var(--fs-h3);
-  font-weight: 700;
+  font-weight: 600; /* Manrope 600 / 700 Section Heading */
   line-height: var(--lh-h3);
 }
 

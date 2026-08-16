@@ -123,7 +123,7 @@ export default function HeroSection() {
           <h1
             className="font-display"
             style={{
-              fontSize: "var(--fs-h1)",
+              fontSize: "clamp(2.5rem, 5.5vw, 4.8rem)",
               fontWeight: 800,
               color: "var(--foreground)",
               lineHeight: 1.05,
@@ -153,10 +153,10 @@ export default function HeroSection() {
           {/* Premium Subheading */}
           <p className="hero-subheading" style={{
             color: "rgba(255, 255, 255, 0.85)",
-            fontSize: "var(--fs-body)",
+            fontSize: "clamp(1.0rem, 1.5vw, 1.2rem)",
             fontWeight: 500,
-            lineHeight: 1.6,
-            maxWidth: "540px",
+            lineHeight: 1.65,
+            maxWidth: "580px",
             margin: 0
           }}>
             NEXUS is a specialist engineering collective. We build production-grade websites, mobile apps, and AI automation systems — fast, clean, and focused on measurable results.
