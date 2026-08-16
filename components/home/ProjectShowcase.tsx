@@ -151,11 +151,17 @@ export default function ProjectShowcase() {
             {
               id: "restaurant-app",
               code: "PRJ-04",
-              title: "Restaurant App Dispatcher",
-              subtitle: "White-labeled ordering system",
+              title: "RoyalBite Fine Dine & Ordering System",
+              subtitle: "Full-stack restaurant platform & mobile ordering app",
+              url: "https://resturant-ui-zeta.vercel.app/",
               colorRGB: "213, 0, 249",
               color: "#d500f9",
-              img: "/images/restaurant_app_ui.png",
+              img: "/images/royalbite_desktop.png",
+              images: [
+                "/images/royalbite_desktop.png",
+                "/images/royalbite_mobile.png"
+              ],
+              objectFit: "contain",
               bentoSpan: "span-7"
             }
           ].map((proj) => {
@@ -218,13 +224,13 @@ export default function ProjectShowcase() {
                         }}
                       >
                         {proj.images.concat(proj.images).map((img, i) => (
-                          <div key={i} style={{ position: "relative", width: "160px", height: "85%", flexShrink: 0, borderRadius: "12px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
+                          <div key={i} style={{ position: "relative", width: img.includes("desktop") ? "320px" : "180px", height: "90%", flexShrink: 0, borderRadius: "12px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.5)", background: "#0a0a0f" }}>
                             <Image
                               src={img}
                               alt={`${proj.title} screen ${i}`}
                               fill
-                              sizes="160px"
-                              style={{ objectFit: "cover" }}
+                              sizes="(max-width: 768px) 100vw, 320px"
+                              style={{ objectFit: (proj as any).objectFit || "cover", objectPosition: "center" }}
                             />
                           </div>
                         ))}
@@ -256,7 +262,8 @@ export default function ProjectShowcase() {
                       priority
                       sizes="(max-width: 768px) 100vw, 50vw"
                       style={{
-                        objectFit: "cover",
+                        objectFit: (proj as any).objectFit || "cover",
+                        objectPosition: "center",
                         transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
                         transform: isHovered ? "scale(1.05)" : "scale(1)",
                       }}

@@ -329,21 +329,35 @@ export default function Works() {
       type: "project",
       id: "restaurant-app",
       code: "PRJ-04",
-      title: "QR Menu & POS App",
-      subtitle: "Offline-first restaurant menu and ordering system",
-      desc: "A robust mobile application allowing restaurant staff to manage active tables, track kitchen prep states, and process split payments securely.",
-      details: "High-volume restaurants required an app that wouldn't fail during spotty WiFi conditions. We implemented an offline-first caching layer where orders sync instantly the moment connectivity returns.",
-      tags: ["Flutter", "Cross-Platform", "Offline-First"],
+      title: "RoyalBite Fine Dine & Ordering System",
+      subtitle: "Fine dine restaurant portal & mobile ordering app · resturant-ui-zeta.vercel.app",
+      desc: "Comprehensive digital ordering platform and web application built for RoyalBite Fine Dine Restaurant, featuring an exquisite menu showcase, online table reservations, mobile ordering dispatcher, and real-time order tracking.",
+      details: "Delivers an elegant, high-end dining and ordering experience. Integrates table booking workflows, interactive food menus with category filtering (Pizzas, Burgers, Sushi, Pasta), order dispatching, and a mobile ordering interface designed for modern hospitality operations.",
+      url: "https://resturant-ui-zeta.vercel.app/",
+      tags: ["React", "UI/UX", "Restaurant Platform", "Mobile Ordering", "resturant-ui-zeta.vercel.app"],
       icon: <Box size={22} />,
       color: "#d500f9",
       colorRGB: "213, 0, 249",
       metricsList: [
-        { val: "1.2s", name: "App Boot Time" },
-        { val: "0% Loss", name: "Offline Sync" },
-        { val: "4.9", name: "App Store Rating" }
+        { val: "Live", name: "Status" },
+        { val: "2K+", name: "Happy Customers" },
+        { val: "100%", name: "Uptime" }
       ],
-      achievement: "Top 10 B2B POS systems across App Store regional charts.",
-      img: "/images/restaurant_app_ui.png",
+      features: [
+        "Interactive Fine-Dine Food Menu Showcase",
+        "Online Table Booking & Reservation Workflow",
+        "Mobile App UI & Quick Order Dispatcher",
+        "Category & Dietary Filtering (Pizzas, Burgers, etc.)",
+        "Real-Time Cart & Checkout Management",
+        "Responsive Fine-Dine Desktop & Mobile Layout"
+      ],
+      achievement: "Official Digital Platform for RoyalBite Fine Dine (resturant-ui-zeta.vercel.app)",
+      img: "/images/royalbite_desktop.png",
+      scrollingImages: [
+        "/images/royalbite_desktop.png",
+        "/images/royalbite_mobile.png"
+      ],
+      objectFit: "contain",
       bentoSpan: "span-7"
     }
   ];
@@ -667,7 +681,8 @@ export default function Works() {
                       fill
                       sizes="(max-width: 768px) 100vw, 800px"
                       style={{
-                        objectFit: "cover",
+                        objectFit: (registryItems[activeProject] as any).objectFit || "cover",
+                        objectPosition: "center"
                       }}
                     />
                   )}
