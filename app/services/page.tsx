@@ -134,7 +134,7 @@ export default function Services() {
   return (
     <div
       style={{
-        padding: "160px 0 100px",
+        padding: "85px 0 20px",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -161,45 +161,21 @@ export default function Services() {
       <div
         className="container reveal-text"
         style={{
-          margin: "0 auto 40px",
+          margin: "0 auto 20px",
           maxWidth: "700px",
           textAlign: "center",
           position: "relative",
           zIndex: 2
         }}
       >
-        <div style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "10px",
-          background: "rgba(255, 255, 255, 0.03)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          padding: "8px 16px",
-          borderRadius: "100px",
-          backdropFilter: "blur(10px)",
-          marginBottom: "24px"
-        }}>
-          <Sparkles size={16} color="var(--accent)" />
-          <span style={{
-            color: "var(--accent)",
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: "0.85rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.05em"
-          }}>
-            {activeTab === "capabilities" ? "Core Capabilities" : "Knowledge Base"}
-          </span>
-        </div>
-
         <h1
           className="font-display"
           style={{
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)",
             fontWeight: 800,
             color: "var(--foreground)",
-            marginBottom: "16px",
-            lineHeight: 1.1
+            marginBottom: "0px",
+            lineHeight: 1.05
           }}
         >
           {activeTab === "capabilities" ? "Premium " : "Frequently "}
@@ -211,31 +187,28 @@ export default function Services() {
             {activeTab === "capabilities" ? "Services" : "Questions"}
           </span>
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.1rem", lineHeight: "1.6" }}>
-          Every engagement is built around practical outcomes: sharper positioning, better collaboration, and systems that compound.
-        </p>
       </div>
 
       {/* 2. TAB SWITCHER (Glassmorphism) */}
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "40px", position: "relative", zIndex: 2 }}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "24px", position: "relative", zIndex: 2 }}>
         <div style={{
           display: "flex",
           background: "rgba(255, 255, 255, 0.03)",
           border: "1px solid rgba(255, 255, 255, 0.08)",
           borderRadius: "100px",
-          padding: "6px",
+          padding: "5px",
           backdropFilter: "blur(12px)"
         }}>
           <button
             onClick={() => setActiveTab("capabilities")}
             style={{
-              padding: "12px 32px",
+              padding: "8px 24px",
               borderRadius: "100px",
               background: activeTab === "capabilities" ? "rgba(255,255,255,0.1)" : "transparent",
               border: "none",
               color: activeTab === "capabilities" ? "#fff" : "rgba(255,255,255,0.5)",
               fontWeight: 600,
-              fontSize: "0.95rem",
+              fontSize: "0.88rem",
               cursor: "pointer",
               transition: "all 0.3s ease",
               display: "flex",
@@ -243,18 +216,18 @@ export default function Services() {
               gap: "8px"
             }}
           >
-            <Settings size={16} /> Capabilities
+            <Settings size={15} /> Capabilities
           </button>
           <button
             onClick={() => setActiveTab("faq")}
             style={{
-              padding: "12px 32px",
+              padding: "8px 24px",
               borderRadius: "100px",
               background: activeTab === "faq" ? "rgba(255,255,255,0.1)" : "transparent",
               border: "none",
               color: activeTab === "faq" ? "#fff" : "rgba(255,255,255,0.5)",
               fontWeight: 600,
-              fontSize: "0.95rem",
+              fontSize: "0.88rem",
               cursor: "pointer",
               transition: "all 0.3s ease",
               display: "flex",
@@ -262,7 +235,7 @@ export default function Services() {
               gap: "8px"
             }}
           >
-            <Activity size={16} /> FAQs
+            <Activity size={15} /> FAQs
           </button>
         </div>
       </div>
@@ -270,20 +243,21 @@ export default function Services() {
       {/* 3. CORE CONTENT VIEWPORT CONTAINER */}
       <div className="container" style={{ margin: "0 auto", width: "100%", maxWidth: "1400px", position: "relative", zIndex: 2 }}>
         {activeTab === "capabilities" ? (
-          <div style={{
+          <div className="services-main-layout" style={{
             display: "grid",
             gridTemplateColumns: "350px 1fr",
             gap: "24px",
             alignItems: "start"
           }}>
             {/* Left Button Select Stack */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div className="services-nav-stack" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {capabilities.map((cap, idx) => {
                 const isActive = activeService === idx;
                 return (
                   <button
                     key={cap.id}
                     onClick={() => setActiveService(idx)}
+                    className={`services-nav-btn ${isActive ? "active" : ""}`}
                     style={{
                       background: isActive ? `rgba(${cap.colorRGB}, 0.1)` : "rgba(255, 255, 255, 0.02)",
                       border: `1px solid ${isActive ? `rgba(${cap.colorRGB}, 0.3)` : "rgba(255, 255, 255, 0.05)"}`,
@@ -309,7 +283,7 @@ export default function Services() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                      <div style={{
+                      <div className="services-btn-icon" style={{
                         width: "44px",
                         height: "44px",
                         borderRadius: "12px",
@@ -322,14 +296,14 @@ export default function Services() {
                       }}>
                         {cap.icon}
                       </div>
-                      <span style={{
+                      <span className="services-btn-text" style={{
                         fontSize: "1.1rem",
                         fontWeight: 600,
                         color: isActive ? "#fff" : "rgba(255,255,255,0.6)",
                         fontFamily: "var(--font-space-grotesk)"
                       }}>{cap.title}</span>
                     </div>
-                    {isActive && <ArrowRight size={18} color={cap.color} />}
+                    {isActive && <ArrowRight className="services-btn-arrow" size={18} color={cap.color} />}
                   </button>
                 );
               })}
@@ -338,6 +312,7 @@ export default function Services() {
             {/* Right Details Panel (Glassmorphism Bento Card) */}
             <div
               key={activeService}
+              className="services-details-panel"
               style={{
                 background: "rgba(10, 10, 15, 0.6)",
                 border: `1px solid rgba(${activeSvcData.colorRGB}, 0.2)`,
@@ -363,8 +338,8 @@ export default function Services() {
               }} />
 
               {/* Header */}
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "24px", marginBottom: "32px", position: "relative", zIndex: 2 }}>
-                <div style={{
+              <div className="services-details-header" style={{ display: "flex", alignItems: "flex-start", gap: "24px", marginBottom: "32px", position: "relative", zIndex: 2 }}>
+                <div className="services-details-icon" style={{
                   width: "64px",
                   height: "64px",
                   borderRadius: "16px",
@@ -378,7 +353,7 @@ export default function Services() {
                   {activeSvcData.icon}
                 </div>
                 <div>
-                  <h2 style={{
+                  <h2 className="services-details-title" style={{
                     fontSize: "2.5rem",
                     fontWeight: 800,
                     color: "#fff",
@@ -386,7 +361,7 @@ export default function Services() {
                     fontFamily: "var(--font-space-grotesk)",
                     lineHeight: 1.1
                   }}>{activeSvcData.title}</h2>
-                  <p style={{
+                  <p className="services-details-desc" style={{
                     color: "rgba(255,255,255,0.7)",
                     fontSize: "1.1rem",
                     lineHeight: 1.6,
@@ -397,7 +372,7 @@ export default function Services() {
               </div>
 
               {/* Content Grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", position: "relative", zIndex: 2 }}>
+              <div className="services-details-content-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", position: "relative", zIndex: 2 }}>
                 
                 {/* Deliverables */}
                 <div>
@@ -463,9 +438,10 @@ export default function Services() {
               </div>
 
               {/* CTA Button */}
-              <div style={{ marginTop: "48px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.05)", position: "relative", zIndex: 2 }}>
+              <div className="services-details-footer" style={{ marginTop: "48px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.05)", position: "relative", zIndex: 2 }}>
                 <Link
                   href={`/contact?service=${activeSvcData.id}`}
+                  className="services-cta-btn"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",

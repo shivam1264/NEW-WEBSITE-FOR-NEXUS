@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, Home, Briefcase, Layers, Users, ChevronRight } from "lucide-react";
 import NexusLogo from "./NexusLogo";
 
-function LinkedinIcon({ size = 14, style }: { size?: number; style?: React.CSSProperties }) {
+function LinkedinIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,27 @@ function LinkedinIcon({ size = 14, style }: { size?: number; style?: React.CSSPr
   );
 }
 
-function InstagramIcon({ size = 14, style }: { size?: number; style?: React.CSSProperties }) {
+function GithubIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={style}
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -46,45 +66,62 @@ function InstagramIcon({ size = 14, style }: { size?: number; style?: React.CSSP
   );
 }
 
+function GlobeIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={style}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
 export default function Footer() {
-  const primaryGlow = "#00E5FF";
-  const secondaryGlow = "#00FFAB";
+  const accentGreen = "#00ffab";
   const borderSoft = "rgba(255, 255, 255, 0.08)";
 
+  const quickLinks = [
+    { label: "Home", href: "/", icon: <Home size={15} /> },
+    { label: "Works", href: "/works", icon: <Briefcase size={15} /> },
+    { label: "Services", href: "/services", icon: <Layers size={15} /> },
+    { label: "Team", href: "/team", icon: <Users size={15} /> },
+    { label: "Contact", href: "/contact", icon: <Mail size={15} /> }
+  ];
+
   return (
-    <footer style={{ 
-      background: "rgba(5, 5, 8, 0.95)", 
+    <footer style={{
+      background: "#04060a",
       position: "relative",
       borderTop: `1px solid ${borderSoft}`,
+      color: "var(--foreground)",
       overflow: "hidden"
     }}>
-      {/* Massive Glowing Orb in Background */}
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-        height: "200px",
-        background: `radial-gradient(ellipse at center, rgba(0, 229, 255, 0.08) 0%, transparent 60%)`,
-        pointerEvents: "none",
-        zIndex: 0
-      }} />
-
       <div
-        className="container"
+        className="container footer-grid-container"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: "40px",
           paddingTop: "60px",
-          paddingBottom: "40px",
+          paddingBottom: "50px",
           position: "relative",
           zIndex: 1
         }}
       >
-        {/* Brand Section */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        {/* COLUMN 1: Brand & Socials */}
+        <div className="footer-col footer-col-brand" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {/* Logo */}
           <Link
             href="/"
             style={{
@@ -105,247 +142,364 @@ export default function Footer() {
               alignItems: "center",
               textTransform: "uppercase"
             }}>
-              NEX
-              <span style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                fontStyle: "normal",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                fontSize: "1.4rem",
-                background: `linear-gradient(90deg, ${primaryGlow}, ${secondaryGlow})`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
-              }}>
-                us
-              </span>
+              NEX<span style={{ color: accentGreen }}>US</span>
             </span>
           </Link>
-          <p
-            style={{
-              color: "rgba(255, 255, 255, 0.6)",
-              fontSize: "0.95rem",
-              lineHeight: "1.6",
-              maxWidth: "280px",
-              fontFamily: "var(--font-space-grotesk), sans-serif",
-            }}
-          >
-            Engineering premium agentic AI interfaces, elite web architectures, and highly scalable mobile solutions.
+
+          {/* Description */}
+          <p style={{
+            color: "var(--muted)",
+            fontSize: "0.88rem",
+            lineHeight: "1.6",
+            margin: 0,
+            maxWidth: "280px"
+          }}>
+            Engineering premium agentic AI interfaces, elite web architectures, and highly scalable mobile solutions for the future.
           </p>
-          <div style={{ display: "flex", gap: "12px", marginTop: "8px" }}>
-            {[
-              { icon: <LinkedinIcon size={16} />, link: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/", label: "LinkedIn" },
-              { icon: <InstagramIcon size={16} />, link: "https://www.instagram.com/mauryashivamkumar841/", label: "Instagram" }
-            ].map((social, idx) => (
-              <a
-                key={idx}
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "12px",
-                  background: "rgba(255, 255, 255, 0.03)",
-                  border: `1px solid ${borderSoft}`,
-                  color: "#cbd5e1",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  backdropFilter: "blur(10px)"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(0, 229, 255, 0.1)";
-                  e.currentTarget.style.borderColor = primaryGlow;
-                  e.currentTarget.style.color = primaryGlow;
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
-                  e.currentTarget.style.borderColor = borderSoft;
-                  e.currentTarget.style.color = "#cbd5e1";
-                  e.currentTarget.style.transform = "none";
-                }}
-                aria-label={social.label}
-              >
-                {social.icon}
-              </a>
-            ))}
+
+          {/* Short Green Accent Line */}
+          <div style={{
+            width: "36px",
+            height: "2px",
+            background: `linear-gradient(90deg, ${accentGreen}, transparent)`,
+            borderRadius: "2px",
+            margin: "4px 0"
+          }} />
+
+          {/* FOLLOW US */}
+          <div>
+            <span style={{
+              display: "block",
+              fontSize: "0.68rem",
+              color: "var(--muted-2)",
+              fontFamily: "var(--font-mono), monospace",
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              marginBottom: "10px"
+            }}>
+              FOLLOW US
+            </span>
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              {[
+                { icon: <LinkedinIcon size={16} />, link: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/" },
+                { icon: <GithubIcon size={16} />, link: "https://github.com/shivam1264" },
+                { icon: <InstagramIcon size={16} />, link: "https://www.instagram.com/mauryashivamkumar841/" },
+                { icon: <GlobeIcon size={16} />, link: "https://nexus.ac.in" }
+              ].map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "38px",
+                    height: "38px",
+                    borderRadius: "50%",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    border: `1px solid ${borderSoft}`,
+                    color: "var(--muted)",
+                    transition: "all 0.3s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 255, 171, 0.1)";
+                    e.currentTarget.style.borderColor = accentGreen;
+                    e.currentTarget.style.color = accentGreen;
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+                    e.currentTarget.style.borderColor = borderSoft;
+                    e.currentTarget.style.color = "var(--muted)";
+                    e.currentTarget.style.transform = "none";
+                  }}
+                >
+                  {item.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Navigation Section */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <h4
-            style={{
+        {/* COLUMN 2: QUICK LINKS */}
+        <div className="footer-col footer-col-links" style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ marginBottom: "20px" }}>
+            <h4 style={{
               fontFamily: "var(--font-mono), monospace",
-              fontSize: "0.8rem",
-              fontWeight: 700,
+              fontSize: "0.78rem",
+              fontWeight: 800,
               textTransform: "uppercase",
-              letterSpacing: "0.15em",
-              color: primaryGlow,
-            }}
-          >
-            Directory
-          </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {["Home", "Works", "Services", "Team", "Contact"].map((item) => (
+              letterSpacing: "0.12em",
+              color: accentGreen,
+              margin: 0
+            }}>
+              QUICK LINKS
+            </h4>
+            <div style={{ width: "24px", height: "2px", background: accentGreen, marginTop: "6px", borderRadius: "1px" }} />
+          </div>
+
+          <div className="footer-quick-links-list" style={{ display: "flex", flexDirection: "column" }}>
+            {quickLinks.map((link, i) => (
               <Link
-                key={item}
-                href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                key={i}
+                href={link.href}
                 style={{
-                  color: "rgba(255, 255, 255, 0.7)",
-                  fontSize: "0.95rem",
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
-                  display: "inline-flex",
+                  display: "flex",
                   alignItems: "center",
-                  width: "fit-content"
+                  justifyContent: "space-between",
+                  padding: "10px 0",
+                  borderBottom: i < quickLinks.length - 1 ? `1px solid rgba(255, 255, 255, 0.05)` : "none",
+                  color: "var(--foreground)",
+                  textDecoration: "none",
+                  fontSize: "0.9rem",
+                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  transition: "all 0.25s ease"
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#ffffff";
-                  e.currentTarget.style.transform = "translateX(4px)";
+                  e.currentTarget.style.color = accentGreen;
+                  e.currentTarget.style.paddingLeft = "4px";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "rgba(255, 255, 255, 0.7)";
-                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.color = "var(--foreground)";
+                  e.currentTarget.style.paddingLeft = "0px";
                 }}
               >
-                {item}
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ color: "var(--muted-2)", display: "flex" }}>{link.icon}</span>
+                  <span>{link.label}</span>
+                </div>
+                <ChevronRight size={14} color="var(--muted-2)" />
               </Link>
             ))}
           </div>
         </div>
 
-        {/* Direct Channels */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <h4
-            style={{
+        {/* COLUMN 3: GET IN TOUCH */}
+        <div className="footer-col footer-col-touch" style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ marginBottom: "20px" }}>
+            <h4 style={{
               fontFamily: "var(--font-mono), monospace",
-              fontSize: "0.8rem",
-              fontWeight: 700,
+              fontSize: "0.78rem",
+              fontWeight: 800,
               textTransform: "uppercase",
-              letterSpacing: "0.15em",
-              color: primaryGlow,
-            }}
-          >
-            Direct Channels
-          </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px", alignItems: "flex-start" }}>
+              letterSpacing: "0.12em",
+              color: accentGreen,
+              margin: 0
+            }}>
+              GET IN TOUCH
+            </h4>
+            <div style={{ width: "24px", height: "2px", background: accentGreen, marginTop: "6px", borderRadius: "1px" }} />
+          </div>
+
+          <div className="footer-touch-cards" style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            {/* Card 1: WhatsApp */}
             <a
-              href="https://chat.whatsapp.com/IA8ZkRoQWF2DG1crFZjOjN"
+              href="https://wa.me/916263944626"
               target="_blank"
               rel="noreferrer"
-              style={{ 
-                padding: "10px 18px",
-                display: "inline-flex",
+              style={{
+                display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                background: "rgba(0, 255, 171, 0.05)",
-                border: `1px solid rgba(0, 255, 171, 0.2)`,
-                borderRadius: "100px",
-                color: secondaryGlow,
-                fontSize: "0.9rem",
-                fontWeight: 600,
+                justifyContent: "space-between",
+                background: "rgba(255, 255, 255, 0.02)",
+                border: `1px solid ${borderSoft}`,
+                borderRadius: "14px",
+                padding: "14px 16px",
                 textDecoration: "none",
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                transition: "all 0.3s ease"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(0, 255, 171, 0.15)";
-                e.currentTarget.style.boxShadow = `0 4px 15px rgba(0, 255, 171, 0.2)`;
-                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.borderColor = accentGreen;
+                e.currentTarget.style.background = "rgba(0, 255, 171, 0.04)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(0, 255, 171, 0.05)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.borderColor = borderSoft;
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
-              <span>WhatsApp (Fastest)</span>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: secondaryGlow, boxShadow: `0 0 8px ${secondaryGlow}`, animation: "pulse 2s infinite" }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  background: "rgba(0, 255, 171, 0.12)",
+                  border: "1px solid rgba(0, 255, 171, 0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: accentGreen,
+                  flexShrink: 0
+                }}>
+                  <Phone size={16} />
+                </div>
+                <div>
+                  <span style={{ display: "block", fontSize: "0.88rem", fontWeight: 700, color: "var(--foreground)" }}>WhatsApp (Fastest)</span>
+                  <span style={{ display: "block", fontSize: "0.72rem", color: "var(--muted)" }}>Chat with us instantly</span>
+                </div>
+              </div>
+              <ChevronRight size={14} color="var(--muted-2)" />
             </a>
+
+            {/* Card 2: Email Us */}
             <a
-              href="mailto:build@nexus.ac.in"
+              href="mailto:shubhampawar1263@gmail.com"
               style={{
-                display: "inline-flex",
+                display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                color: "rgba(255, 255, 255, 0.7)",
-                fontSize: "0.95rem",
+                justifyContent: "space-between",
+                background: "rgba(255, 255, 255, 0.02)",
+                border: `1px solid ${borderSoft}`,
+                borderRadius: "14px",
+                padding: "14px 16px",
                 textDecoration: "none",
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                transition: "color 0.2s"
+                transition: "all 0.3s ease"
               }}
-              onMouseEnter={(e) => e.currentTarget.style.color = primaryGlow}
-              onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255, 255, 255, 0.7)"}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = accentGreen;
+                e.currentTarget.style.background = "rgba(0, 255, 171, 0.04)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = borderSoft;
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+              }}
             >
-              <Mail size={16} style={{ color: primaryGlow }} />
-              <span>build@nexus.ac.in</span>
-              <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  background: "rgba(0, 255, 171, 0.12)",
+                  border: "1px solid rgba(0, 255, 171, 0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: accentGreen,
+                  flexShrink: 0
+                }}>
+                  <Mail size={16} />
+                </div>
+                <div>
+                  <span style={{ display: "block", fontSize: "0.88rem", fontWeight: 700, color: "var(--foreground)" }}>Email Us</span>
+                  <span style={{ display: "block", fontSize: "0.72rem", color: "var(--muted)", wordBreak: "break-all" }}>shubhampawar1263@gmail.com</span>
+                </div>
+              </div>
+              <ChevronRight size={14} color="var(--muted-2)" />
             </a>
           </div>
         </div>
 
-        {/* Hub Location (Telemetry Card) */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <h4
-            style={{
+        {/* COLUMN 4: OUR OFFICE */}
+        <div className="footer-col footer-col-office" style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ marginBottom: "20px" }}>
+            <h4 style={{
               fontFamily: "var(--font-mono), monospace",
-              fontSize: "0.8rem",
-              fontWeight: 700,
+              fontSize: "0.78rem",
+              fontWeight: 800,
               textTransform: "uppercase",
-              letterSpacing: "0.15em",
-              color: primaryGlow,
-            }}
-          >
-            Core Node
-          </h4>
-          <div style={{ 
-            padding: "24px",
-            background: "rgba(10, 10, 15, 0.6)",
-            border: `1px solid rgba(0, 229, 255, 0.2)`,
+              letterSpacing: "0.12em",
+              color: accentGreen,
+              margin: 0
+            }}>
+              OUR OFFICE
+            </h4>
+            <div style={{ width: "24px", height: "2px", background: accentGreen, marginTop: "6px", borderRadius: "1px" }} />
+          </div>
+
+          {/* Office Map Card */}
+          <div className="footer-office-card" style={{
+            background: "rgba(255, 255, 255, 0.02)",
+            border: `1px solid ${borderSoft}`,
             borderRadius: "16px",
+            padding: "18px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
             position: "relative",
-            overflow: "hidden",
-            backdropFilter: "blur(10px)",
-            boxShadow: "inset 0 0 30px rgba(0, 229, 255, 0.05)"
+            overflow: "hidden"
           }}>
-            <div style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: "2px",
-              background: `linear-gradient(180deg, ${primaryGlow}, ${secondaryGlow})`,
-              boxShadow: `0 0 15px ${primaryGlow}`,
-            }} />
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Global Gateway</span>
-              <span style={{ color: secondaryGlow, display: "flex", alignItems: "center", gap: "6px", fontSize: "0.7rem", fontFamily: "var(--font-mono), monospace", fontWeight: 700, background: "rgba(0, 255, 171, 0.1)", padding: "2px 8px", borderRadius: "100px", border: "1px solid rgba(0, 255, 171, 0.2)" }}>
-                <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: secondaryGlow, boxShadow: `0 0 6px ${secondaryGlow}`, animation: "pulse 2s infinite" }} />
-                ACTIVE
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <MapPin size={16} color={accentGreen} />
+              <span style={{ fontSize: "0.92rem", fontWeight: 700, color: "var(--foreground)" }}>
+                Bhopal, MP, India
               </span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "1.1rem", color: "#ffffff", fontWeight: 700, marginBottom: "8px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-              <MapPin size={16} color={primaryGlow} />
-              Bhopal, MP, India
-            </div>
-            <div style={{ fontSize: "0.75rem", color: primaryGlow, fontFamily: "var(--font-mono), monospace", letterSpacing: "0.05em", opacity: 0.8 }}>
-              SYS_LOC: 22.7196° N, 75.8577° E
+
+            <span style={{
+              fontSize: "0.72rem",
+              color: "var(--muted-2)",
+              fontFamily: "var(--font-mono), monospace",
+              letterSpacing: "0.05em",
+              marginLeft: "24px"
+            }}>
+              22.7196° N, 75.8577° E
+            </span>
+
+            {/* Stylized World Map Graphic with Radar Pulse over India */}
+            <div className="footer-map-graphic" style={{
+              position: "relative",
+              width: "100%",
+              height: "100px",
+              background: "rgba(0, 0, 0, 0.4)",
+              borderRadius: "10px",
+              overflow: "hidden",
+              border: "1px solid rgba(255, 255, 255, 0.04)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "4px"
+            }}>
+              {/* Dotted World Map Grid Background SVG */}
+              <svg width="100%" height="100%" viewBox="0 0 300 100" fill="none" style={{ opacity: 0.25 }}>
+                <pattern id="world-dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1" fill="#ffffff" />
+                </pattern>
+                <rect width="300" height="100" fill="url(#world-dots)" />
+                {/* Simplified Continents outline contours */}
+                <path d="M 30 20 Q 50 15 70 30 T 90 60 Q 60 80 40 60 Z" fill="rgba(255,255,255,0.08)" />
+                <path d="M 120 20 Q 160 10 200 25 T 230 50 Q 210 75 160 80 T 130 50 Z" fill="rgba(255,255,255,0.08)" />
+                <path d="M 220 50 Q 250 45 280 60 T 260 90 Z" fill="rgba(255,255,255,0.08)" />
+              </svg>
+
+              {/* Glowing Green Radar Marker on Bhopal, India */}
+              <div style={{
+                position: "absolute",
+                top: "42%",
+                left: "68%",
+                transform: "translate(-50%, -50%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <div style={{
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "50%",
+                  background: accentGreen,
+                  boxShadow: `0 0 12px ${accentGreen}`,
+                  zIndex: 2
+                }} />
+                <div style={{
+                  position: "absolute",
+                  width: "28px",
+                  height: "28px",
+                  borderRadius: "50%",
+                  border: `1px solid ${accentGreen}`,
+                  opacity: 0.6,
+                  animation: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite"
+                }} />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright Bar */}
+      {/* COPYRIGHT BOTTOM BAR */}
       <div
-        className="container"
+        className="container footer-bottom-bar"
         style={{
-          marginTop: "20px",
-          paddingTop: "24px",
+          paddingTop: "20px",
           paddingBottom: "24px",
           borderTop: `1px solid ${borderSoft}`,
           position: "relative",
@@ -357,18 +511,28 @@ export default function Footer() {
           gap: "16px"
         }}
       >
-        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", display: "inline-block", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-          &copy; {new Date().getFullYear()}{" "}NEXUS. Built with Agentic Engineering.
+        <span style={{ color: "var(--muted)", fontSize: "0.82rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+          &copy; {new Date().getFullYear()} NEXUS. Built with Agentic Engineering.
         </span>
-        <div style={{ display: "flex", gap: "24px" }}>
+
+        <div style={{ display: "flex", gap: "20px" }}>
           {[
             { label: "Privacy Policy", href: "/privacy" },
             { label: "Terms of Service", href: "/terms" },
             { label: "Cookie Policy", href: "/cookies" }
           ].map((link) => (
-            <Link key={link.label} href={link.href} style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "0.85rem", transition: "color 0.2s", fontFamily: "var(--font-space-grotesk), sans-serif" }}
-              onMouseEnter={(e) => e.currentTarget.style.color = primaryGlow}
-              onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
+            <Link
+              key={link.label}
+              href={link.href}
+              style={{
+                color: "var(--muted)",
+                textDecoration: "none",
+                fontSize: "0.82rem",
+                transition: "color 0.2s",
+                fontFamily: "var(--font-space-grotesk), sans-serif"
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = accentGreen}
+              onMouseLeave={(e) => e.currentTarget.style.color = "var(--muted)"}
             >
               {link.label}
             </Link>

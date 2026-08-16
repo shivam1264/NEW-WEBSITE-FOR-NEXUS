@@ -166,6 +166,7 @@ export default function Works() {
       type: "project",
       id: "sistec-rsih",
       code: "PRJ-01",
+      category: "Hackathon Platform",
       title: "SISTec Innovation Hackathon Platform",
       subtitle: "Official Digital Platform for SISTec Innovation Hackathon (SIH) · sistecrsih.in",
       desc: "The official digital platform developed for the SISTec Innovation Hackathon (SIH), an innovation-focused initiative organized by Sagar Institute of Science and Technology (SISTec). Serves as a centralized digital hub for registrations, problem statements, event schedules, guidelines, and real-time updates.",
@@ -201,6 +202,7 @@ export default function Works() {
       type: "championship",
       id: "tic",
       code: "HACK-01",
+      category: "National Championship Winner",
       title: "Technocrats Innovation Challenge (TIC 2K26)",
       subtitle: "Organized by Technocrats Institute of Technology & Science, Bhopal | First Prize Winner",
       desc: (
@@ -238,6 +240,7 @@ export default function Works() {
       type: "project",
       id: "sheild-ai",
       code: "PRJ-02",
+      category: "AI Safety Platform",
       title: "SHEild AI Platform",
       subtitle: "AI-Powered Women Safety & Emergency Response System",
       desc: "An intelligent safety platform leveraging Artificial Intelligence, safe-route navigation, predictive risk detection, and automated emergency response workflows to enhance personal security and community well-being.",
@@ -266,6 +269,7 @@ export default function Works() {
       type: "championship",
       id: "bgi-hackathon",
       code: "HACK-02",
+      category: "National Championship Runner-Up",
       title: "BGI Hackathon 2026",
       subtitle: "Organized by Bansal Group of Institutes & MPSEDC | National Runner-Up",
       desc: (
@@ -303,6 +307,7 @@ export default function Works() {
       type: "project",
       id: "movie-app",
       code: "PRJ-03",
+      category: "Social Cinema App",
       title: "Movie Social App",
       subtitle: "Movie discovery and social platform",
       desc: "A rich and modern platform for discovering movies, rating films, and connecting with other cinephiles.",
@@ -331,6 +336,7 @@ export default function Works() {
       type: "project",
       id: "restaurant-app",
       code: "PRJ-04",
+      category: "Restaurant & Ordering Platform",
       title: "RoyalBite Fine Dine & Ordering System",
       subtitle: "Fine dine restaurant portal & mobile ordering app · resturant-ui-zeta.vercel.app",
       desc: "Comprehensive digital ordering platform and web application built for RoyalBite Fine Dine Restaurant, featuring an exquisite menu showcase, online table reservations, mobile ordering dispatcher, and real-time order tracking.",
@@ -401,38 +407,31 @@ export default function Works() {
       <div className="bg-glow" style={{ top: "-10%", left: "-10%", background: "radial-gradient(circle, rgba(0,255,171,0.08) 0%, transparent 60%)" }} />
       <div className="bg-glow" style={{ bottom: "-10%", right: "-10%", background: "radial-gradient(circle, rgba(255,92,43,0.05) 0%, transparent 60%)" }} />
 
-      <div style={{ paddingTop: "140px", paddingBottom: "100px" }}>
+      <div style={{ paddingTop: "85px", paddingBottom: "20px" }}>
 
         {/* HEADER SECTION */}
-        <div className="container" style={{ marginBottom: "60px", textAlign: "center" }}>
-          <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "16px", display: "inline-block" }}>
-            <span className="pulsing-dot pulsing-dot-coral" />
-            Registry
-          </span>
+        <div className="container" style={{ marginBottom: "20px", textAlign: "center" }}>
           <h1
             className="font-display"
             style={{
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)",
               fontWeight: 800,
               color: "var(--foreground)",
-              marginBottom: "20px",
-              lineHeight: 1.1,
+              marginBottom: "0px",
+              lineHeight: 1.05,
               letterSpacing: "-0.03em"
             }}
           >
             Engineering <span className="font-serif-i" style={{ color: "var(--accent)" }}>Archives</span>
           </h1>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: "1.6", maxWidth: "650px", margin: "0 auto" }}>
-            A curated index of our production systems, software deployments, and award-winning national hackathon championships.
-          </p>
         </div>
 
         {/* FILTERING */}
-        <div className="container" style={{ marginBottom: "40px", display: "flex", justifyContent: "center" }}>
+        <div className="container" style={{ marginBottom: "24px", display: "flex", justifyContent: "center" }}>
           <div style={{
             display: "inline-flex",
             background: "var(--card-bg)",
-            padding: "6px",
+            padding: "5px",
             borderRadius: "99px",
             border: "1px solid var(--card-border)"
           }}>
@@ -446,7 +445,7 @@ export default function Works() {
                   border: "none",
                   padding: "8px 24px",
                   borderRadius: "99px",
-                  fontSize: "0.85rem",
+                  fontSize: "0.88rem",
                   fontWeight: 600,
                   fontFamily: "var(--font-space-grotesk), sans-serif",
                   cursor: "pointer",
@@ -573,7 +572,7 @@ export default function Works() {
                     {item.title}
                   </h3>
                   <div style={{ display: "flex", gap: "16px", alignItems: "center", marginTop: "4px" }}>
-                    <span style={{ color: "var(--muted)", fontSize: "0.9rem" }}>{item.type === "project" ? "System Deployment" : "National Championship"}</span>
+                    <span style={{ color: "var(--muted)", fontSize: "0.9rem" }}>{item.category || (item.type === "project" ? "System Deployment" : "National Championship")}</span>
                     <span style={{ color: "rgba(255,255,255,0.2)" }}>|</span>
                     <span style={{ color: item.color, fontSize: "0.85rem", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
                       View Specs <ArrowRight size={14} style={{ transform: isHovered ? "translateX(4px)" : "none", transition: "transform 0.3s ease" }} />

@@ -108,6 +108,7 @@ export default function ProjectShowcase() {
             {
               id: "sistec-rsih",
               code: "PRJ-01",
+              category: "Hackathon Platform",
               title: "SISTec Innovation Hackathon Platform",
               subtitle: "Official Digital Platform for SISTec Innovation Hackathon (SIH)",
               url: "https://www.sistecrsih.in/",
@@ -121,6 +122,7 @@ export default function ProjectShowcase() {
             {
               id: "sheild-ai",
               code: "PRJ-02",
+              category: "AI Safety Platform",
               title: "SHEild AI Platform",
               subtitle: "AI-Powered Women Safety System",
               colorRGB: "0, 229, 255",
@@ -137,6 +139,7 @@ export default function ProjectShowcase() {
             {
               id: "customer-agent",
               code: "PRJ-03",
+              category: "Social Cinema App",
               title: "Movie Social App",
               subtitle: "Movie discovery and social platform",
               colorRGB: "255, 171, 0",
@@ -153,6 +156,7 @@ export default function ProjectShowcase() {
             {
               id: "restaurant-app",
               code: "PRJ-04",
+              category: "Restaurant & Ordering Platform",
               title: "RoyalBite Fine Dine & Ordering System",
               subtitle: "Full-stack restaurant platform & ordering web application",
               url: "https://resturant-ui-zeta.vercel.app/",
@@ -325,7 +329,7 @@ export default function ProjectShowcase() {
                     )}
                   </div>
                   <div style={{ display: "flex", gap: "16px", alignItems: "center", marginTop: "4px" }}>
-                    <span style={{ color: "var(--muted)", fontSize: "0.88rem", fontFamily: "var(--font-mono), monospace" }}>{proj.code} · System Deployment</span>
+                    <span style={{ color: "var(--muted)", fontSize: "0.88rem", fontFamily: "var(--font-mono), monospace" }}>{proj.code} · {(proj as any).category || "System Deployment"}</span>
                     <span style={{ color: "rgba(255,255,255,0.2)" }}>|</span>
                     <span style={{ color: proj.color, fontSize: "0.85rem", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
                       View Specs <ArrowRight size={14} style={{ transform: isHovered ? "translateX(4px)" : "none", transition: "transform 0.3s ease" }} />

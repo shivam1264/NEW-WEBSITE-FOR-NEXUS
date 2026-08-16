@@ -26,7 +26,7 @@ export default function Testimonials() {
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
+        <div className="testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
           {[
             {
               quote: "NEXUS demonstrated outstanding technical depth during the National Hackathon. They built a production-ready AI inference dashboard in 48 hours that handled mock drifts effortlessly.",
@@ -46,7 +46,7 @@ export default function Testimonials() {
           ].map((test, idx) => (
             <div
               key={idx}
-              className="testimonial-enhanced"
+              className="testimonial-enhanced testimonial-card-item"
               style={{
                 background: "var(--card-bg)",
                 border: "1px solid var(--card-border)",
@@ -60,17 +60,17 @@ export default function Testimonials() {
               data-hover="true"
             >
               <div style={{ position: "relative", zIndex: 1 }}>
-                <div className="testimonial-stars">
-                  {[1, 2, 3, 4, 5].map(s => <span key={s} style={{ color: "#fbbf24" }}>★</span>)}
+                <div className="testimonial-stars" style={{ marginBottom: "10px" }}>
+                  {[1, 2, 3, 4, 5].map(s => <span key={s} style={{ color: "#fbbf24", fontSize: "0.85rem" }}>★</span>)}
                 </div>
-                <p style={{ color: "var(--foreground)", fontSize: "0.92rem", lineHeight: "1.65", fontStyle: "italic", marginBottom: "24px" }}>
+                <p className="testimonial-quote" style={{ color: "var(--foreground)", fontSize: "0.92rem", lineHeight: "1.65", fontStyle: "italic", marginBottom: "24px" }}>
                   &ldquo;{test.quote}&rdquo;
                 </p>
                 <div>
-                  <h4 style={{ color: "var(--foreground)", fontSize: "0.95rem", fontWeight: 700, margin: 0 }}>
+                  <h4 className="testimonial-author" style={{ color: "var(--foreground)", fontSize: "0.95rem", fontWeight: 700, margin: 0 }}>
                     {test.author}
                   </h4>
-                  <span style={{ color: "var(--accent)", fontSize: "0.78rem", fontWeight: 600 }}>
+                  <span className="testimonial-role" style={{ color: "var(--accent)", fontSize: "0.78rem", fontWeight: 600 }}>
                     {test.role}
                   </span>
                 </div>

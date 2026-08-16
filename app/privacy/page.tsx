@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
 
             <section>
               <h2 style={{ color: "var(--foreground)", fontSize: "1.35rem", marginBottom: "12px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>4. Contact Us</h2>
-              <p style={{ color: "var(--muted)", margin: 0 }}>If you have any questions about this Privacy Policy, please contact us at <strong style={{ color: "var(--accent)" }}>build@nexus.ac.in</strong>.</p>
+              <p style={{ color: "var(--muted)", margin: 0 }}>If you have any questions about this Privacy Policy, please contact us at <strong style={{ color: "var(--accent)" }}>shubhampawar1263@gmail.com</strong>.</p>
             </section>
           </div>
         </div>

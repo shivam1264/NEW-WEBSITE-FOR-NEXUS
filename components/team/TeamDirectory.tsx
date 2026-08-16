@@ -187,7 +187,7 @@ export default function TeamDirectory() {
   return (
     <div
       style={{
-        padding: "160px 0 100px",
+        padding: "85px 0 20px",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -214,44 +214,20 @@ export default function TeamDirectory() {
       <div
         className="container reveal-text"
         style={{
-          margin: "0 auto 40px",
+          margin: "0 auto 20px",
           maxWidth: "700px",
           textAlign: "center",
           position: "relative",
           zIndex: 2
         }}
       >
-        <div style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "10px",
-          background: "rgba(255, 255, 255, 0.03)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          padding: "8px 16px",
-          borderRadius: "100px",
-          backdropFilter: "blur(10px)",
-          marginBottom: "24px"
-        }}>
-          <Sparkles size={16} color="var(--accent)" />
-          <span style={{
-            color: "var(--accent)",
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: "0.85rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.05em"
-          }}>
-            Interactive Directory
-          </span>
-        </div>
-
         <h1
           className="font-display"
           style={{
-            fontSize: "clamp(3rem, 6vw, 4.5rem)",
+            fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)",
             fontWeight: 800,
             color: "var(--foreground)",
-            marginBottom: "20px",
+            marginBottom: "0px",
             lineHeight: 1.05,
             letterSpacing: "-0.02em"
           }}
@@ -265,19 +241,16 @@ export default function TeamDirectory() {
             NEXUS
           </span>
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.15rem", lineHeight: "1.6", maxWidth: "600px", margin: "0 auto" }}>
-          Explore our specialized engineering pods and the meticulous delivery framework we use to build high-end agentic AI solutions.
-        </p>
       </div>
 
       {/* 2. TAB SWITCHER (Premium Glassmorphism) */}
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "60px", position: "relative", zIndex: 2 }}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: "28px", position: "relative", zIndex: 2 }}>
         <div className="team-tab-switcher" style={{
           display: "flex",
           background: "rgba(255, 255, 255, 0.03)",
           border: "1px solid rgba(255, 255, 255, 0.08)",
           borderRadius: "100px",
-          padding: "6px",
+          padding: "5px",
           backdropFilter: "blur(12px)",
           flexWrap: "wrap",
           justifyContent: "center",
@@ -287,13 +260,13 @@ export default function TeamDirectory() {
             className="team-tab-btn"
             onClick={() => handleTabSwitch("specialists")}
             style={{
-              padding: "12px 32px",
+              padding: "8px 24px",
               borderRadius: "100px",
               background: activeTab === "specialists" ? "rgba(255,255,255,0.1)" : "transparent",
               border: "none",
               color: activeTab === "specialists" ? "#fff" : "rgba(255,255,255,0.5)",
               fontWeight: 600,
-              fontSize: "0.95rem",
+              fontSize: "0.88rem",
               cursor: "pointer",
               transition: "all 0.3s ease",
               display: "flex",
@@ -302,19 +275,19 @@ export default function TeamDirectory() {
               fontFamily: "var(--font-space-grotesk)"
             }}
           >
-            <Brain size={16} /> Specialist Pods
+            <Brain size={15} /> Specialist Pods
           </button>
           <button
             className="team-tab-btn"
             onClick={() => handleTabSwitch("process")}
             style={{
-              padding: "12px 32px",
+              padding: "8px 24px",
               borderRadius: "100px",
               background: activeTab === "process" ? "rgba(255,255,255,0.1)" : "transparent",
               border: "none",
               color: activeTab === "process" ? "#fff" : "rgba(255,255,255,0.5)",
               fontWeight: 600,
-              fontSize: "0.95rem",
+              fontSize: "0.88rem",
               cursor: "pointer",
               transition: "all 0.3s ease",
               display: "flex",
@@ -323,7 +296,7 @@ export default function TeamDirectory() {
               fontFamily: "var(--font-space-grotesk)"
             }}
           >
-            <Activity size={16} /> Delivery Process
+            <Activity size={15} /> Delivery Process
           </button>
         </div>
       </div>

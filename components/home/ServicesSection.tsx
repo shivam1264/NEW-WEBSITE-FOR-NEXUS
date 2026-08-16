@@ -199,31 +199,31 @@ export default function ServicesSection() {
   const capabilities = [
     {
       title: "AI Solutions",
-      desc: "Custom intelligent assistants, cognitive process automation, vector search systems, and smart workflows engineered to cut manual operations.",
-      badge: "AI Chatbots & Automation",
+      desc: "Custom AI assistants, vector search, & smart automated workflows.",
+      badge: "AI & Automation",
       glow: "rgba(255, 92, 43, 0.15)",
       colorRGB: "255, 92, 43",
       span: "span-4"
     },
     {
       title: "Web Development",
-      desc: "High-performance enterprise websites, SaaS admin panels, and corporate portals. Optimized for speed, reliability, and modern branding.",
-      badge: "Next.js & SSR Platforms",
+      desc: "High-performance enterprise web apps & SaaS portals built for speed & scalability.",
+      badge: "Next.js & SSR",
       glow: "rgba(0, 229, 255, 0.15)",
       colorRGB: "0, 229, 255",
       span: "span-4"
     },
     {
       title: "Mobile Apps",
-      desc: "Native-quality cross-platform applications with fluid gesture controls, offline support, and seamless deployment on App Store & Google Play.",
-      badge: "Flutter & iOS/Android",
+      desc: "Cross-platform iOS & Android apps with fluid UI & App Store deployment.",
+      badge: "Flutter & React Native",
       glow: "rgba(0, 230, 118, 0.15)",
       colorRGB: "0, 230, 118",
       span: "span-4"
     },
     {
       title: "Startup MVPs",
-      desc: "Rapid product cycles targeting proof-of-concept validations. We launch polished Minimum Viable Products in weeks, not months.",
+      desc: "Fast-track product launches & MVP proof-of-concept validation in weeks.",
       badge: "Fast-Track Launch",
       glow: "rgba(255, 0, 127, 0.15)",
       colorRGB: "255, 0, 127",
@@ -231,7 +231,7 @@ export default function ServicesSection() {
     },
     {
       title: "UI/UX Design",
-      desc: "High-end conversion layouts, responsive interface mapping, and smooth micro-interactions. Tailored for startup aesthetics.",
+      desc: "High-conversion interface layouts, micro-animations, & design systems.",
       badge: "Conversion-Oriented UI",
       glow: "rgba(213, 0, 249, 0.15)",
       colorRGB: "213, 0, 249",
@@ -239,7 +239,7 @@ export default function ServicesSection() {
     },
     {
       title: "Automation Systems",
-      desc: "Connecting tools and data flows to automate sales tracking, lead follow-ups, scheduling, and billing systems.",
+      desc: "Connecting tools & APIs to automate sales, lead tracking, & data workflows.",
       badge: "Integrations & APIs",
       glow: "rgba(255, 214, 0, 0.15)",
       colorRGB: "255, 214, 0",
@@ -276,11 +276,11 @@ export default function ServicesSection() {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="works-bento-layout" style={{ gridAutoRows: "240px", gap: "16px" }}>
+        <div className="services-grid-wrapper" style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gridAutoRows: "minmax(175px, auto)", gap: "16px" }}>
           
           {/* Main Visual/Hero Card (Spans 8 columns, 2 rows) */}
           <div 
-            className="works-bento-card span-8 premium-tilt-card" 
+            className="works-bento-card span-8 premium-tilt-card services-hero-card" 
             style={{ 
               gridRow: "span 2",
               padding: 0, 
@@ -379,7 +379,7 @@ export default function ServicesSection() {
             return (
             <div
               key={idx}
-              className={`works-bento-card`}
+              className="works-bento-card service-small-card"
               onMouseEnter={() => setHoveredSvc(idx)}
               onMouseLeave={(e) => {
                 setHoveredSvc(null);
@@ -393,9 +393,9 @@ export default function ServicesSection() {
               style={{
                 gridColumn: `span ${bentoSpan === "span-4" ? 4 : 3}`,
                 "--card-theme": `rgba(${service.colorRGB}, 0.5)`,
-                padding: "20px",
+                padding: "16px 20px",
                 justifyContent: "center",
-                gap: "12px"
+                gap: "8px"
               } as React.CSSProperties}
             >
               {/* Glow Follower */}
@@ -414,16 +414,16 @@ export default function ServicesSection() {
                 }} 
               />
 
-              <div style={{ position: "relative", zIndex: 3, display: "flex", flexDirection: "column", gap: "12px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "4px" }}>
+              <div style={{ position: "relative", zIndex: 3, display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "2px" }}>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "10px",
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "8px",
                       background: hoveredSvc === idx ? service.glow : "rgba(255, 255, 255, 0.02)",
                       border: hoveredSvc === idx ? `1px solid rgba(${service.colorRGB}, 0.3)` : "1px solid rgba(255, 255, 255, 0.05)",
                       transition: "all 0.3s ease",

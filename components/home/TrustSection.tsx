@@ -89,16 +89,53 @@ export default function TrustSection() {
         .trust-metrics-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 24px;
+          gap: 20px;
         }
-        @media (max-width: 1100px) {
+        @media (max-width: 1024px) {
           .trust-metrics-grid {
             grid-template-columns: repeat(2, 1fr);
           }
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+          .trust-section-wrapper {
+            padding: 48px 0 !important;
+          }
+          .trust-header-block {
+            margin-bottom: 24px !important;
+          }
           .trust-metrics-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+          }
+          .trust-card {
+            padding: 14px 12px !important;
+            border-radius: 16px !important;
+          }
+          .trust-card-header {
+            margin-bottom: 12px !important;
+          }
+          .trust-card-title {
+            font-size: 0.65rem !important;
+          }
+          .trust-card-icon {
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 10px !important;
+          }
+          .trust-card-icon svg {
+            width: 16px !important;
+            height: 16px !important;
+          }
+          .trust-card-value {
+            font-size: 1.05rem !important;
+            min-height: auto !important;
+            margin-bottom: 6px !important;
+          }
+          .trust-card-desc {
+            font-size: 0.72rem !important;
+            line-height: 1.35 !important;
+            padding-top: 8px !important;
+            margin-top: 4px !important;
           }
         }
       `}} />
@@ -116,21 +153,21 @@ export default function TrustSection() {
       }} />
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div style={{ marginBottom: "60px", textAlign: "center" }}>
+        <div className="trust-header-block" style={{ marginBottom: "60px", textAlign: "center" }}>
           <h2
             className="font-display"
             style={{
-              fontSize: "clamp(2rem, 4vw, 3rem)",
+              fontSize: "clamp(1.75rem, 4vw, 3rem)",
               fontWeight: 800,
               color: "var(--foreground)",
-              marginBottom: "16px",
+              marginBottom: "12px",
               lineHeight: 1.1,
               letterSpacing: "-0.02em"
             }}
           >
             Built for <span className="font-serif-i" style={{ color: "var(--accent)" }}>Scale</span> & Impact
           </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", maxWidth: "600px", margin: "0 auto" }}>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", maxWidth: "600px", margin: "0 auto" }}>
             The numbers and engineering standards that define the Nexus ecosystem.
           </p>
         </div>
@@ -139,7 +176,7 @@ export default function TrustSection() {
           {metrics.map((item, idx) => (
             <div
               key={idx}
-              className="glass-card premium-tilt-card"
+              className="glass-card premium-tilt-card trust-card"
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={(e) => {
                 setHoveredCard(null);
@@ -179,8 +216,8 @@ export default function TrustSection() {
 
               <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%" }}>
                 {/* Top Header Row with Icon */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
-                  <span style={{ 
+                <div className="trust-card-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
+                  <span className="trust-card-title" style={{ 
                     color: `rgb(${item.colorRGB})`, 
                     fontFamily: "var(--font-mono), monospace", 
                     fontSize: "0.8rem", 
@@ -190,7 +227,7 @@ export default function TrustSection() {
                   }}>
                     {item.title}
                   </span>
-                  <div style={{
+                  <div className="trust-card-icon" style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -209,6 +246,7 @@ export default function TrustSection() {
 
                 {/* Main Metric Value */}
                 <h3
+                  className="trust-card-value"
                   style={{
                     color: "var(--foreground)",
                     fontFamily: "var(--font-space-grotesk), sans-serif",
@@ -227,15 +265,18 @@ export default function TrustSection() {
 
                 {/* Description */}
                 <div style={{ flexGrow: 1 }} />
-                <p style={{ 
-                  color: "var(--muted)", 
-                  fontSize: "0.9rem", 
-                  margin: 0, 
-                  lineHeight: "1.5",
-                  borderTop: "1px solid rgba(255,255,255,0.05)",
-                  paddingTop: "16px",
-                  marginTop: "8px"
-                }}>
+                <p 
+                  className="trust-card-desc"
+                  style={{ 
+                    color: "var(--muted)", 
+                    fontSize: "0.9rem", 
+                    margin: 0, 
+                    lineHeight: "1.5",
+                    borderTop: "1px solid rgba(255,255,255,0.05)",
+                    paddingTop: "16px",
+                    marginTop: "8px"
+                  }}
+                >
                   {item.desc}
                 </p>
               </div>

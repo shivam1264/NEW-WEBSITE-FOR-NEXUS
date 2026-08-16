@@ -10,35 +10,37 @@ export default function CtaSection() {
           style={{
             background: "radial-gradient(circle at top right, rgba(255, 92, 43, 0.08) 0%, transparent 60%), radial-gradient(circle at bottom left, rgba(0, 191, 165, 0.04) 0%, transparent 60%), var(--card-bg)",
             border: "1px solid rgba(255, 92, 43, 0.15)",
-            borderRadius: "28px",
-            padding: "clamp(36px, 6vw, 72px) clamp(24px, 5vw, 60px)",
+            borderRadius: "24px",
+            padding: "clamp(24px, 4vw, 56px) clamp(16px, 4vw, 48px)",
             boxShadow: "var(--card-shadow)",
             backdropFilter: "blur(20px)",
           }}
         >
-          <div style={{ textAlign: "center", marginBottom: "48px" }}>
-            <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "16px" }}>
+          <div className="cta-header-block" style={{ textAlign: "center", marginBottom: "32px" }}>
+            <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
               <span className="pulsing-dot pulsing-dot-coral" />
               Start Here
             </span>
             <h2
-              className="font-display"
+              className="font-display cta-title"
               style={{
-                fontSize: "clamp(2rem, 5vw, 3.4rem)",
+                fontSize: "clamp(1.75rem, 4.5vw, 3rem)",
                 fontWeight: 700,
                 color: "var(--foreground)",
-                marginBottom: "16px",
+                marginBottom: "12px",
+                lineHeight: 1.15
               }}
             >
               Let's Build Something<br />
               <span className="font-serif-i" style={{ color: "var(--accent)" }}>Worth Shipping</span>
             </h2>
             <p
+              className="cta-desc"
               style={{
                 color: "var(--muted)",
-                fontSize: "1rem",
-                lineHeight: "1.6",
-                maxWidth: "520px",
+                fontSize: "0.95rem",
+                lineHeight: "1.5",
+                maxWidth: "480px",
                 margin: "0 auto",
               }}
             >
@@ -47,20 +49,20 @@ export default function CtaSection() {
           </div>
 
           {/* Step-by-step next steps */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1px", marginBottom: "48px", background: "rgba(15, 23, 42, 0.04)", borderRadius: "16px", overflow: "hidden" }}>
+          <div className="cta-steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", marginBottom: "32px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "16px", overflow: "hidden" }}>
             {[
               { step: "01", title: "Book a Call", desc: "15 minutes on WhatsApp or Google Meet" },
               { step: "02", title: "Get a Proposal", desc: "Timeline, scope & pricing in 24 hours" },
               { step: "03", title: "We Start Building", desc: "First milestone delivery in 7 days" },
             ].map((s, i) => (
-              <div key={i} style={{ background: "var(--card-bg)", padding: "28px 24px" }}>
-                <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.65rem", color: "var(--accent)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "10px" }}>
+              <div key={i} className="cta-step-card" style={{ background: "var(--card-bg)", padding: "20px 18px" }}>
+                <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.65rem", color: "var(--accent)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "8px" }}>
                   Step {s.step}
                 </span>
-                <h4 style={{ color: "var(--foreground)", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "6px" }}>
+                <h4 style={{ color: "var(--foreground)", fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "0.95rem", fontWeight: 700, marginBottom: "4px" }}>
                   {s.title}
                 </h4>
-                <p style={{ color: "var(--muted)", fontSize: "0.82rem", margin: 0, lineHeight: "1.4" }}>{s.desc}</p>
+                <p style={{ color: "var(--muted)", fontSize: "0.78rem", margin: 0, lineHeight: "1.35" }}>{s.desc}</p>
               </div>
             ))}
           </div>

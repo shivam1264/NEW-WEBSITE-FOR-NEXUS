@@ -69,6 +69,7 @@ export default function TechMarquee() {
             <img
               src={`https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace("#", "")}`}
               alt={`${tech.name} logo`}
+              className="tech-pill-img"
               style={{
                 width: "28px",
                 height: "28px",
@@ -76,7 +77,7 @@ export default function TechMarquee() {
                 filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.5))"
               }}
             />
-            <span style={{ 
+            <span className="tech-pill-text" style={{ 
               color: "#ffffff", 
               fontFamily: "var(--font-space-grotesk), sans-serif",
               fontWeight: 600,
@@ -92,7 +93,7 @@ export default function TechMarquee() {
   };
 
   return (
-    <section style={{
+    <section className="tech-marquee-section" style={{
       padding: "80px 0",
       position: "relative",
       zIndex: 2,
@@ -113,7 +114,7 @@ export default function TechMarquee() {
         }
       `}} />
 
-      <div className="container" style={{ marginBottom: "60px", textAlign: "center" }}>
+      <div className="tech-marquee-header container" style={{ marginBottom: "60px", textAlign: "center" }}>
         <h3 style={{
           fontFamily: "var(--font-space-grotesk), sans-serif",
           fontSize: "1.6rem",
@@ -126,14 +127,14 @@ export default function TechMarquee() {
           letterSpacing: "0.02em",
           textTransform: "uppercase"
         }}>
-          <span style={{ width: "60px", height: "2px", background: "linear-gradient(90deg, transparent, var(--accent))" }} />
+          <span className="tech-header-line" style={{ width: "60px", height: "2px", background: "linear-gradient(90deg, transparent, var(--accent))" }} />
           Powered by Modern Tech
-          <span style={{ width: "60px", height: "2px", background: "linear-gradient(-90deg, transparent, var(--teal))" }} />
+          <span className="tech-header-line" style={{ width: "60px", height: "2px", background: "linear-gradient(-90deg, transparent, var(--teal))" }} />
         </h3>
       </div>
 
       {/* The scrolling tracks masked perfectly at the edges */}
-      <div className="marquee-mask" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div className="marquee-mask tech-marquee-mask" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         {renderTrack(techsRow1, false)}
         {renderTrack(techsRow2, true)}
       </div>

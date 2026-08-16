@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Send, Terminal as TerminalIcon, Phone, Mail, MapPin, ArrowLeft, ArrowRight, Check, Sparkles, Cpu, Layers, Smartphone } from "lucide-react";
+import { useState } from "react";
+import { Send, Phone, Mail, MapPin, Clock, Check, MessageSquare, User, Pencil, ShieldCheck, Globe } from "lucide-react";
 
 function LinkedinIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
@@ -20,6 +20,26 @@ function LinkedinIcon({ size = 16, style }: { size?: number; style?: React.CSSPr
       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
       <rect x="2" y="9" width="4" height="12" />
       <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function GithubIcon({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={style}
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
     </svg>
   );
 }
@@ -45,59 +65,32 @@ function InstagramIcon({ size = 16, style }: { size?: number; style?: React.CSSP
   );
 }
 
-export default function Contact() {
-  const [step, setStep] = useState(1);
+export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    project: "",
+    phone: "",
+    service: "Web Development",
     message: "",
   });
-  const [ticketId, setTicketId] = useState("");
-  const [timestamp, setTimestamp] = useState("");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const svc = params.get("service");
-      if (svc) {
-        const mappings: Record<string, string> = {
-          ai: "AI & Automation",
-          automation: "AI & Automation",
-          web: "Web Platform",
-          mvp: "Web Platform",
-          mobile: "Mobile App",
-          ui: "UI/UX & Styling"
-        };
-        const selected = mappings[svc.toLowerCase()];
-        if (selected) {
-          setFormData((prev) => ({ ...prev, project: selected }));
-          setStep(2);
-        }
-      }
-    }
-  }, []);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const selectService = (service: string) => {
-    setFormData((prev) => ({ ...prev, project: service }));
-    setStep(2);
-  };
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting || isSubmitted) return;
+    if (isSubmitting) return;
 
     setIsSubmitting(true);
-    
+
     try {
-      // API call to Web3Forms to send email
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -105,561 +98,719 @@ export default function Contact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          // NEXUS Web3Forms Access Key
-          access_key: "fff30753-c3cf-4206-9b9d-17427151cc69", 
+          access_key: "fff30753-c3cf-4206-9b9d-17427151cc69",
           name: formData.name,
           email: formData.email,
-          project_type: formData.project,
+          phone: formData.phone,
+          service: formData.service,
           message: formData.message,
-          subject: "New Project Inquiry from NEXUS Website",
+          subject: `New Inquiry from ${formData.name} (${formData.service})`,
         }),
       });
 
       const result = await response.json();
 
       if (result.success) {
-        // Generate secure boarding pass info
-        const tId = "NXS-" + Math.random().toString(36).substring(2, 9).toUpperCase();
-        const current = new Date().toLocaleString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true
-        });
-        setTicketId(tId);
-        setTimestamp(current);
-
         setIsSubmitting(false);
         setIsSubmitted(true);
-        setStep(4);
       } else {
-        console.error("Error submitting form", result);
+        console.error("Submission failed", result);
         setIsSubmitting(false);
-        alert("Something went wrong submitting the form. Please try again.");
+        alert("Submission failed. Please try again or email us directly.");
       }
     } catch (error) {
-      console.error("Form submit error:", error);
+      console.error("Form error:", error);
       setIsSubmitting(false);
       alert("Network error. Please try again.");
     }
   };
 
-  const canProceedToStep3 = formData.name.trim() !== "" && formData.email.trim() !== "" && formData.email.includes("@");
-
-  const greenAccent = "#00e676";
-  const darkSurface = "#0d1116";
-  const borderSoft = "rgba(255,255,255,0.06)";
+  const servicesList = [
+    "Web Development",
+    "Mobile App",
+    "AI & Automation",
+    "UI/UX Design",
+    "Startup MVP",
+    "Other"
+  ];
 
   return (
     <div
       style={{
-        padding: "140px 0 80px",
-        minHeight: "100vh",
-        fontFamily: "var(--font-manrope), sans-serif",
+        padding: "120px 0 60px",
+        minHeight: "calc(100vh - 80px)",
+        display: "flex",
+        alignItems: "center",
+        position: "relative"
       }}
       className="container"
     >
+      {/* Ambient Background Glows */}
+      <div style={{
+        position: "absolute",
+        top: "-10%",
+        left: "-10%",
+        width: "50%",
+        height: "50%",
+        background: "radial-gradient(circle, rgba(0, 255, 171, 0.07) 0%, transparent 60%)",
+        filter: "blur(90px)",
+        pointerEvents: "none",
+        zIndex: 0
+      }} />
+      <div style={{
+        position: "absolute",
+        bottom: "-10%",
+        right: "-10%",
+        width: "50%",
+        height: "50%",
+        background: "radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%)",
+        filter: "blur(90px)",
+        pointerEvents: "none",
+        zIndex: 0
+      }} />
+
+      {/* Main 2-Column Layout */}
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "80px",
-          alignItems: "start",
+          gap: "48px",
+          alignItems: "center",
+          width: "100%",
+          position: "relative",
+          zIndex: 2
         }}
       >
-        {/* Left Side Copy & HUD */}
-        <div className="reveal-text">
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-            <div style={{ width: "20px", height: "2px", background: greenAccent }} />
-            <span className="eyebrow-mono" style={{ color: greenAccent, letterSpacing: "0.15em", fontSize: "0.75rem", fontWeight: 700 }}>
-              CONTACT
+        {/* LEFT SIDE: Brand Copy, 2x2 Contact Grid & Socials */}
+        <div>
+          {/* Top Pill Badge */}
+          <div style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            background: "rgba(0, 255, 171, 0.08)",
+            border: "1px solid rgba(0, 255, 171, 0.25)",
+            padding: "6px 14px",
+            borderRadius: "100px",
+            marginBottom: "20px"
+          }}>
+            <Send size={13} color="#00ffab" />
+            <span style={{
+              color: "#00ffab",
+              fontFamily: "var(--font-mono), monospace",
+              fontSize: "0.72rem",
+              fontWeight: 800,
+              textTransform: "uppercase",
+              letterSpacing: "0.12em"
+            }}>
+              Contact Us
             </span>
           </div>
-          <h1
-            className="hero-title font-display"
-            style={{
-              fontSize: "clamp(2.8rem, 5.5vw, 4.4rem)",
-              fontWeight: 700,
-              color: "#ffffff",
-              marginBottom: "24px",
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em"
-            }}
-          >
-            Ready to Build Your <br />
-            Next <span style={{ color: greenAccent }}>Digital</span> <br />
-            <span style={{ 
-              background: "linear-gradient(90deg, #6ae372 0%, #d89648 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              display: "inline-block"
-            }}>Product?</span>
-          </h1>
-          <p
-            style={{
-              color: "rgba(255,255,255,0.7)",
-              fontSize: "1.15rem",
-              lineHeight: "1.7",
-              marginBottom: "48px",
-              maxWidth: "480px",
-              fontFamily: "var(--font-space-grotesk), sans-serif",
-            }}
-          >
-            Tell us about your startup concept or local business system requirements. Book a call to align on MVP timeline options and exact deliverables.
+
+          {/* Main Title with Paper Plane illustration */}
+          <div style={{ position: "relative", marginBottom: "16px" }}>
+            <h1
+              className="font-display"
+              style={{
+                fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)",
+                fontWeight: 800,
+                color: "var(--foreground)",
+                margin: 0,
+                lineHeight: 1.1,
+                letterSpacing: "-0.03em"
+              }}
+            >
+              Let&apos;s build <br />
+              <span style={{ position: "relative", display: "inline-block" }}>
+                something
+                <span style={{
+                  position: "absolute",
+                  bottom: "-4px",
+                  left: 0,
+                  width: "100%",
+                  height: "3px",
+                  background: "linear-gradient(90deg, #00ffab 0%, transparent 100%)",
+                  borderRadius: "2px"
+                }} />
+              </span> <br />
+              <span style={{ color: "#00ffab" }}>amazing together.</span>
+            </h1>
+
+            {/* Dotted Paper Plane Illustration Path */}
+            <svg
+              width="90"
+              height="60"
+              viewBox="0 0 90 60"
+              fill="none"
+              style={{
+                position: "absolute",
+                top: "20%",
+                right: "-20px",
+                pointerEvents: "none",
+                opacity: 0.9
+              }}
+            >
+              <path
+                d="M 5 50 Q 40 55, 60 25 T 80 10"
+                stroke="#00ffab"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M75 5 L88 10 L80 20 L77 14 L75 5 Z"
+                fill="#00ffab"
+              />
+            </svg>
+          </div>
+
+          {/* Subtitle Paragraph */}
+          <p style={{
+            color: "var(--muted)",
+            fontSize: "0.95rem",
+            lineHeight: "1.6",
+            marginBottom: "32px",
+            maxWidth: "460px"
+          }}>
+            Have a project in mind or need technical guidance? We&apos;d love to hear about it! Send us a message and we&apos;ll get back to you <strong style={{ color: "#00ffab", fontWeight: 600 }}>within 24 hours.</strong>
           </p>
 
-          {/* Premium Glassmorphic System Telemetry Card */}
+          {/* 2x2 Contact Cards Grid */}
           <div style={{
-            position: "relative",
-            background: "rgba(10, 10, 15, 0.4)",
-            border: `1px solid rgba(0, 229, 255, 0.2)`,
-            borderRadius: "24px",
-            padding: "32px",
-            marginBottom: "48px",
-            maxWidth: "480px",
-            backdropFilter: "blur(20px)",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(0, 229, 255, 0.05)",
-            overflow: "hidden"
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "14px",
+            marginBottom: "32px"
           }}>
-            {/* Glowing Background Orb */}
-            <div style={{
-              position: "absolute",
-              top: "-50%",
-              left: "-50%",
-              width: "200%",
-              height: "200%",
-              background: "radial-gradient(circle at top right, rgba(0, 229, 255, 0.1) 0%, transparent 50%)",
-              pointerEvents: "none"
-            }} />
+            {/* Card 1: Email */}
+            <a
+              href="mailto:shubhampawar1263@gmail.com"
+              style={{
+                background: "rgba(255, 255, 255, 0.02)",
+                border: "1px solid var(--card-border)",
+                borderRadius: "16px",
+                padding: "16px",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px",
+                textDecoration: "none",
+                transition: "all 0.3s ease"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#00ffab";
+                e.currentTarget.style.background = "rgba(0, 255, 171, 0.04)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--card-border)";
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+              }}
+            >
+              <div style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                background: "rgba(0, 255, 171, 0.12)",
+                border: "1px solid rgba(0, 255, 171, 0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#00ffab",
+                flexShrink: 0
+              }}>
+                <Mail size={16} />
+              </div>
+              <div>
+                <span style={{ display: "block", fontSize: "0.65rem", color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "2px" }}>EMAIL US</span>
+                <span style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--foreground)", wordBreak: "break-all" }}>shubhampawar1263@gmail.com</span>
+                <span style={{ display: "block", fontSize: "0.7rem", color: "var(--muted)", marginTop: "2px" }}>We&apos;ll reply within 24h</span>
+              </div>
+            </a>
 
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid rgba(255,255,255,0.1)`, paddingBottom: "20px", marginBottom: "20px", position: "relative", zIndex: 1 }}>
-              <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.8rem", color: "#00E5FF", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>
-                System Telemetry
-              </span>
-              <span style={{ color: "#00FFAB", display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-mono), monospace", fontSize: "0.75rem", fontWeight: 700, background: "rgba(0, 255, 171, 0.1)", padding: "4px 12px", borderRadius: "100px", border: "1px solid rgba(0, 255, 171, 0.2)" }}>
-                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00FFAB", boxShadow: `0 0 10px #00FFAB`, animation: "pulse 2s infinite" }} />
-                ONLINE
-              </span>
+            {/* Card 2: Phone / WhatsApp */}
+            <a
+              href="https://wa.me/916263944626"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                background: "rgba(255, 255, 255, 0.02)",
+                border: "1px solid var(--card-border)",
+                borderRadius: "16px",
+                padding: "16px",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px",
+                textDecoration: "none",
+                transition: "all 0.3s ease"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#00e5ff";
+                e.currentTarget.style.background = "rgba(0, 229, 255, 0.04)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--card-border)";
+                e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+              }}
+            >
+              <div style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                background: "rgba(0, 229, 255, 0.12)",
+                border: "1px solid rgba(0, 229, 255, 0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#00e5ff",
+                flexShrink: 0
+              }}>
+                <Phone size={16} />
+              </div>
+              <div>
+                <span style={{ display: "block", fontSize: "0.65rem", color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "2px" }}>CALL / WHATSAPP</span>
+                <span style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "var(--foreground)" }}>+91 62639 44626</span>
+                <span style={{ display: "block", fontSize: "0.7rem", color: "var(--muted)", marginTop: "2px" }}>Mon - Sat, 10AM - 7PM</span>
+              </div>
+            </a>
+
+            {/* Card 3: Location */}
+            <div
+              style={{
+                background: "rgba(255, 255, 255, 0.02)",
+                border: "1px solid var(--card-border)",
+                borderRadius: "16px",
+                padding: "16px",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px"
+              }}
+            >
+              <div style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                background: "rgba(0, 255, 171, 0.12)",
+                border: "1px solid rgba(0, 255, 171, 0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#00ffab",
+                flexShrink: 0
+              }}>
+                <MapPin size={16} />
+              </div>
+              <div>
+                <span style={{ display: "block", fontSize: "0.65rem", color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "2px" }}>LOCATION</span>
+                <span style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "var(--foreground)" }}>Bhopal, MP, India</span>
+                <span style={{ display: "block", fontSize: "0.7rem", color: "var(--muted)", marginTop: "2px" }}>We love local meetups!</span>
+              </div>
             </div>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px", position: "relative", zIndex: 1 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Response SLA</span>
-                <span style={{ color: "#00FFAB", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>&lt; 24 Hours</span>
+
+            {/* Card 4: Response Time */}
+            <div
+              style={{
+                background: "rgba(255, 255, 255, 0.02)",
+                border: "1px solid var(--card-border)",
+                borderRadius: "16px",
+                padding: "16px",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px"
+              }}
+            >
+              <div style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                background: "rgba(0, 255, 171, 0.12)",
+                border: "1px solid rgba(0, 255, 171, 0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#00ffab",
+                flexShrink: 0
+              }}>
+                <Clock size={16} />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Sprint Load</span>
-                <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>2 Slots Available</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>NDAs</span>
-                <span style={{ color: "#00E5FF", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>Instant Signing</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>Deployment Core</span>
-                <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", fontFamily: "var(--font-mono), monospace" }}>Bhopal, IN</span>
+              <div>
+                <span style={{ display: "block", fontSize: "0.65rem", color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "2px" }}>RESPONSE TIME</span>
+                <span style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "#00ffab" }}>Within 24 Hours</span>
+                <span style={{ display: "block", fontSize: "0.7rem", color: "var(--muted)", marginTop: "2px" }}>Guaranteed response</span>
               </div>
             </div>
           </div>
 
-          {/* Social Icons Redesign */}
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { icon: <Phone size={18} />, link: "https://wa.me/919999999999?text=Hello", color: greenAccent },
-              { icon: <Mail size={18} />, link: "mailto:build@nexus.ac.in", color: greenAccent },
-              { icon: <LinkedinIcon size={18} />, link: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/", color: "#cbd5e1" },
-              { icon: <InstagramIcon size={18} />, link: "https://www.instagram.com/mauryashivamkumar841/", color: "#cbd5e1" },
-            ].map((item, idx) => (
-              <a
-                key={idx}
-                href={item.link}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: `1px solid ${borderSoft}`,
-                  color: item.color,
-                  transition: "all 0.3s ease"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
-                  e.currentTarget.style.borderColor = item.color;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-                  e.currentTarget.style.borderColor = borderSoft;
-                }}
-              >
-                {item.icon}
-              </a>
-            ))}
+          {/* Social Row */}
+          <div>
+            <span style={{ display: "block", fontSize: "0.68rem", color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>CONNECT WITH US</span>
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              {[
+                { icon: <LinkedinIcon size={16} />, link: "https://www.linkedin.com/in/shivam-kumar-maurya-000370251/" },
+                { icon: <GithubIcon size={16} />, link: "https://github.com/shivam1264" },
+                { icon: <InstagramIcon size={16} />, link: "https://www.instagram.com/mauryashivamkumar841/" },
+                { icon: <Globe size={16} />, link: "https://nexus.ac.in" }
+              ].map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "38px",
+                    height: "38px",
+                    borderRadius: "50%",
+                    background: "rgba(255, 255, 255, 0.03)",
+                    border: "1px solid var(--card-border)",
+                    color: "var(--muted)",
+                    transition: "all 0.3s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(0, 255, 171, 0.1)";
+                    e.currentTarget.style.borderColor = "#00ffab";
+                    e.currentTarget.style.color = "#00ffab";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                    e.currentTarget.style.borderColor = "var(--card-border)";
+                    e.currentTarget.style.color = "var(--muted)";
+                  }}
+                >
+                  {item.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Right Side: Wizard Cards */}
-        <div>
-          {step <= 3 ? (
-            <div style={{ 
-              background: darkSurface, 
-              border: `1px solid ${borderSoft}`, 
-              borderRadius: "24px", 
-              padding: "40px",
-              minHeight: "560px", 
-              display: "flex", 
-              flexDirection: "column", 
-              justifyContent: "space-between",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
-            }}>
-              {/* Step indicator header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${borderSoft}`, paddingBottom: "24px", marginBottom: "32px" }}>
-                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.85rem", color: greenAccent, fontWeight: 700, letterSpacing: "0.05em" }}>
-                  STEP 0{step} / 03
-                </span>
-                <span style={{ color: "#3b82f6", fontSize: "0.85rem", fontFamily: "var(--font-space-grotesk), sans-serif", fontWeight: 500 }}>
-                  {step === 1 ? "Choose service focus" : step === 2 ? "Provide identity links" : "Submit vision details"}
-                </span>
+        {/* RIGHT SIDE: Sleek Glassmorphic Form Card */}
+        <div style={{
+          background: "rgba(10, 14, 22, 0.85)",
+          border: "1px solid var(--card-border)",
+          borderRadius: "24px",
+          padding: "32px 28px",
+          backdropFilter: "blur(20px)",
+          boxShadow: "0 20px 48px rgba(0, 0, 0, 0.5)",
+          position: "relative"
+        }}>
+          {isSubmitted ? (
+            /* Success Confirmation State */
+            <div style={{ textAlign: "center", padding: "30px 10px" }}>
+              <div style={{
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
+                background: "rgba(0, 255, 171, 0.12)",
+                border: "1px solid rgba(0, 255, 171, 0.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 16px",
+                color: "#00ffab",
+                boxShadow: "0 0 24px rgba(0, 255, 171, 0.25)"
+              }}>
+                <Check size={28} />
+              </div>
+              <h3 style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontSize: "1.5rem",
+                fontWeight: 800,
+                color: "var(--foreground)",
+                marginBottom: "8px"
+              }}>
+                Message Sent Successfully!
+              </h3>
+              <p style={{
+                color: "var(--muted)",
+                fontSize: "0.88rem",
+                lineHeight: "1.5",
+                maxWidth: "340px",
+                margin: "0 auto 24px"
+              }}>
+                Thank you, <strong style={{ color: "var(--foreground)" }}>{formData.name}</strong>. Our team will review your message and reply within 24 hours.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setFormData({ name: "", email: "", phone: "", service: "Web Development", message: "" });
+                }}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  color: "var(--foreground)",
+                  padding: "10px 22px",
+                  borderRadius: "10px",
+                  fontSize: "0.8rem",
+                  fontFamily: "var(--font-mono), monospace",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  transition: "all 0.25s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "#00ffab";
+                  e.currentTarget.style.background = "rgba(0, 255, 171, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                }}
+              >
+                Send Another Message
+              </button>
+            </div>
+          ) : (
+            /* Form Screen */
+            <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+              {/* Form Header */}
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "4px" }}>
+                <div style={{
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "12px",
+                  background: "rgba(0, 255, 171, 0.12)",
+                  border: "1px solid rgba(0, 255, 171, 0.25)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#00ffab",
+                  flexShrink: 0
+                }}>
+                  <MessageSquare size={20} />
+                </div>
+                <div>
+                  <h3 style={{
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    fontSize: "1.35rem",
+                    fontWeight: 800,
+                    color: "var(--foreground)",
+                    margin: 0,
+                    lineHeight: 1.2
+                  }}>
+                    Send us a message
+                  </h3>
+                  <p style={{ color: "var(--muted)", fontSize: "0.82rem", margin: "2px 0 0" }}>
+                    Fill in the details below to start your conversation.
+                  </p>
+                </div>
               </div>
 
-              {/* Wizard Step 1: Services Choices */}
-              {step === 1 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "24px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: "0 0 8px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                    Select your project category:
-                  </h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                    {[
-                      { id: "AI & Automation", title: "AI Solutions", desc: "LLMs, Automations, Agents", icon: <Cpu size={22} style={{ color: greenAccent }} /> },
-                      { id: "Web Platform", title: "Web Dev", desc: "Next.js core structures", icon: <Layers size={22} style={{ color: "#00e5ff" }} /> },
-                      { id: "Mobile App", title: "Mobile Client", desc: "Flutter mobile platforms", icon: <Smartphone size={22} style={{ color: "#ffd600" }} /> },
-                      { id: "UI/UX & Styling", title: "UI/UX & Design", desc: "Modern styling interfaces", icon: <Sparkles size={22} style={{ color: "#ff007f" }} /> }
-                    ].map((svc) => (
-                      <div
-                        key={svc.id}
-                        onClick={() => selectService(svc.id)}
-                        style={{
-                          background: "#0b0f12",
-                          border: `1px solid ${borderSoft}`,
-                          borderRadius: "16px",
-                          padding: "24px",
-                          cursor: "pointer",
-                          transition: "all 0.3s ease",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "16px"
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
-                          e.currentTarget.style.transform = "translateY(-2px)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = borderSoft;
-                          e.currentTarget.style.transform = "none";
-                        }}
-                      >
-                        <div style={{ width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          {svc.icon}
-                        </div>
-                        <div>
-                          <h3 style={{ color: "#ffffff", fontSize: "1rem", fontWeight: 700, marginBottom: "4px", fontFamily: "var(--font-space-grotesk), sans-serif" }}>{svc.title}</h3>
-                          <p style={{ color: "#64748b", fontSize: "0.8rem", margin: 0 }}>{svc.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              {/* YOUR NAME * */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  YOUR NAME <span style={{ color: "#00ffab" }}>*</span>
+                </label>
+                <div style={{ position: "relative" }}>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    style={{
+                      width: "100%",
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid var(--card-border)",
+                      borderRadius: "10px",
+                      padding: "11px 40px 11px 14px",
+                      color: "var(--foreground)",
+                      fontSize: "0.9rem",
+                      outline: "none",
+                      transition: "all 0.25s ease"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "#00ffab"}
+                    onBlur={(e) => e.target.style.borderColor = "var(--card-border)"}
+                  />
+                  <User size={16} color="var(--muted-2)" style={{ position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
                 </div>
-              )}
+              </div>
 
-              {/* Wizard Step 2: Name & Email */}
-              {step === 2 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                    How should we address you?
-                  </h3>
-                  <div className="contact-input-wrapper">
-                    <label>Your Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="contact-input-field"
-                      placeholder="John Doe"
-                      autoFocus
-                    />
-                  </div>
-
-                  <div className="contact-input-wrapper">
-                    <label>Email Address</label>
+              {/* EMAIL * & PHONE (OPTIONAL) (Grid) */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px" }}>
+                {/* EMAIL * */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    EMAIL <span style={{ color: "#00ffab" }}>*</span>
+                  </label>
+                  <div style={{ position: "relative" }}>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="contact-input-field"
-                      placeholder="john@example.com"
+                      placeholder="name@company.com"
+                      style={{
+                        width: "100%",
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid var(--card-border)",
+                        borderRadius: "10px",
+                        padding: "11px 36px 11px 14px",
+                        color: "var(--foreground)",
+                        fontSize: "0.88rem",
+                        outline: "none",
+                        transition: "all 0.25s ease"
+                      }}
+                      onFocus={(e) => e.target.style.borderColor = "#00ffab"}
+                      onBlur={(e) => e.target.style.borderColor = "var(--card-border)"}
                     />
-                  </div>
-
-                  <div style={{ display: "flex", gap: "16px", marginTop: "auto", paddingTop: "20px" }}>
-                    <button
-                      onClick={() => setStep(1)}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        background: "rgba(255,255,255,0.02)",
-                        border: `1px solid ${borderSoft}`,
-                        padding: "14px 28px",
-                        borderRadius: "28px",
-                        color: "#cbd5e1",
-                        fontSize: "0.85rem",
-                        fontFamily: "var(--font-mono), monospace",
-                        cursor: "pointer",
-                        transition: "all 0.3s"
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.borderColor = greenAccent}
-                      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderSoft}
-                    >
-                      <ArrowLeft size={14} /> Back
-                    </button>
-
-                    <button
-                      disabled={!canProceedToStep3}
-                      onClick={() => setStep(3)}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "8px",
-                        background: canProceedToStep3 ? greenAccent : "rgba(255,255,255,0.02)",
-                        border: "none",
-                        padding: "14px 28px",
-                        borderRadius: "28px",
-                        color: canProceedToStep3 ? "#000000" : "#64748b",
-                        fontSize: "0.85rem",
-                        fontFamily: "var(--font-mono), monospace",
-                        fontWeight: canProceedToStep3 ? 700 : 400,
-                        cursor: canProceedToStep3 ? "pointer" : "not-allowed",
-                        boxShadow: canProceedToStep3 ? `0 4px 15px rgba(0,230,118,0.3)` : "none",
-                        flex: 1,
-                        transition: "all 0.3s"
-                      }}
-                    >
-                      Next Step <ArrowRight size={14} />
-                    </button>
+                    <Mail size={15} color="var(--muted-2)" style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
                   </div>
                 </div>
-              )}
 
-              {/* Wizard Step 3: Project Vision Message & Submit */}
-              {step === 3 && (
-                <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "28px", flex: 1 }}>
-                  <h3 style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700, margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                    Share your vision with our developers:
-                  </h3>
-                  <div className="contact-input-wrapper">
-                    <label>Project Brief details</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
+                {/* PHONE (OPTIONAL) */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    PHONE <span style={{ color: "var(--muted-2)", fontWeight: 500 }}>(OPTIONAL)</span>
+                  </label>
+                  <div style={{ position: "relative" }}>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleInputChange}
-                      required
-                      rows={5}
-                      className="contact-input-field"
-                      style={{ resize: "none" }}
-                      placeholder="Describe your timeline, goals, core specifications, and requirements..."
-                      autoFocus
+                      placeholder="+91 98765 43210"
+                      style={{
+                        width: "100%",
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid var(--card-border)",
+                        borderRadius: "10px",
+                        padding: "11px 36px 11px 14px",
+                        color: "var(--foreground)",
+                        fontSize: "0.88rem",
+                        outline: "none",
+                        transition: "all 0.25s ease"
+                      }}
+                      onFocus={(e) => e.target.style.borderColor = "#00ffab"}
+                      onBlur={(e) => e.target.style.borderColor = "var(--card-border)"}
                     />
+                    <Phone size={15} color="var(--muted-2)" style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
                   </div>
+                </div>
+              </div>
 
-                  <div style={{ display: "flex", gap: "16px", marginTop: "auto", paddingTop: "20px" }}>
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        background: "rgba(255,255,255,0.02)",
-                        border: `1px solid ${borderSoft}`,
-                        padding: "14px 28px",
-                        borderRadius: "28px",
-                        color: "#cbd5e1",
-                        fontSize: "0.85rem",
-                        fontFamily: "var(--font-mono), monospace",
-                        cursor: "pointer",
-                        transition: "all 0.3s"
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.borderColor = greenAccent}
-                      onMouseLeave={(e) => e.currentTarget.style.borderColor = borderSoft}
-                    >
-                      <ArrowLeft size={14} /> Back
-                    </button>
+              {/* SERVICE NEEDED */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  SERVICE NEEDED
+                </label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {servicesList.map((svc, sIdx) => {
+                    const isSelected = formData.service === svc;
+                    return (
+                      <button
+                        type="button"
+                        key={sIdx}
+                        onClick={() => setFormData((prev) => ({ ...prev, service: svc }))}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          background: isSelected ? "rgba(0, 255, 171, 0.1)" : "rgba(255, 255, 255, 0.03)",
+                          border: isSelected ? "1px solid #00ffab" : "1px solid var(--card-border)",
+                          color: isSelected ? "#00ffab" : "var(--foreground)",
+                          padding: "6px 12px",
+                          borderRadius: "100px",
+                          fontSize: "0.78rem",
+                          fontFamily: "var(--font-space-grotesk), sans-serif",
+                          fontWeight: isSelected ? 700 : 500,
+                          cursor: "pointer",
+                          transition: "all 0.2s ease"
+                        }}
+                      >
+                        {svc}
+                        {isSelected && <Check size={12} color="#00ffab" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || formData.message.trim() === ""}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "10px",
-                        background: (isSubmitting || formData.message.trim() === "") ? "rgba(255,255,255,0.02)" : greenAccent,
-                        border: "none",
-                        color: (isSubmitting || formData.message.trim() === "") ? "#64748b" : "#000000",
-                        padding: "14px 28px",
-                        borderRadius: "28px",
-                        fontWeight: 700,
-                        fontSize: "0.85rem",
-                        fontFamily: "var(--font-mono), monospace",
-                        cursor: formData.message.trim() === "" ? "not-allowed" : "pointer",
-                        boxShadow: (isSubmitting || formData.message.trim() === "") ? "none" : `0 4px 20px rgba(0,230,118,0.3)`,
-                        flex: 1,
-                        transition: "all 0.3s",
-                      }}
-                    >
-                      {isSubmitting ? "Initializing Transmission..." : "Initialize Project Brief"}{" "}
-                      <Send size={14} />
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          ) : (
-            /* Step 4: Holographic Digital Boarding Pass Ticket */
-            <div className="project-ticket" style={{ padding: "36px 32px", background: darkSurface, border: `1px solid ${greenAccent}`, borderRadius: "24px" }}>
-              {/* Holographic glowing stamp indicator */}
-              <div className="hologram-stamp" style={{ background: `linear-gradient(135deg, transparent 0%, rgba(0,230,118,0.15) 100%)` }} />
+              {/* PROJECT DETAILS * */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--muted-2)", fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  PROJECT DETAILS <span style={{ color: "#00ffab" }}>*</span>
+                </label>
+                <div style={{ position: "relative" }}>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={3}
+                    placeholder="Describe your requirements, timeline, or key features..."
+                    style={{
+                      width: "100%",
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid var(--card-border)",
+                      borderRadius: "10px",
+                      padding: "11px 14px",
+                      color: "var(--foreground)",
+                      fontSize: "0.88rem",
+                      lineHeight: "1.45",
+                      outline: "none",
+                      resize: "none",
+                      transition: "all 0.25s ease"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = "#00ffab"}
+                    onBlur={(e) => e.target.style.borderColor = "var(--card-border)"}
+                  />
+                  <Pencil size={14} color="var(--muted-2)" style={{ position: "absolute", right: "12px", bottom: "12px", pointerEvents: "none" }} />
+                </div>
+              </div>
 
-              {/* Ticket header */}
-              <div style={{ borderBottom: `1px solid ${borderSoft}`, paddingBottom: "20px", marginBottom: "24px" }}>
-                <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.62rem", color: greenAccent, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "4px" }}>
-                  Nexus Project System brief
+              {/* Submit Action Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  background: "linear-gradient(90deg, #70f500 0%, #00e5a3 50%, #00c2ff 100%)",
+                  color: "#020907",
+                  border: "none",
+                  padding: "14px 22px",
+                  borderRadius: "12px",
+                  fontSize: "0.92rem",
+                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontWeight: 800,
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
+                  transition: "all 0.25s ease",
+                  marginTop: "4px"
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting) e.currentTarget.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting) e.currentTarget.style.transform = "none";
+                }}
+              >
+                <Send size={16} />
+                {isSubmitting ? "Sending Message..." : "Send Message"}
+              </button>
+
+              {/* Footer Privacy Note */}
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+                marginTop: "2px"
+              }}>
+                <ShieldCheck size={14} color="#00ffab" />
+                <span style={{
+                  fontSize: "0.72rem",
+                  color: "var(--muted-2)",
+                  fontFamily: "var(--font-mono), monospace"
+                }}>
+                  <strong style={{ color: "#00ffab", fontWeight: 600 }}>100% Privacy.</strong> No spam ever.
                 </span>
-                <h3 style={{ margin: 0, fontFamily: "var(--font-space-grotesk), sans-serif", fontSize: "1.40rem", fontWeight: 800, color: "#ffffff" }}>
-                  BOARDING PASS
-                </h3>
               </div>
-
-              {/* Pass contents metadata block */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div>
-                    <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                      CLIENT NAME
-                    </span>
-                    <span style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", textTransform: "uppercase", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                      {formData.name || "N/A"}
-                    </span>
-                  </div>
-                  <div>
-                    <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                      SECTOR FOCUS
-                    </span>
-                    <span style={{ color: "#00e5ff", fontWeight: 700, fontSize: "0.95rem", textTransform: "uppercase", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                      {formData.project || "N/A"}
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                    PAYLOAD ROUTING (EMAIL)
-                  </span>
-                  <span style={{ color: "#ffffff", fontWeight: 600, fontSize: "0.9rem", fontFamily: "var(--font-mono), monospace" }}>
-                    {formData.email || "N/A"}
-                  </span>
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  <div>
-                    <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                      TICKET HASH ID
-                    </span>
-                    <span style={{ color: greenAccent, fontWeight: 700, fontSize: "0.92rem", fontFamily: "var(--font-mono), monospace" }}>
-                      {ticketId}
-                    </span>
-                  </div>
-                  <div>
-                    <span style={{ display: "block", fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
-                      TIMESTAMP
-                    </span>
-                    <span style={{ color: "#ffffff", fontWeight: 500, fontSize: "0.75rem", fontFamily: "var(--font-mono), monospace" }}>
-                      {timestamp}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom ticket details */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center", marginTop: "32px", paddingTop: "24px", borderTop: `1px dashed rgba(255,255,255,0.15)` }}>
-                <div style={{ textAlign: "center" }}>
-                  <span style={{ display: "inline-block", padding: "4px 10px", background: "rgba(37, 211, 102, 0.08)", border: "1px solid rgba(37, 211, 102, 0.2)", borderRadius: "99px", color: "#25d366", fontSize: "0.65rem", fontWeight: 700, fontFamily: "var(--font-mono), monospace", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
-                    ✓ active queue slot secured
-                  </span>
-                  <p style={{ color: "#8fa1b3", fontSize: "0.78rem", lineHeight: "1.45", margin: 0, maxWidth: "300px" }}>
-                    NDA compliance registered. Our engineers will establish sync within 24 hours.
-                  </p>
-                </div>
-
-                {/* Simulated Barcode */}
-                <div className="ticket-barcode" style={{ width: "100%", height: "40px", background: `repeating-linear-gradient(90deg, #64748b, #64748b 2px, transparent 2px, transparent 6px, #64748b 6px, #64748b 8px, transparent 8px, transparent 12px)`, opacity: 0.5, marginBottom: "8px" }} />
-                <span style={{ fontFamily: "var(--font-mono), monospace", fontSize: "0.6rem", letterSpacing: "0.3em", color: "#64748b" }}>
-                  *NEXUS-SHIPPING*
-                </span>
-
-                {/* Reset button to submit a new brief */}
-                <button
-                  onClick={() => {
-                    setFormData({ name: "", email: "", project: "", message: "" });
-                    setTicketId("");
-                    setTimestamp("");
-                    setIsSubmitted(false);
-                    setStep(1);
-                  }}
-                  style={{
-                    background: "rgba(255, 255, 255, 0.02)",
-                    border: `1px solid ${borderSoft}`,
-                    color: "#ffffff",
-                    padding: "10px 24px",
-                    borderRadius: "24px",
-                    fontSize: "0.75rem",
-                    fontFamily: "var(--font-mono), monospace",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                    marginTop: "16px",
-                    width: "100%",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 230, 118, 0.08)";
-                    e.currentTarget.style.borderColor = greenAccent;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-                    e.currentTarget.style.borderColor = borderSoft;
-                  }}
-                >
-                  &lt; New Project Brief / Reset &gt;
-                </button>
-              </div>
-            </div>
+            </form>
           )}
         </div>
       </div>

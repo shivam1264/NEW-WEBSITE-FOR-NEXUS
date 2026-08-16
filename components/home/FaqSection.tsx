@@ -8,6 +8,7 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
   
   return (
     <div 
+      className="faq-item-row"
       style={{ 
         borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
         padding: "24px 0",
@@ -15,6 +16,7 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
     >
       <button 
         onClick={() => setIsOpen(!isOpen)}
+        className="faq-question-btn"
         style={{
           width: "100%",
           display: "flex",
@@ -31,7 +33,7 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
           fontFamily: "var(--font-space-grotesk), sans-serif",
         }}
       >
-        <span style={{ paddingRight: "20px", transition: "color 0.3s" }} className={isOpen ? "faq-active-text" : ""}>
+        <span style={{ paddingRight: "20px", transition: "color 0.3s" }} className={`faq-question-text ${isOpen ? "faq-active-text" : ""}`}>
           {question}
         </span>
         <span style={{ 
@@ -43,6 +45,7 @@ function FaqItem({ question, answer }: { question: string, answer: string }) {
         </span>
       </button>
       <div 
+        className="faq-answer-block"
         style={{
           maxHeight: isOpen ? "600px" : "0px",
           overflow: "hidden",
@@ -68,7 +71,7 @@ export default function FaqSection() {
   return (
     <section className="section-padding" style={{ position: "relative", zIndex: 2, borderTop: "1px solid var(--card-border)" }}>
       <div className="container" style={{ maxWidth: "1000px" }}>
-        <div style={{ textAlign: "center", marginBottom: "60px" }}>
+        <div className="faq-header-wrapper" style={{ textAlign: "center", marginBottom: "60px" }}>
           <span className="eyebrow-mono" style={{ color: "var(--accent)", marginBottom: "12px" }}>
             <span className="pulsing-dot pulsing-dot-coral" />
             Common Questions
