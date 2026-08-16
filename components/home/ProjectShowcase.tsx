@@ -263,16 +263,18 @@ export default function ProjectShowcase() {
                     />
                   )}
 
-                  {/* Heavy Gradient for text readability */}
+                  {/* Heavy Gradient for text readability (Fades in on hover) */}
                   <div style={{
                     position: "absolute",
                     inset: 0,
                     background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)",
-                    zIndex: 3
+                    zIndex: 3,
+                    opacity: isHovered ? 1 : 0,
+                    transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
                   }} />
                 </div>
 
-                {/* Bottom Info Glass */}
+                {/* Bottom Info Glass (Fades in & slides up on hover) */}
                 <div style={{
                   marginTop: "auto",
                   position: "relative",
@@ -280,7 +282,10 @@ export default function ProjectShowcase() {
                   padding: "30px 20px 20px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "8px"
+                  gap: "8px",
+                  opacity: isHovered ? 1 : 0,
+                  transform: isHovered ? "translateY(0)" : "translateY(16px)",
+                  transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
                 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
                     <h3 style={{
