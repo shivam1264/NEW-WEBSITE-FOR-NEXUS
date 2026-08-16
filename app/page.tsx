@@ -14,8 +14,8 @@ import FaqSection from "@/components/home/FaqSection";
 import CtaSection from "@/components/home/CtaSection";
 
 export const metadata = {
-  title: 'NEXUS | Premium AI & Full Stack Development',
-  description: 'We build production-grade websites, mobile apps, and AI automation systems.',
+  title: 'PTS CUBE (NEXUS) | Premium Web, Mobile & AI Agency',
+  description: 'PTS CUBE (NEXUS) builds production-grade websites, mobile apps, and AI automation systems. Hackathon champions in Bhopal, India.',
 };
 
 export default function Home() {

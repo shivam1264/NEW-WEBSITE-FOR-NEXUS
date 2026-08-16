@@ -21,27 +21,37 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://new-website-for-nexus.vercel.app"),
   title: {
-    default: "NEXUS — Web, Mobile & AI Development Agency | Bhopal, India",
-    template: "%s | NEXUS Agency",
+    default: "PTS CUBE (NEXUS) — Web, Mobile & AI Development Agency | Bhopal, India",
+    template: "%s | PTS CUBE (NEXUS)",
   },
-  description: "NEXUS builds production-grade websites, mobile apps, and AI systems for startups, local businesses, and SaaS founders. Hackathon champions. Delivering in weeks, not months.",
+  description: "PTS CUBE (NEXUS) builds production-grade websites, mobile apps, and AI systems for startups, local businesses, and SaaS founders. Top web & software agency in Bhopal, India.",
   keywords: [
+    "PTS CUBE",
+    "PTS CUBE agency",
+    "PTS CUBE Bhopal",
+    "PTS CUBE software",
+    "PTS CUBE technologies",
+    "PTS CUBE web development",
+    "PTS CUBE app development",
+    "PTS CUBE AI",
+    "NEXUS PTS CUBE",
+    "PTS CUBE agency Bhopal",
     "NEXUS agency",
     "NEXUS Bhopal",
     "web development agency Bhopal",
     "mobile app development India",
-    "AI development agency",
+    "AI development agency Bhopal",
     "Next.js developers India",
     "React developers Bhopal",
     "Flutter app developers",
-    "UI UX design agency",
+    "UI UX design agency Bhopal",
     "software development company Bhopal",
     "full stack development agency",
-    "AI chatbot developers",
+    "AI chatbot developers Bhopal",
   ],
-  authors: [{ name: "NEXUS Team", url: "https://new-website-for-nexus.vercel.app" }],
-  creator: "NEXUS Agency",
-  publisher: "NEXUS Agency",
+  authors: [{ name: "PTS CUBE (NEXUS Team)", url: "https://new-website-for-nexus.vercel.app" }],
+  creator: "PTS CUBE (NEXUS)",
+  publisher: "PTS CUBE (NEXUS)",
   formatDetection: {
     email: false,
     address: false,
@@ -62,16 +72,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "NEXUS — Web, Mobile & AI Development Agency",
-    description: "Production-grade websites, mobile apps, and AI systems for startups and SaaS founders. Hackathon champions.",
+    title: "PTS CUBE (NEXUS) — Web, Mobile & AI Development Agency",
+    description: "PTS CUBE (NEXUS) delivers production-grade websites, mobile apps, and AI systems for startups and founders. Hackathon champions in Bhopal.",
     url: "https://new-website-for-nexus.vercel.app",
-    siteName: "NEXUS",
+    siteName: "PTS CUBE (NEXUS)",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "NEXUS Web, Mobile & AI Agency",
+        alt: "PTS CUBE (NEXUS) Web, Mobile & AI Agency",
       },
     ],
     locale: "en_US",
@@ -79,8 +89,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NEXUS — Web, Mobile & AI Development Agency",
-    description: "Production-grade websites, mobile apps, and AI systems for startups and SaaS founders.",
+    title: "PTS CUBE (NEXUS) — Web, Mobile & AI Development Agency",
+    description: "PTS CUBE (NEXUS) delivers production-grade websites, mobile apps, and AI systems.",
     images: ["/og-image.jpg"],
   },
 };
@@ -92,12 +102,23 @@ export const viewport = {
 const jsonLdOrganization = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "NEXUS",
-  "alternateName": "NEXUS Agency",
+  "name": "PTS CUBE",
+  "alternateName": [
+    "PTS CUBE Agency",
+    "PTS CUBE Technologies",
+    "NEXUS PTS CUBE",
+    "NEXUS Agency",
+    "PTS CUBE Bhopal"
+  ],
+  "legalName": "PTS CUBE Technologies",
   "url": "https://new-website-for-nexus.vercel.app",
   "logo": "https://new-website-for-nexus.vercel.app/og-image.jpg",
   "image": "https://new-website-for-nexus.vercel.app/og-image.jpg",
-  "description": "NEXUS is a premier software engineering agency building production-grade web applications, mobile apps, and AI systems.",
+  "description": "PTS CUBE (NEXUS) is a premier software engineering agency building production-grade web applications, mobile apps, and AI systems in Bhopal, India.",
+  "brand": {
+    "@type": "Brand",
+    "name": "PTS CUBE"
+  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Bhopal",
@@ -117,6 +138,7 @@ const jsonLdOrganization = {
     "https://wa.me/916263944626"
   ],
   "knowsAbout": [
+    "PTS CUBE",
     "Web Development",
     "Mobile App Development",
     "AI & LLM Solutions",
@@ -131,7 +153,8 @@ const jsonLdOrganization = {
 const jsonLdWebSite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "NEXUS",
+  "name": "PTS CUBE",
+  "alternateName": "PTS CUBE (NEXUS)",
   "url": "https://new-website-for-nexus.vercel.app"
 };
 

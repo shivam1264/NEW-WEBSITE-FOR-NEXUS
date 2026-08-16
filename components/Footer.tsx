@@ -513,7 +513,7 @@ export default function Footer() {
         }}
       >
         <span style={{ color: "var(--muted)", fontSize: "0.82rem", fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-          &copy; {new Date().getFullYear()} NEXUS. Built with Agentic Engineering.
+          &copy; {new Date().getFullYear()} PTS CUBE (NEXUS). Built with Agentic Engineering.
         </span>
 
         <div style={{ display: "flex", gap: "20px" }}>
