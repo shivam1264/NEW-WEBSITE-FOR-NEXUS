@@ -106,10 +106,11 @@ export default function ProjectShowcase() {
         <div className="works-bento-layout">
           {[
             {
-              id: "nexus-room",
+              id: "sistec-rsih",
               code: "PRJ-01",
-              title: "Nexus Command Room",
-              subtitle: "Centralized operational war room",
+              title: "SISTec RSIH Platform",
+              subtitle: "Regional Student Innovation Hackathon portal",
+              url: "https://www.sistecrsih.in/",
               colorRGB: "232, 96, 46",
               color: "#e8602e",
               img: "/images/custom-project-1.png",
@@ -161,7 +162,9 @@ export default function ProjectShowcase() {
             const isHovered = hoveredCard === proj.id;
             return (
               <Link
-                href="/works"
+                href={proj.url ? proj.url : "/works"}
+                target={proj.url ? "_blank" : undefined}
+                rel={proj.url ? "noopener noreferrer" : undefined}
                 key={proj.id}
                 className={`works-bento-card works-animate-fade-in ${proj.bentoSpan}`}
                 onMouseEnter={() => setHoveredCard(proj.id)}
@@ -270,7 +273,7 @@ export default function ProjectShowcase() {
                 </div>
 
                 {/* Top Badge */}
-                <div style={{ position: "absolute", top: "20px", left: "20px", right: "20px", display: "flex", justifyContent: "space-between", zIndex: 4 }}>
+                <div style={{ position: "absolute", top: "20px", left: "20px", right: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", zIndex: 4 }}>
                   <div style={{
                     background: "rgba(0,0,0,0.6)",
                     backdropFilter: "blur(10px)",
@@ -286,6 +289,26 @@ export default function ProjectShowcase() {
                   }}>
                     {proj.code}
                   </div>
+                  {proj.url && (
+                    <div style={{
+                      background: "rgba(0, 255, 171, 0.15)",
+                      backdropFilter: "blur(10px)",
+                      border: "1px solid rgba(0, 255, 171, 0.4)",
+                      padding: "6px 14px",
+                      borderRadius: "99px",
+                      color: "#00FFAB",
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      fontFamily: "var(--font-mono), monospace",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px"
+                    }}>
+                      LIVE ↗ sistecrsih.in
+                    </div>
+                  )}
                 </div>
 
                 {/* Bottom Info Glass */}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X, Trophy, ArrowRight, Shield, Zap, Sparkles, Box, Activity } from "lucide-react";
+import { X, Trophy, ArrowRight, Shield, Zap, Sparkles, Box, Activity, ExternalLink } from "lucide-react";
 
 interface WorksCardImageProps {
   item: {
@@ -164,24 +164,24 @@ export default function Works() {
   const registryItems = [
     {
       type: "project",
-      id: "nexus-room",
+      id: "sistec-rsih",
       code: "PRJ-01",
-      title: "Nexus Launch Command Room",
-      subtitle: "Centralized operational war room & system metrics",
-      desc: "A dashboard checking active client marketing beats, schedules, owner tasks, and live telemetry drift.",
-      details: "Built for fast-scaling startups and co-marketing groups. Hooks direct analytics flows into client databases, checking asset approvals, partner marketing timelines, and live traffic metrics to prevent coordination issues.",
-      tags: ["Launch Ops", "Dashboards", "FastAPI"],
+      title: "SISTec RSIH Platform",
+      subtitle: "Regional Student Innovation Hackathon portal & registration system",
+      desc: "Official platform built for SISTec Regional Student Innovation Hackathon (RSIH), handling participant registrations, track submissions, and real-time event updates.",
+      details: "Built to power the regional hackathon ecosystem. Features responsive registration flows, live schedule broadcasts, track details, partner showcases, and real-time team metrics.",
+      url: "https://www.sistecrsih.in/",
+      tags: ["Next.js", "Hackathon Portal", "Live System", "sistecrsih.in"],
       icon: <Zap size={22} />,
       color: "#e8602e",
       colorRGB: "232, 96, 46",
       metricsList: [
-        { val: "100%", name: "On-Time Launch" },
-        { val: "0ms", name: "Cache Latency" },
-        { val: "8 Co-Agents", name: "Tracked Globally" }
+        { val: "Live", name: "Status" },
+        { val: "sistecrsih.in", name: "Domain" },
+        { val: "100%", name: "Uptime" }
       ],
-      achievement: "Awarded 1st Place National Hackathon trophy for Real-Time State Monitors.",
+      achievement: "Official platform for SISTec Regional Student Innovation Hackathon (sistecrsih.in)",
       img: "/images/custom-project-1.png",
-      // video: "/images/sheild_ai_demo.mp4",
       bentoSpan: "span-8"
     },
     {
@@ -798,8 +798,39 @@ export default function Works() {
                   marginTop: "30px",
                   paddingTop: "24px",
                   borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px"
                 }}
               >
+                {(registryItems[activeProject] as any).url && (
+                  <a
+                    href={(registryItems[activeProject] as any).url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                      padding: "16px 0",
+                      width: "100%",
+                      background: "linear-gradient(135deg, rgba(0, 255, 171, 0.2) 0%, rgba(0, 229, 255, 0.1) 100%)",
+                      border: "1px solid rgba(0, 255, 171, 0.4)",
+                      borderRadius: "8px",
+                      color: "#00FFAB",
+                      fontSize: "0.95rem",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      textDecoration: "none",
+                      textAlign: "center",
+                      boxShadow: "0 0 20px rgba(0, 255, 171, 0.15)"
+                    }}
+                  >
+                    Visit Live Website (sistecrsih.in) <ExternalLink size={16} />
+                  </a>
+                )}
                 <Link
                   href="/contact"
                   style={{
